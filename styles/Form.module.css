@@ -1,0 +1,114 @@
+/** @format */
+
+.form {
+  direction: rtl;
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2em;
+  margin: 1em auto 1.2em;
+  border-radius: 8px;
+  accent-color: var(--dark-orange-clr);
+}
+.form .inputCon {
+  width: 100%;
+  /* background-color: aqua; */
+}
+
+.form label {
+  margin: 10px;
+  padding: 0.3em;
+  cursor: pointer;
+  background-color: var(--hover-clr);
+  border-radius: 5px;
+  font-size: large;
+  font-weight: 600;
+  width: 20%;
+}
+
+.form input,
+.form select {
+  direction: rtl;
+  text-indent: 10px;
+  font-family: "Nunito", sans-serif;
+  width: 75%;
+  padding: 0.6em 0;
+  margin: 5px 0;
+  font-size: 1rem;
+  text-indent: 5px;
+  color: var(--font-clr);
+  border: none;
+  border-bottom: 2px solid var(--hover-clr);
+  background-color: var(--sec-clr);
+  border-radius: 6px;
+  /* border-radius: 5px; */
+}
+.form select {
+  width: 25%;
+}
+.form div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.form input[type="date"] {
+  width: 75%;
+}
+
+.form input[type="submit"] {
+  padding: 0.5em 0;
+}
+
+.form input::placeholder {
+  font-size: 1.1rem;
+  color: var(--font-clr);
+  opacity: 0.5;
+}
+
+.form input:focus {
+  outline: 1px solid var(--dark-orange-clr);
+}
+.form .input-container {
+  width: 100%;
+  margin-bottom: 0.8em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form input[type="submit"] {
+  margin: 15px 0 5px;
+  font-size: medium;
+  transition: all 300ms;
+  border-radius: 5px;
+  color: #eee;
+  border: 2px solid var(--dark-orange-clr);
+  border-radius: 5px;
+  background-image: linear-gradient(
+    var(--dark-orange-clr),
+    var(--dark-orange-clr)
+  );
+  box-shadow: -0.5px 0.5px 5px var(--shadow-clr);
+  transition: all 500ms;
+}
+.form input[type="submit"]:disabled {
+  opacity: 0.5;
+}
+
+.form input[type="submit"]:hover {
+  color: var(--dark-orange-clr);
+  background-image: linear-gradient(
+    var(--light-orange-clr),
+    var(--light-orange-clr)
+  );
+}
+
+@media (min-width: 570px) {
+  .form {
+    width: 570px;
+  }
+}

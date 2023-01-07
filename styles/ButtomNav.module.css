@@ -1,0 +1,28 @@
+/** @format */
+.buttomNav {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  align-items: center;
+  background-color: var(--sec-clr);
+  box-shadow: 0 -1px 2px var(--shadow-clr);
+  border-top: 1px solid var(--shadow-clr);
+  grid-area: buttomNav;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2% 2% 1%;
+  width: 21%;
+  font-size: 12px;
+}
+.page:hover {
+  background-color: var(--hover-clr);
+}
+@media (min-width: 650px) {
+  .buttomNav {
+    display: none;
+  }
+}

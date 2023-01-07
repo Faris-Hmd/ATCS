@@ -1,0 +1,195 @@
+/** @format */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300&display=swap");
+/** @format */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scrollbar-width: thin;
+  /* font-family: "Noto Sans Arabic", sans-serif; */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+* {
+  font-family: "Nunito", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+}
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+.hidden {
+  display: none;
+}
+.disable {
+  opacity: 0.6;
+}
+:root {
+  --sec-clr: #fdfdfd;
+  --prime-clr: #f1f1f1;
+  --font-clr: #333;
+  --shadow-clr: #ccc;
+  --light-orange-clr: rgb(255, 211, 158);
+  --dark-orange-clr: #cc6600;
+  --hover-clr: #dedede;
+}
+.dark {
+  --prime-clr: #121212;
+  --sec-clr: #222;
+  --font-clr: #ddd;
+  --shadow-clr: #020202;
+  --light-orange-clr: rgb(255, 211, 158);
+  --dark-orange-clr: rgba(204, 102, 0, 100%);
+  --hover-clr: #151515;
+}
+.light {
+  --sec-clr: #fdfdfd;
+  --prime-clr: #f1f1f1;
+  --font-clr: #333;
+  --shadow-clr: #ccc;
+  --light-orange-clr: rgb(255, 211, 158);
+  --dark-orange-clr: #cc6600;
+  --hover-clr: #dedede;
+}
+
+.button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  margin: 0.5em;
+  text-indent: 3px;
+  color: white;
+  border: none;
+  border: 2px solid var(--dark-orange-clr);
+  background-color: var(--dark-orange-clr);
+  border-radius: 4px;
+  transition: all 300ms;
+  box-shadow: 5px 5px 10px var(--shadow-clr);
+}
+.button:hover {
+  background-color: var(--light-orange-clr);
+  color: var(--dark-orange-clr);
+}
+.label {
+  margin: 1em 0.4em 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: left;
+  width: 95%;
+}
+.Link {
+  color: var(--font-clr);
+  text-decoration: none;
+}
+.sep-line {
+  border-top: thin solid var(--shadow-clr);
+}
+/** -------- GRID CONFIGRETION -----*/
+
+/** -------- MOBILE VIEW -----*/
+
+.App {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.7fr 8.7fr 0.6fr;
+  grid-template-areas: "nav" "main" "buttomNav";
+  color: var(--font-clr);
+  background-color: var(--prime-clr);
+  overflow-x: hidden;
+  font-family: "Nunito", sans-serif;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.main {
+  overflow-x: hidden;
+  grid-area: main;
+  scrollbar-width: thin;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.leftSide,
+.rightSide {
+  display: none;
+  grid-area: rightSide;
+}
+.leftSide {
+  border-right: 1px solid var(--shadow-clr);
+  grid-area: leftSide;
+}
+
+/** ------------- TABLET VIEW ---------*/
+
+@media (min-width: 650px) {
+  .label {
+    margin: 1em 0.4em 0;
+    font-size: 2rem;
+  }
+  .leftSide {
+    display: block;
+  }
+  .modalOverLay {
+    align-items: center;
+  }
+  .App {
+    grid-template-columns: 2.5fr 7.5fr;
+    grid-template-rows: 0.5fr 9.5fr;
+    grid-template-areas: "nav nav" "leftSide main";
+    column-gap: 2px;
+    scrollbar-width: thin;
+  }
+}
+@media (min-width: 1000px) {
+  .rightSide {
+    display: block;
+  }
+  .App {
+    grid-template-columns: 2fr 8fr;
+    grid-template-rows: 0.8fr 9.2fr;
+    grid-template-areas:
+      "nav nav "
+      "leftSide main";
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+} */
