@@ -10,7 +10,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   scrollbar-width: thin;
-  /* font-family: "Noto Sans Arabic", sans-serif; */
+  font-family: "Noto Sans Arabic", sans-serif;
 }
 
 a {
@@ -97,11 +97,15 @@ a {
   color: var(--dark-orange-clr);
 }
 .label {
-  margin: 1em 0.4em 0;
-  font-size: 1.5rem;
+  background-color: rgba(65, 105, 225, 0.579);
+  margin-right: 15px;
+  padding: 10px;
+  font-size: 1.2em;
   font-weight: 600;
-  text-align: left;
-  width: 95%;
+  text-align: right;
+  width: 100%;
+  direction: rtl;
+  color: #fff;
 }
 .Link {
   color: var(--font-clr);
@@ -153,10 +157,10 @@ a {
 /** ------------- TABLET VIEW ---------*/
 
 @media (min-width: 650px) {
-  .label {
+  /* .label {
     margin: 1em 0.4em 0;
     font-size: 2rem;
-  }
+  } */
   .leftSide {
     display: block;
   }

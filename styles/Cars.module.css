@@ -71,7 +71,7 @@
 .ownerName {
   text-align: right;
   padding: 5px 10px;
-  font-size: large;
+
   /* width: 30%; */
 }
 .tableHeaderRow {
@@ -121,18 +121,21 @@
   padding: 8px 12px;
 }
 .carType {
-font-size: 1rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .table {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 3.1vw;
     font-weight: 500;
   }
   .bookDate,
   .tableHeader:nth-child(3) {
+    display: none;
+  }
+  .diffDate {
     display: none;
   }
 }
