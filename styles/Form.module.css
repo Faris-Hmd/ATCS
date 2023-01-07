@@ -34,6 +34,7 @@
 .form label {
   margin: 2px;
   padding: 0em 0.5em;
+  font-size: small;
   cursor: pointer;
   background-color: var(--hover-clr);
   border-radius: 5px;
@@ -51,7 +52,7 @@
   direction: rtl;
   text-indent: 10px;
   width: 100%;
-  /* padding: 0.05em 0; */
+  padding: 0.2em 0;
   margin: 5px 0;
   font-size: 1rem;
   font-weight: 600;
@@ -64,6 +65,12 @@
 
 .form select {
   width: 25%;
+  /* margin: 5px 10px; */
+  background-color: royalblue;
+  color: #eee;
+  border-radius: 5px;
+  padding: 0;
+  border: none;
 }
 .form div {
   display: flex;
@@ -73,8 +80,13 @@
   width: 100%;
 }
 .form input[type="date"] {
-  width: 70%;
-  margin: auto 10px;
+  width: 60%;
+  margin: 5px 10px;
+  background-color: royalblue;
+  color: #eee;
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
 }
 
 .form input::placeholder {
@@ -125,5 +137,8 @@
   .form input,
   .form select {
     padding: 8px;
+  }
+  .form input[type="date"] {
+    width: 70%;
   }
 }
