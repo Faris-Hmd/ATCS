@@ -7,48 +7,72 @@ import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "../ToPrint/ToPrint";
 import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
-import { FaFilter } from "react-icons/fa";
-import Head from "next/head";
-import axios from "axios";
 
 var cDate = new Date();
 const jsonMap = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState([]);
-  const [dateMonthFillter, setDateMonthFillter] = useState(1);
-  const [dateYearFillter, setDateYearFillter] = useState(2023);
-
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
-  const handleDateFillterChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "date") {
-      const [y, m, d] = value.split("-");
-      const date = new Date(`${m}/${d}/${y}`);
-      // console.log(date.getFullYear(), 1 + date.getMonth());
-      setDateYearFillter(date.getFullYear());
-      setDateMonthFillter(1 + date.getMonth());
-    }
-  };
-
   const handleKeywordSearch = (e) => {
     e.preventDefault();
     console.log(keyword);
-    console.log(keyword.split(" ").filter((item) => item !== ""));
-  };
-  const handleDateSearch = (e) => {
-    e.preventDefault();
-    console.log(dateMonthFillter, dateYearFillter);
+    fetch(`http://localhost:3005/api/getCars?q=${keyword}`)
+      .then((res) => res.json())
+      .then((data) => setCars(data));
   };
 
   useEffect(() => {
-    axios({ method: "get", url: "http://localhost:3005/api/getCars" }).then(
-      (res) => setCars(res.data)
-    );
+    fetch("http://localhost:3005/api/getCars?q=1/2023")
+      .then((res) => res.json())
+      .then((data) => setCars(data));
   }, []);
+
+  // useEffect(() => {
+  //   setCars([]);
+  //   data.map((item) => {
+  //     const [fn, sn, tn, fon] = item.ownerName.split(" ");
+  //     const [m, d, y] = item.incomeDate.split("/");
+  //     var bookNum = item.bookNum.split(" ")[1]
+  //       ? item.bookNum.split(" ")[1]
+  //       : item.bookNum.split(" ")[0];
+  //     var bookType =
+  //       item.phones === "سياحي ," || item.phones === ",سياحي"
+  //         ? "سياحي"
+  //         : "عادي";
+  //     setCars((prev) => [
+  //       ...prev,
+
+  //       {
+  //         bookNum: bookNum,
+  //         enteringDate: item.incomeDate,
+  //         keywords: [
+  //           fn,
+  //           sn,
+  //           bookNum,
+  //           `${parseInt(m)}/${parseInt(y)}`,
+  //           bookType,
+  //         ],
+  //       },
+  //     ]);
+  //   });
+  //   console.log(cars.length);
+  // }, []);
+
+  // useEffect(() => {
+  //   cars.map((car) => {
+  //     console.log(car.bookNum);
+  //     updateDoc(doc(db, "cars", car.bookNum), {
+  //       enteringDate: car.enteringDate,
+  //       keywords: car.keywords,
+  //     });
+  //   });
+  //   console.log(cars[0]?.keywords[4] === "2021");
+  //   console.log(cars);
+  // }, [cars]);
 
   // useEffect(() => {
   //   setCars([]);
@@ -114,11 +138,11 @@ const jsonMap = () => {
   // }, [cars]);
   return (
     <>
-      <Head>
+      {/* <Head>
         <header>
           <title>Cars info</title>
         </header>
-      </Head>
+      </Head> */}
       <div className="hidden">
         <ComponentToPrint ref={componentRef} />
       </div>
@@ -126,32 +150,17 @@ const jsonMap = () => {
         <div onClick={handlePrint} className={styles.printBtn}>
           <BsPrinter />
         </div>
-        <div>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="text"
-              name="keyword"
-              placeholder="بحث"
-              onChange={(e) => setKeyword(e.target.value)}
-            />
-            <button onClick={handleKeywordSearch}>
-              <FaSearch />
-            </button>
-          </form>
-        </div>
-        <div>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="date"
-              name="date"
-              placeholder="search by date"
-              onChange={handleDateFillterChange}
-            />
-            <button onClick={handleDateSearch}>
-              <FaFilter />
-            </button>
-          </form>
-        </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input
+            type="text"
+            name="keyword"
+            placeholder="ادخل الاسم او التاريخ او رقم الدفتر"
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+          <button onClick={handleKeywordSearch}>
+            <FaSearch />
+          </button>
+        </form>
       </div>
       <table className={styles.table} style={{ direction: "rtl" }}>
         <thead className={styles.tableHead}>

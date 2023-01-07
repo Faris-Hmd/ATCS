@@ -38,7 +38,6 @@
   cursor: pointer;
   background-color: var(--hover-clr);
   border-radius: 5px;
-  font-weight: 600;
   color: black;
 }
 .form .side {
@@ -55,7 +54,6 @@
   padding: 0.2em 0;
   margin: 5px 0;
   font-size: 1rem;
-  font-weight: 600;
   text-indent: 5px;
   color: var(--font-clr);
   border: none;
@@ -80,13 +78,13 @@
   width: 100%;
 }
 .form input[type="date"] {
-  width: 60%;
-  margin: 5px 10px;
+  width: 25%;
+  margin: 5px ;
   background-color: royalblue;
   color: #eee;
   border-radius: 5px;
   border: none;
-  font-weight: 500;
+  font-size: small;
 }
 
 .form input::placeholder {

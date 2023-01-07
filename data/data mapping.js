@@ -2351,7 +2351,7 @@ export const data = [
   },
   {
     "#": 229,
-    bookNum: "Ded0675034",
+  bookNum: "Ded0675034",
     bookDate: "12/18/2021",
     ownerName: "عبدالرحمن عبداللطيف",
     carType: "نيسان نيسان 2017",

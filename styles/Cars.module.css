@@ -7,8 +7,11 @@
   background-color: royalblue;
   align-items: center;
   transition: all 300ms;
+  padding: 10px 0;
 }
+
 .fillterMenu form {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -23,7 +26,7 @@
   width: 100%;
   transition: all 300ms;
   direction: rtl;
-  text-indent: 5px;
+  text-indent: 40px;
   font-size: medium;
   border-radius: 4px;
   padding: 5px;
@@ -31,16 +34,25 @@
 .fillterMenu input:focus {
 }
 .fillterMenu button {
-  color: #111;
+  position: absolute;
+  top: 5px;
+  right: 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 33px;
   height: 33px;
   margin: 0 2px;
-  background-color: white;
+  background-color: royalblue;
+  color: #eee;
   border: none;
-  border-radius: 20%;
+  border-radius: 50%;
+  transition: all 250ms;
+}
+.fillterMenu button:hover {
+  transform: scale(1.1);
+  background-color: #eee;
+  color: royalblue;
 }
 .table {
   font-family: "Noto Sans Arabic", sans-serif;
@@ -48,7 +60,6 @@
   margin: 0 auto;
   font-size: 1rem;
   /* font-size: larger; */
-  font-weight: 600;
   text-align: center;
   border-bottom: 1.5px solid var(--shadow-clr);
   background-color: var(--sec-clr);
@@ -126,7 +137,7 @@
 .carType {
   /* font-size: 0.8rem; */
   width: 20%;
-  font-weight: 600;
+
 }
 
 @media (max-width: 600px) {

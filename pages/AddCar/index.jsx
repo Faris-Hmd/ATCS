@@ -7,6 +7,7 @@ const AddCar = () => {
     bookType: "عادي",
     enteringType: "جديد",
   });
+  const [isLoading, setIsLoading] = useState(false);
   const handleChage = (event) => {
     const { name, value } = event.target;
     console.log(value.split(" ").length);
@@ -18,18 +19,21 @@ const AddCar = () => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     console.log(formData);
     const [y, m, d] = formData.enteringDate.split("-");
     const [by, bm, bd] = formData.bookDate.split("-");
     var eDate = new Date(`${m}/${d}/${y}`);
-
+    var enteringDate = `${m}/${y}`;
+    var fullDate = `${m}/${d}/${y}`;
     console.log(m, d, y);
     axios({
       method: "post",
       url: "http://localhost:3005/api/addCars",
       data: {
         ...formData,
+        enteringDate: fullDate,
         enteringDay: parseInt(d),
         enteringMonth: parseInt(m),
         enteringYear: parseInt(y),
@@ -45,8 +49,12 @@ const AddCar = () => {
           formData.bookNum,
           formData.bookType,
           formData.enteringType,
+          enteringDate,
         ],
       },
+    }).then(() => {
+      setIsLoading(false);
+      setFormData({});
     });
   };
 
@@ -63,6 +71,7 @@ const AddCar = () => {
               placeholder="الاسم الاول"
               onChange={handleChage}
               value={formData?.fName}
+              required
             />
           </div>
           <div className={styles.inputCon}>
@@ -73,16 +82,18 @@ const AddCar = () => {
               placeholder="الاسم الثاني"
               onChange={handleChage}
               value={formData?.sName}
+              required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">الاسم الثاني</label>{" "}
+            <label htmlFor="sName">الاسم الثالث</label>{" "}
             <input
               type="text"
               name="tName"
               placeholder="الاسم الثالث"
               onChange={handleChage}
               value={formData?.tName}
+              required
             />
           </div>
           <div className={styles.inputCon}>
@@ -93,6 +104,7 @@ const AddCar = () => {
               placeholder="الاسم الرابع"
               onChange={handleChage}
               value={formData?.foName}
+              required
             />
           </div>{" "}
           <div className={styles.inputCon}>
@@ -103,6 +115,7 @@ const AddCar = () => {
               placeholder="رقم الجواز"
               onChange={handleChage}
               value={formData?.passport}
+              required
             />
           </div>
           <div className={styles.inputCon}>
@@ -113,6 +126,7 @@ const AddCar = () => {
               placeholder="رقم الدفتر"
               onChange={handleChage}
               value={formData?.bookNum}
+              required
             />
           </div>{" "}
           <div className={styles.inputCon}>
@@ -123,6 +137,7 @@ const AddCar = () => {
               placeholder="رقم الهاتف"
               onChange={handleChage}
               value={formData?.phones}
+              required
             />
           </div>
         </div>
@@ -137,6 +152,7 @@ const AddCar = () => {
               placeholder="رقم الشاسيه"
               onChange={handleChage}
               value={formData?.chaseNum}
+              required
             />
           </div>
           <div className={styles.inputCon}>
@@ -151,13 +167,14 @@ const AddCar = () => {
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="bookType">سياحي</label>
+            <label htmlFor="bookType">نوع الدفتر</label>
             <select
               name="bookType"
               id="bookType"
               onChange={handleChage}
               value={formData.bookType}
               defaultValue={"عادي"}
+              required
             >
               <option value={"عادي"}>عادي</option>
               <option value={"سياحي"}>سياحي</option>
@@ -168,6 +185,7 @@ const AddCar = () => {
               id="enteringtype"
               onChange={handleChage}
               value={formData.enteringType}
+              defaultValue={"جديد"}
               required
             >
               <option value={"جديد"}>جديد</option>
@@ -181,6 +199,7 @@ const AddCar = () => {
             id="bookDate"
             onChange={handleChage}
             value={formData?.bookDate}
+            required
           />
           <label htmlFor="enteringDate">تاريخ الدخول</label>
           <input
@@ -189,9 +208,10 @@ const AddCar = () => {
             id="enteringDate"
             onChange={handleChage}
             value={formData?.enteringDate}
+            required
           />
         </div>
-        <input type="submit" value="حفظ" />
+        <input type="submit" value="حفظ" disabled={isLoading} />
       </form>
     </>
   );
