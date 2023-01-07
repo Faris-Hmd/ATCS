@@ -150,7 +150,7 @@
 @media (max-width: 600px) {
   .table {
     width: 100%;
-    font-size: 3vw;
+    font-size: 3.1vw;
   }
   .bookDate,
   .tableHeader:nth-child(3) {
