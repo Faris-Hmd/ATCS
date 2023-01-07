@@ -24,33 +24,33 @@ const Menu = () => {
         <div className={styles.optCon}>
           <Link href="/" className={styles.opt}>
             <BsHouseDoor />
-            Home
+            الرئيسة
           </Link>
           <Link href="/" className={styles.opt}>
-            <BiCategoryAlt /> Add Offer
+            <BiCategoryAlt /> اضافة سيارة
           </Link>
           <Link href="/AddCar" className={styles.opt}>
             <BiPlusCircle />
-            Add Car
+            اضافة سيارة
           </Link>
           <Link href="/" className={styles.opt}>
-            <RiAdvertisementLine /> My Advartisments
+            <RiAdvertisementLine /> اضافة سيارة
           </Link>
           <Link href="/Cars" className={styles.opt}>
-            <RiAdvertisementLine /> ATSC
+            <RiAdvertisementLine /> الرئيسة
           </Link>
           <Link href="/" className={styles.opt}>
-            <BiCategoryAlt /> Categories
+            <BiCategoryAlt /> استخراج تقارير
           </Link>
         </div>
         <div className={styles.optCon}>
           <Link href="/" className={styles.opt}>
             <MdOutlinePrivacyTip />
-            Privecy and Security
+            سياسة الخصوصية
           </Link>
           <Link href="/" className={styles.opt}>
             <BsInfoCircle />
-            About
+            اعرف عنا
           </Link>
         </div>
       </div>

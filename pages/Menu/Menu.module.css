@@ -1,6 +1,7 @@
 /** @format */
 
 .menu {
+  direction: rtl;
   transition: all 300ms;
   display: flex;
   justify-content: space-around;

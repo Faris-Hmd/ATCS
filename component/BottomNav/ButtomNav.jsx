@@ -8,17 +8,16 @@ const ButtomNav = () => {
   return (
     <div className={styles.buttomNav}>
       <Link href="/" className={styles.page}>
-        <FaHome size={"20px"} /> Home
+        <FaHome size={"25px"} />
       </Link>
-      <Link href="/Cars" className={styles.page}>
-        <BiPlusCircle size={"20px"} />
-        Add AD
+      <Link href="/AddCar" className={styles.page}>
+        <BiPlusCircle size={"25px"} />
       </Link>
       <Link href="/Menu" className={styles.page}>
-        <FaBars size={"19px"} /> Menu
+        <FaBars size={"25px"} />
       </Link>
       <Link href={"/"} className={styles.page}>
-        <FaRegStar size={"19px"} /> Favorite
+        <FaRegStar size={"25px"} />
       </Link>
     </div>
   );
