@@ -27,7 +27,7 @@ const jsonMap = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3005/api/getCars?q=1/2023")
+    fetch(`${baseUrl}/api/getCars?q=1/2023`)
       .then((res) => res.json())
       .then((data) => setCars(data));
   }, []);
