@@ -7,6 +7,7 @@ import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "../ToPrint/ToPrint";
 import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
+import { baseUrl } from "../_app";
 
 var cDate = new Date();
 const jsonMap = () => {
@@ -20,7 +21,7 @@ const jsonMap = () => {
   const handleKeywordSearch = (e) => {
     e.preventDefault();
     console.log(keyword);
-    fetch(`http://localhost:3005/api/getCars?q=${keyword}`)
+    fetch(`${baseUrl}/api/getCars?q=${keyword}`)
       .then((res) => res.json())
       .then((data) => setCars(data));
   };

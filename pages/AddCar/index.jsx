@@ -30,7 +30,7 @@ const AddCar = () => {
     console.log(m, d, y);
     axios({
       method: "post",
-      url: "http://localhost:3005/api/addCars",
+      url: `${baseUrl}/api/addCars`,
       data: {
         ...formData,
         enteringDate: fullDate,
