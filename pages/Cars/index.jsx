@@ -8,6 +8,7 @@ import ComponentToPrint from "../ToPrint/ToPrint";
 import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
+import Head from "next/head";
 
 // import {ComponentToPrint }from "./ToPrint/ToPrint";
 const jsonMap = () => {
@@ -84,6 +85,11 @@ const jsonMap = () => {
 
   return (
     <>
+      <Head>
+        <header>
+          <title>Cars info</title>
+        </header>
+      </Head>
       <div className="hidden">
         <ComponentToPrint ref={componentRef} />
       </div>

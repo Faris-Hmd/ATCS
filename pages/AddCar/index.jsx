@@ -125,6 +125,7 @@ const AddCar = () => {
           id="enteringDate"
           onChange={handleChage}
         />
+        <input type="submit" value="حفظ" />
       </form>
     </>
   );

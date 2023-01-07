@@ -1,4 +1,6 @@
 /** @format */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300&display=swap");
+
 .fillterMenu {
   display: flex;
   justify-content: space-between;
@@ -41,6 +43,7 @@
   border-radius: 20%;
 }
 .table {
+  font-family: "Noto Sans Arabic", sans-serif;
   width: 100%;
   margin: 0 auto;
   font-size: 1.1rem;

@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
-        <span>EL</span>neelen
+        <span>A</span>TSC
       </div>
       <div className={styles.userNav}></div>
     </nav>
