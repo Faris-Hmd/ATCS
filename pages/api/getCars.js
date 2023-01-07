@@ -1,7 +1,7 @@
 /** @format */
 
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../Firebase/firebase";
+import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
 
 export default async function handler(req, res) {

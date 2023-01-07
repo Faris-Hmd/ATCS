@@ -1,13 +1,13 @@
 /** @format */
 
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../Firebase/firebase";
+import { db } from "../../firebase/firebase";
 
 export default async function handler(req, res) {
-  const cars = req.body;
-  console.log(cars);
+  const car = req.body;
+  console.log(car);
 
-    await setDoc(doc(db, "cars", formData.bookNum), { ...formData });
+  await setDoc(doc(db, "cars", car.bookNum), { ...car });
 
   res.status(200).json(true);
 }
