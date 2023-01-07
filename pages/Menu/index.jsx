@@ -22,33 +22,33 @@ const Menu = () => {
     <IconContext.Provider value={{ className: styles.menuIcons }}>
       <div className={styles.menu}>
         <div className={styles.optCon}>
-          <Link href="/" className={styles.opt}>
+          <Link href="/Cars" className={styles.opt}>
             <BsHouseDoor />
             الرئيسة
           </Link>
-          <Link href="/" className={styles.opt}>
+          <Link href="/Cars" className={styles.opt}>
             <BiCategoryAlt /> اضافة سيارة
           </Link>
           <Link href="/AddCar" className={styles.opt}>
             <BiPlusCircle />
             اضافة سيارة
           </Link>
-          <Link href="/" className={styles.opt}>
+          <Link href="/Cars" className={styles.opt}>
             <RiAdvertisementLine /> اضافة سيارة
           </Link>
           <Link href="/Cars" className={styles.opt}>
             <RiAdvertisementLine /> الرئيسة
           </Link>
-          <Link href="/" className={styles.opt}>
+          <Link href="/Cars" className={styles.opt}>
             <BiCategoryAlt /> استخراج تقارير
           </Link>
         </div>
         <div className={styles.optCon}>
-          <Link href="/" className={styles.opt}>
+          <Link href="/cars" className={styles.opt}>
             <MdOutlinePrivacyTip />
             سياسة الخصوصية
           </Link>
-          <Link href="/" className={styles.opt}>
+          <Link href="/Cars" className={styles.opt}>
             <BsInfoCircle />
             اعرف عنا
           </Link>

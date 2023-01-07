@@ -7,7 +7,7 @@ import Link from "next/link";
 const ButtomNav = () => {
   return (
     <div className={styles.buttomNav}>
-      <Link href="/" className={styles.page}>
+      <Link href="/Cars" className={styles.page}>
         <FaHome size={"25px"} />
       </Link>
       <Link href="/AddCar" className={styles.page}>
@@ -16,7 +16,7 @@ const ButtomNav = () => {
       <Link href="/Menu" className={styles.page}>
         <FaBars size={"25px"} />
       </Link>
-      <Link href={"/"} className={styles.page}>
+      <Link href={"/Cars"} className={styles.page}>
         <FaRegStar size={"25px"} />
       </Link>
     </div>
