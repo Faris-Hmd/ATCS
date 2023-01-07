@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const car = req.body;
   console.log(car);
 
-  await setDoc(doc(db, "cars", car.bookNum), { ...car });
+  await setDoc(doc(db, "cars", car.bookNum), car);
 
   res.status(200).json(true);
 }
