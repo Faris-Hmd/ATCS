@@ -53,10 +53,12 @@ const AddCar = () => {
           enteringDate,
         ],
       },
-    }).then(() => {
-      setIsLoading(false);
-      setFormData({});
-    });
+    })
+      .then(() => {
+        setIsLoading(false);
+        setFormData({});
+      })
+      .catch(setIsLoading(false));
   };
 
   return (
