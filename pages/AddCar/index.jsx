@@ -1,24 +1,59 @@
 /** @format */
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 import styles from "../../styles/Form.module.css";
 const AddCar = () => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    bookType: "عادي",
+    enteringType: "جديد",
+  });
   const handleChage = (event) => {
     const { name, value } = event.target;
     console.log(value.split(" ").length);
     console.log(value.split(" ").length > 1);
-    if (value.split(" ").length > 1 || value === " ") return;
+    if (value.split(" ").length > 1) return;
     setFormData((prev) => {
       return { ...prev, [name]: value };
     });
   };
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    const [y, m, d] = formData.enteringDate.split("-");
+    const [by, bm, bd] = formData.bookDate.split("-");
+    var eDate = new Date(`${m}/${d}/${y}`);
+
+    console.log(m, d, y);
+    axios({
+      method: "post",
+      url: "http://localhost:3005/api/addCars",
+      data: {
+        ...formData,
+        enteringDay: parseInt(d),
+        enteringMonth: parseInt(m),
+        enteringYear: parseInt(y),
+        bookDay: parseInt(bd),
+        bookMonth: parseInt(bm),
+        bookYear: parseInt(by),
+        enteringDateBySec: eDate.getTime(),
+        keywords: [
+          formData.sName,
+          formData.fName,
+          formData.tName,
+          formData.foName,
+          formData.bookNum,
+          formData.bookType,
+          formData.enteringType,
+        ],
+      },
+    });
+  };
+
   return (
     <>
       <div className="label">استمارة الافراج المؤقت</div>
-      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.side}>
           <div className={styles.inputCon}>
             <label htmlFor="fName">الاسم الاول</label>
@@ -28,7 +63,6 @@ const AddCar = () => {
               placeholder="الاسم الاول"
               onChange={handleChage}
               value={formData?.fName}
-              // pattern="[0-9]"
             />
           </div>
           <div className={styles.inputCon}>
@@ -113,6 +147,7 @@ const AddCar = () => {
               placeholder="نوع المركبة"
               onChange={handleChage}
               value={formData?.carType}
+              required
             />
           </div>
           <div className={styles.inputCon}>
@@ -121,17 +156,19 @@ const AddCar = () => {
               name="bookType"
               id="bookType"
               onChange={handleChage}
-              value={formData?.bookType}
+              value={formData.bookType}
+              defaultValue={"عادي"}
             >
-              <option value={true}>نعم</option>
-              <option value={false}>لا</option>
+              <option value={"عادي"}>عادي</option>
+              <option value={"سياحي"}>سياحي</option>
             </select>{" "}
             <label htmlFor="enteringtype">نوع الدخول</label>
             <select
               name="enteringType"
               id="enteringtype"
               onChange={handleChage}
-              value={formData?.enteringType}
+              value={formData.enteringType}
+              required
             >
               <option value={"جديد"}>جديد</option>
               <option value={"مكرر"}>مكرر</option>

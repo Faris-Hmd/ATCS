@@ -1,6 +1,6 @@
 /** @format */
 import styles from "../../styles/Cars.module.css";
-import { data } from "../../data/data mapping";
+
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
@@ -9,8 +9,9 @@ import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
 import Head from "next/head";
+import axios from "axios";
 
-// import {ComponentToPrint }from "./ToPrint/ToPrint";
+var cDate = new Date();
 const jsonMap = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState([]);
@@ -44,45 +45,73 @@ const jsonMap = () => {
   };
 
   useEffect(() => {
-    // console.table(cars);
-    // console.table(cars.map((c) => c.bookNum === "Det0791761" && c.ownerFname));
-  }, [cars]);
-
-  useEffect(() => {
-    setCars([]);
-    data.slice(550).map((item) => {
-      const [fn, sn, tn, fon] = item.ownerName.split(" ");
-      const [m, d, y] = item.incomeDate.split("/");
-      const [bm, bd, by] = item.bookDate.split("/");
-      var eDate = new Date(`${m}/${d}/${y}`);
-      var bookNum = item.bookNum.split(" ")[1]
-        ? item.bookNum.split(" ")[1]
-        : item.bookNum.split(" ")[0];
-
-      setCars((prev) => [
-        ...prev,
-        {
-          ownerFname: fn,
-          ownerSname: sn,
-          ownerTname: tn,
-          ownerFOname: fon,
-          bookDay: parseInt(bd),
-          bookMonth: parseInt(bm),
-          bookYear: parseInt(by),
-          ownerId: item.ID,
-          bookNum: bookNum,
-          chaseNum: item.chaseNum,
-          carType: item.carType,
-          enteringMonth: parseInt(m),
-          enteringDay: parseInt(d),
-          enteringYear: parseInt(y),
-          enteringDateBySec: eDate.getTime(),
-          keywords: [item.chaseNum, fn, sn, tn, fon, bookNum],
-        },
-      ]);
-    });
+    axios({ method: "get", url: "http://localhost:3005/api/getCars" }).then(
+      (res) => setCars(res.data)
+    );
   }, []);
 
+  // useEffect(() => {
+  //   setCars([]);
+  //   data.map((item) => {
+  //     const [fn, sn, tn, fon] = item.ownerName.split(" ");
+  //     const [m, d, y] = item.incomeDate.split("/");
+  //     const [bm, bd, by] = item.bookDate.split("/");
+  //     var eDate = new Date(`${m}/${d}/${y}`);
+  //     var bookNum = item.bookNum.split(" ")[1]
+  //       ? item.bookNum.split(" ")[1]
+  //       : item.bookNum.split(" ")[0];
+
+  //     setCars((prev) => [
+  //       ...prev,
+  //       {
+  //         ownerFName: fn,
+  //         ownerSName: sn,
+  //         ownerTName: tn !== undefined ? tn : null,
+  //         ownerFoName: fon !== undefined ? fon : null,
+  //         bookDay: parseInt(bd),
+  //         bookMonth: parseInt(bm),
+  //         bookYear: parseInt(by),
+  //         passport: item.ID !== undefined ? item.ID : null,
+  //         bookNum: bookNum,
+  //         chaseNum: item.chaseNum !== undefined ? item.chaseNum : null,
+  //         carType: item.carType !== undefined ? item.carType : null,
+  //         enteringMonth: parseInt(m),
+  //         enteringDay: parseInt(d),
+  //         enteringYear: parseInt(y),
+  //         enteringDateBySec: eDate.getTime(),
+  //         bookType:
+  //           item.phones === "سياحي ," || item.phones === ",سياحي"
+  //             ? "سياحي"
+  //             : "عادي",
+  //         phone1:
+  //           item.phones === "سياحي ," ||
+  //           item.phones === ",سياحي" ||
+  //           item.phones === "," ||
+  //           item.phones === " "
+  //             ? null
+  //             : item.phones?.split(",")[0],
+  //         phone2:
+  //           item.phones === "سياحي ," ||
+  //           item.phones === ",سياحي" ||
+  //           item.phones === "," ||
+  //           item.phones === ""
+  //             ? null
+  //             : item.phones?.split(",")[1],
+  //         keywords: [fn, sn, bookNum],
+  //       },
+  //     ]);
+  //   });
+  // }, []);
+  // useEffect(() => {
+  //   // cars.map((car) => {
+  //   //   setDoc(doc(db, "cars", car.bookNum), {
+  //   //     ...car,
+  //   //     phone1: car.phone1 === undefined ? null : car.phone1,
+  //   //     phone2: car.phone2 === undefined ? null : car.phone2,
+  //   //   });
+  //   // });
+  //   // console.log(cars);
+  // }, [cars]);
   return (
     <>
       <Head>
@@ -146,16 +175,15 @@ const jsonMap = () => {
         </thead>
         <tbody className={styles.tableBody}>
           {cars.map((item, index) => {
-            var cDate = new Date();
             var diff = cDate.getTime() - item.enteringDateBySec;
             var dayDiff = diff / (1000 * 60 * 60 * 24);
             return (
               <tr className={styles.tableRow} key={index}>
                 <td className={styles.index}>{1 + index}</td>
                 <td className={styles.ownerName}>
-                  {item.ownerFname + "  "}
-                  {item.ownerSname + "  "}
-                  {item.ownerTname + "  "}
+                  {item.ownerFName + "  "}
+                  {item.ownerSName + "  "}
+                  {item.ownerTName + "  "}
                   {/* {item.ownerFOname} */}
                 </td>
                 <td className={styles.carType}>{item.carType}</td>

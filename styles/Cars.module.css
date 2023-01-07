@@ -46,9 +46,9 @@
   font-family: "Noto Sans Arabic", sans-serif;
   width: 100%;
   margin: 0 auto;
-  font-size: 1.1rem;
+  font-size: 1rem;
   /* font-size: larger; */
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   border-bottom: 1.5px solid var(--shadow-clr);
   background-color: var(--sec-clr);
@@ -85,7 +85,7 @@
   text-align: center;
 }
 .index {
-  width: 1%;
+  width: 2%;
 }
 .diffDate {
   width: 1%;
@@ -124,7 +124,8 @@
   padding: 8px 12px;
 }
 .carType {
-  font-size: 1rem;
+  /* font-size: 0.8rem; */
+  width: 20%;
   font-weight: 600;
 }
 
@@ -132,7 +133,6 @@
   .table {
     width: 100%;
     font-size: 3.1vw;
-    font-weight: 500;
   }
   .bookDate,
   .tableHeader:nth-child(3) {
@@ -140,6 +140,9 @@
   }
   .diffDate {
     display: none;
+  }
+  .index {
+    width: 6%;
   }
 }
 @media (max-width: 1200px) {
