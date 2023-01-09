@@ -34,7 +34,7 @@
 }
 .fillterMenu button {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 5px;
   display: flex;
   justify-content: space-around;
@@ -153,7 +153,7 @@
     font-size: 3.1vw;
   }
   .bookDate,
-  .tableHeader:nth-child(3) {
+ .table th:nth-child(3) {
     display: none;
   }
   .diffDate {

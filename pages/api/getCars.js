@@ -18,6 +18,5 @@ export default async function handler(req, res) {
   const cars = querySnapShot.docs.map((car) => {
     return { ...car.data() };
   });
-  console.log(cars);
   res.status(200).json(cars);
 }

@@ -86,17 +86,52 @@ a {
 }
 .label {
   background-color: royalblue;
-  margin-right: 15px;
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 1.2em;
   text-align: right;
   width: 100%;
   direction: rtl;
   color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+}
+.label span:nth-child(2) {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms;
+}
+.label span:nth-child(2):hover {
+  background-color: rgb(6, 47, 168);
 }
 .Link {
   color: var(--font-clr);
   text-decoration: none;
+}
+input {
+  direction: rtl;
+  text-indent: 10px;
+  width: 100%;
+  padding: 0.2em 0;
+  margin: 5px 0;
+  font-size: 1rem;
+  text-indent: 5px;
+  color: var(--font-clr);
+  border: none;
+  border-bottom: 2px solid var(--shadow-clr);
+  background-color: var(--sec-clr);
+}
+input::placeholder {
+  font-size: 1.1rem;
+  color: var(--font-clr);
+  opacity: 0.5;
+}
+input:focus {
+  outline: none;
+  border-bottom-color: royalblue;
 }
 .sep-line {
   border-top: thin solid var(--shadow-clr);
@@ -121,6 +156,7 @@ a {
   font-family: "Nunito", sans-serif;
   scrollbar-width: none;
   scroll-behavior: smooth;
+  
 }
 
 .main {

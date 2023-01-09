@@ -130,6 +130,7 @@ const AddCar = () => {
               onChange={handleChage}
               value={formData?.bookNum}
               required
+              min={8}
             />
           </div>{" "}
           <div className={styles.inputCon}>

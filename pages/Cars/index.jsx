@@ -4,16 +4,23 @@ import styles from "../../styles/Cars.module.css";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import ComponentToPrint from "../ToPrint/ToPrint";
 import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { baseUrl } from "../_app";
+import { useRouter } from "next/router";
+import CarsReportToPrint from "../../component/CarsReportToPrint/CarsReportToPrint";
 
 var cDate = new Date();
-const jsonMap = () => {
+const Cars = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState([]);
   const componentRef = useRef();
+  const router = useRouter()
+
+  const handleNav = (bookNum) => {
+  router.push("CarDetail/" + bookNum)
+  }
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
@@ -32,111 +39,6 @@ const jsonMap = () => {
       .then((data) => setCars(data));
   }, []);
 
-  // useEffect(() => {
-  //   setCars([]);
-  //   data.map((item) => {
-  //     const [fn, sn, tn, fon] = item.ownerName.split(" ");
-  //     const [m, d, y] = item.incomeDate.split("/");
-  //     var bookNum = item.bookNum.split(" ")[1]
-  //       ? item.bookNum.split(" ")[1]
-  //       : item.bookNum.split(" ")[0];
-  //     var bookType =
-  //       item.phones === "سياحي ," || item.phones === ",سياحي"
-  //         ? "سياحي"
-  //         : "عادي";
-  //     setCars((prev) => [
-  //       ...prev,
-
-  //       {
-  //         bookNum: bookNum,
-  //         enteringDate: item.incomeDate,
-  //         keywords: [
-  //           fn,
-  //           sn,
-  //           bookNum,
-  //           `${parseInt(m)}/${parseInt(y)}`,
-  //           bookType,
-  //         ],
-  //       },
-  //     ]);
-  //   });
-  //   console.log(cars.length);
-  // }, []);
-
-  // useEffect(() => {
-  //   cars.map((car) => {
-  //     console.log(car.bookNum);
-  //     updateDoc(doc(db, "cars", car.bookNum), {
-  //       enteringDate: car.enteringDate,
-  //       keywords: car.keywords,
-  //     });
-  //   });
-  //   console.log(cars[0]?.keywords[4] === "2021");
-  //   console.log(cars);
-  // }, [cars]);
-
-  // useEffect(() => {
-  //   setCars([]);
-  //   data.map((item) => {
-  //     const [fn, sn, tn, fon] = item.ownerName.split(" ");
-  //     const [m, d, y] = item.incomeDate.split("/");
-  //     const [bm, bd, by] = item.bookDate.split("/");
-  //     var eDate = new Date(`${m}/${d}/${y}`);
-  //     var bookNum = item.bookNum.split(" ")[1]
-  //       ? item.bookNum.split(" ")[1]
-  //       : item.bookNum.split(" ")[0];
-
-  //     setCars((prev) => [
-  //       ...prev,
-  //       {
-  //         ownerFName: fn,
-  //         ownerSName: sn,
-  //         ownerTName: tn !== undefined ? tn : null,
-  //         ownerFoName: fon !== undefined ? fon : null,
-  //         bookDay: parseInt(bd),
-  //         bookMonth: parseInt(bm),
-  //         bookYear: parseInt(by),
-  //         passport: item.ID !== undefined ? item.ID : null,
-  //         bookNum: bookNum,
-  //         chaseNum: item.chaseNum !== undefined ? item.chaseNum : null,
-  //         carType: item.carType !== undefined ? item.carType : null,
-  //         enteringMonth: parseInt(m),
-  //         enteringDay: parseInt(d),
-  //         enteringYear: parseInt(y),
-  //         enteringDateBySec: eDate.getTime(),
-  //         bookType:
-  //           item.phones === "سياحي ," || item.phones === ",سياحي"
-  //             ? "سياحي"
-  //             : "عادي",
-  //         phone1:
-  //           item.phones === "سياحي ," ||
-  //           item.phones === ",سياحي" ||
-  //           item.phones === "," ||
-  //           item.phones === " "
-  //             ? null
-  //             : item.phones?.split(",")[0],
-  //         phone2:
-  //           item.phones === "سياحي ," ||
-  //           item.phones === ",سياحي" ||
-  //           item.phones === "," ||
-  //           item.phones === ""
-  //             ? null
-  //             : item.phones?.split(",")[1],
-  //         keywords: [fn, sn, bookNum],
-  //       },
-  //     ]);
-  //   });
-  // }, []);
-  // useEffect(() => {
-  //   // cars.map((car) => {
-  //   //   setDoc(doc(db, "cars", car.bookNum), {
-  //   //     ...car,
-  //   //     phone1: car.phone1 === undefined ? null : car.phone1,
-  //   //     phone2: car.phone2 === undefined ? null : car.phone2,
-  //   //   });
-  //   // });
-  //   // console.log(cars);
-  // }, [cars]);
   return (
     <>
       {/* <Head>
@@ -145,7 +47,7 @@ const jsonMap = () => {
         </header>
       </Head> */}
       <div className="hidden">
-        <ComponentToPrint ref={componentRef} />
+        <CarsReportToPrint ref={componentRef} value={cars} />
       </div>
       <div className={styles.fillterMenu}>
         <div onClick={handlePrint} className={styles.printBtn}>
@@ -165,7 +67,7 @@ const jsonMap = () => {
       </div>
       <table className={styles.table} style={{ direction: "rtl" }}>
         <thead className={styles.tableHead}>
-          <tr className={styles.tableHeaderRow}>
+          <tr className={styles.tableHeaderRow} >
             <th className={styles.tableHeader}>#</th>
             <th className={styles.tableHeader + " " + styles.bookNum}>
               اسم العميل
@@ -188,7 +90,7 @@ const jsonMap = () => {
             var diff = cDate.getTime() - item.enteringDateBySec;
             var dayDiff = diff / (1000 * 60 * 60 * 24);
             return (
-              <tr className={styles.tableRow} key={index}>
+              <tr className={styles.tableRow} key={index} onClick={() => handleNav(item.bookNum)}>
                 <td className={styles.index}>{1 + index}</td>
                 <td className={styles.ownerName}>
                   {item.ownerFName + "  "}
@@ -213,4 +115,4 @@ const jsonMap = () => {
     </>
   );
 };
-export default jsonMap;
+export default Cars;
