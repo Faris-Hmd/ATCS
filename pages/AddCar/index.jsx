@@ -4,17 +4,15 @@ import { useState } from "react";
 import styles from "../../styles/Form.module.css";
 import { baseUrl } from "../_app";
 const AddCar = () => {
-  const [formData, setFormData] = useState({
+  const [car, setCar] = useState({
     bookType: "عادي",
     enteringType: "جديد",
   });
   const [isLoading, setIsLoading] = useState(false);
   const handleChage = (event) => {
     const { name, value } = event.target;
-    console.log(value.split(" ").length);
-    console.log(value.split(" ").length > 1);
     if (value.split(" ").length > 1) return;
-    setFormData((prev) => {
+    setCar((prev) => {
       return { ...prev, [name]: value };
     });
   };
@@ -22,41 +20,31 @@ const AddCar = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    console.log(formData);
-    const [y, m, d] = formData.enteringDate.split("-");
-    const [by, bm, bd] = formData.bookDate.split("-");
-    var eDate = new Date(`${m}/${d}/${y}`);
-    var enteringDate = `${m}/${y}`;
-    var fullDate = `${m}/${d}/${y}`;
-    console.log(m, d, y);
+    var eDate = new Date(
+      `${car.enteringMonth}/${car.enteringDay}/${car.enteringYear}`,
+    );
     axios({
       method: "post",
       url: `${baseUrl}/api/addCars`,
       data: {
-        ...formData,
-        enteringDate: fullDate,
-        enteringDay: parseInt(d),
-        enteringMonth: parseInt(m),
-        enteringYear: parseInt(y),
-        bookDay: parseInt(bd),
-        bookMonth: parseInt(bm),
-        bookYear: parseInt(by),
+        ...car,
+        enteringDate: `${car.enteringMonth}/${car.enteringYear}`,
         enteringDateBySec: eDate.getTime(),
         keywords: [
-          formData.sName,
-          formData.fName,
-          formData.tName,
-          formData.foName,
-          formData.bookNum,
-          formData.bookType,
-          formData.enteringType,
-          enteringDate,
+          car.ownerSName,
+          car.ownerFName,
+          car.ownerTName,
+          car.ownerFoName,
+          car.bookNum,
+          car.bookType,
+          car.enteringType,
+          `${car.enteringMonth}/${car.enteringYear}`,
         ],
       },
     })
       .then(() => {
         setIsLoading(false);
-        setFormData({});
+        setCar({});
       })
       .catch(setIsLoading(false));
   };
@@ -67,80 +55,90 @@ const AddCar = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.side}>
           <div className={styles.inputCon}>
-            <label htmlFor="fName">الاسم الاول</label>
+            <label htmlFor="ownerFName">الاسم الاول</label>
             <input
               type="text"
-              name="fName"
+              name="ownerFName"
               placeholder="الاسم الاول"
               onChange={handleChage}
-              value={formData?.fName}
+              value={car.ownerFName}
               required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">الاسم الثاني</label>
+            <label htmlFor="ownerSName">الاسم الثاني</label>
             <input
               type="text"
-              name="sName"
+              name="ownerSName"
               placeholder="الاسم الثاني"
               onChange={handleChage}
-              value={formData?.sName}
+              value={car.ownerSName}
               required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">الاسم الثالث</label>{" "}
+            <label htmlFor="ownerSName">الاسم الثالث</label>{" "}
             <input
               type="text"
-              name="tName"
+              name="ownerTName"
               placeholder="الاسم الثالث"
               onChange={handleChage}
-              value={formData?.tName}
+              value={car.ownerTName}
               required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">الاسم الرابع</label>{" "}
+            <label htmlFor="ownerSName">الاسم الرابع</label>{" "}
             <input
               type="text"
-              name="foName"
+              name="ownerFoName"
               placeholder="الاسم الرابع"
               onChange={handleChage}
-              value={formData?.foName}
+              value={car.ownerFoName}
               required
             />
           </div>{" "}
           <div className={styles.inputCon}>
-            <label htmlFor="sName">رقم الجواز</label>
+            <label htmlFor="ownerSName">رقم الجواز</label>
             <input
               type="text"
               name="passport"
               placeholder="رقم الجواز"
               onChange={handleChage}
-              value={formData?.passport}
+              value={car.passport}
               required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">رقم الدفتر</label>{" "}
+            <label htmlFor="ownerSName">رقم الدفتر</label>{" "}
             <input
               type="text"
               name="bookNum"
               placeholder="رقم الدفتر"
               onChange={handleChage}
-              value={formData?.bookNum}
+              value={car.bookNum}
               required
               min={8}
             />
-          </div>{" "}
+          </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">رقم الهاتف</label>
+            <label htmlFor="ownerSName">العنوان</label>
+            <input
+              type="text"
+              name="address"
+              placeholder="العنوان"
+              onChange={handleChage}
+              value={car.address}
+            />
+          </div>
+          <div className={styles.inputCon}>
+            <label htmlFor="ownerSName">رقم الهاتف</label>
             <input
               type="number"
-              name="phones"
+              name="phones1"
               placeholder="رقم الهاتف"
               onChange={handleChage}
-              value={formData?.phones}
+              value={car.phones1}
               required
             />
           </div>
@@ -155,19 +153,28 @@ const AddCar = () => {
               id="chaseNum"
               placeholder="رقم الشاسيه"
               onChange={handleChage}
-              value={formData?.chaseNum}
+              value={car.chaseNum}
               required
             />
           </div>
           <div className={styles.inputCon}>
-            <label htmlFor="sName">نوع المركبة</label>
+            <label htmlFor="ownerSName"> ماركة المركبة</label>
             <input
               type="text"
               name="carType"
-              placeholder="نوع المركبة"
+              placeholder="ادخل ماركة المركبة"
               onChange={handleChage}
-              value={formData?.carType}
-              required
+              value={car.carType}
+            />
+          </div>{" "}
+          <div className={styles.inputCon}>
+            <label htmlFor="ownerSName">موديل المركبة</label>
+            <input
+              type="text"
+              name="carManDate"
+              placeholder="موديل المركبة"
+              onChange={handleChage}
+              value={car.carManDate}
             />
           </div>
           <div className={styles.inputCon}>
@@ -176,10 +183,9 @@ const AddCar = () => {
               name="bookType"
               id="bookType"
               onChange={handleChage}
-              value={formData.bookType}
+              value={car.bookType}
               defaultValue={"عادي"}
-              required
-            >
+              required>
               <option value={"عادي"}>عادي</option>
               <option value={"سياحي"}>سياحي</option>
             </select>{" "}
@@ -188,31 +194,65 @@ const AddCar = () => {
               name="enteringType"
               id="enteringtype"
               onChange={handleChage}
-              value={formData.enteringType}
+              value={car.enteringType}
               defaultValue={"جديد"}
-              required
-            >
+              required>
               <option value={"جديد"}>جديد</option>
               <option value={"مكرر"}>مكرر</option>
             </select>
           </div>
           <label htmlFor="bookDate">تاريخ الدفتر</label>
           <input
-            type="date"
-            name="bookDate"
-            id="bookDate"
+            type="text"
+            name="bookDay"
+            placeholder="اليوم"
             onChange={handleChage}
-            value={formData?.bookDate}
-            required
+            value={car.bookDay}
+            className={styles.dateInput}
+            min={0}
+            max={31}
+            maxLength={2}
+          />
+          <input
+            type="text"
+            name="bookMonth"
+            placeholder="الشهر"
+            onChange={handleChage}
+            value={car.bookMonth}
+            className={styles.dateInput}
+          />
+          <input
+            type="text"
+            name="bookYear"
+            placeholder="السنة"
+            onChange={handleChage}
+            value={car.bookYear}
+            className={styles.dateInput}
           />
           <label htmlFor="enteringDate">تاريخ الدخول</label>
           <input
-            type="date"
-            name="enteringDate"
-            id="enteringDate"
+            type="text"
+            name="enteringDay"
+            placeholder="اليوم"
             onChange={handleChage}
-            value={formData?.enteringDate}
-            required
+            className={styles.dateInput}
+            value={car.enteringDay}
+          />
+          <input
+            type="text"
+            name="enteringMonth"
+            placeholder="الشهر"
+            onChange={handleChage}
+            className={styles.dateInput}
+            value={car.enteringMonth}
+          />
+          <input
+            type="text"
+            name="enteringYear"
+            placeholder="السنة"
+            onChange={handleChage}
+            className={styles.dateInput}
+            value={car.enteringYear}
           />
         </div>
         <input type="submit" value="حفظ" disabled={isLoading} />

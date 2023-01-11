@@ -1,16 +1,13 @@
 /** @format */
 
 /* @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@500&display=swap");
 /** @format */
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   scrollbar-width: thin;
-
   font-family: "Noto Sans Arabic", sans-serif;
 }
 
@@ -67,9 +64,7 @@ a {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  font-family: "Nunito", sans-serif;
   text-align: center;
-  font-family: "Nunito", sans-serif;
   margin: 0.5em;
   text-indent: 3px;
   color: white;
@@ -84,6 +79,7 @@ a {
   background-color: var(--light-orange-clr);
   color: var(--dark-orange-clr);
 }
+
 .label {
   background-color: royalblue;
   /* padding: 10px; */
@@ -97,14 +93,19 @@ a {
   align-items: center;
   padding-right: 20px;
 }
-.label span:nth-child(2) {
-  padding: 20px;
+.btn-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.label .btn-con span {
+  padding: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 300ms;
 }
-.label span:nth-child(2):hover {
+.label .btn-con span:hover {
   background-color: rgb(6, 47, 168);
 }
 .Link {
@@ -115,9 +116,8 @@ input {
   direction: rtl;
   text-indent: 10px;
   width: 100%;
-  padding: 0.2em 0;
-  margin: 5px 0;
-  font-size: 1rem;
+  /* padding: 0.2em 0; */
+  margin: 2px 0;
   text-indent: 5px;
   color: var(--font-clr);
   border: none;
@@ -125,7 +125,6 @@ input {
   background-color: var(--sec-clr);
 }
 input::placeholder {
-  font-size: 1.1rem;
   color: var(--font-clr);
   opacity: 0.5;
 }
@@ -153,10 +152,9 @@ input:focus {
   color: var(--font-clr);
   background-color: var(--prime-clr);
   overflow-x: hidden;
-  font-family: "Nunito", sans-serif;
+
   scrollbar-width: none;
   scroll-behavior: smooth;
-  
 }
 
 .main {

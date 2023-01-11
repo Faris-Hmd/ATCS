@@ -10,10 +10,8 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
     if (props.value) setCar(props.value);
   }, []);
 
-  //   return <h1 ref={ref}>kkkkkq</h1>;
-
   return (
-    <div className={Styles.container} ref={ref}>
+    <div className={Styles.printContainer} ref={ref}>
       <div className={Styles.header}>
         <div className={Styles.dateCon}>
           <div className={Styles.date}>التاريخ 2022/1/8</div>
@@ -29,18 +27,19 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
           <tr>
             <td>اسم المالك :</td>
             <td>
-              {car.ownerFName} {car.ownerSName}
-              {car.ownerTName}
-              {car.ownerFOName}
+              {car.ownerFName} {car.ownerSName} {car.ownerTName}{" "}
+              {car.ownerFoName}
             </td>
+
           </tr>
           <tr>
             <td>رقم الجواز :</td>
+
             <td>{car.passport}</td>
           </tr>
           <tr>
             <td>العنوان :</td>
-            <td>{car?.address}</td>
+            <td>{car.address}</td>
           </tr>
           <tr>
             <td>رقم الهاتف :</td>
@@ -56,11 +55,12 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
           </tr>
           <tr>
             <td>ماركة المركبة :</td>
-            <td>{car.carType}</td>
+            <td>{car.carModel}</td>
           </tr>
           <tr>
             <td>موديل المركبة :</td>
-            <td>{car.carModel}</td>
+
+            <td>{car.carManDate}</td>
           </tr>
           <tr>
             <td>رقم الهيكل :</td>

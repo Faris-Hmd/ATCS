@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   console.log(car);
 
   await setDoc(doc(db, "cars", car.bookNum), car);
-  
+  console.log(car);
 
-  res.status(200).json(true);
+  res.status(200).json(car);
 }

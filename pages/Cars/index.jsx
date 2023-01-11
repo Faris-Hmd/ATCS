@@ -15,11 +15,11 @@ const Cars = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState([]);
   const componentRef = useRef();
-  const router = useRouter()
+  const router = useRouter();
 
   const handleNav = (bookNum) => {
-  router.push("CarDetail/" + bookNum)
-  }
+    router.push("CarDetail/" + bookNum);
+  };
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -38,7 +38,9 @@ const Cars = () => {
       .then((res) => res.json())
       .then((data) => setCars(data));
   }, []);
-
+  useEffect(() => {
+    console.log(cars);
+  }, [cars]);
   return (
     <>
       {/* <Head>
@@ -67,7 +69,7 @@ const Cars = () => {
       </div>
       <table className={styles.table} style={{ direction: "rtl" }}>
         <thead className={styles.tableHead}>
-          <tr className={styles.tableHeaderRow} >
+          <tr className={styles.tableHeaderRow}>
             <th className={styles.tableHeader}>#</th>
             <th className={styles.tableHeader + " " + styles.bookNum}>
               اسم العميل
@@ -90,7 +92,10 @@ const Cars = () => {
             var diff = cDate.getTime() - item.enteringDateBySec;
             var dayDiff = diff / (1000 * 60 * 60 * 24);
             return (
-              <tr className={styles.tableRow} key={index} onClick={() => handleNav(item.bookNum)}>
+              <tr
+                className={styles.tableRow}
+                key={index}
+                onClick={() => handleNav(item.bookNum)}>
                 <td className={styles.index}>{1 + index}</td>
                 <td className={styles.ownerName}>
                   {item.ownerFName + "  "}

@@ -52,9 +52,8 @@
   direction: rtl;
   text-indent: 10px;
   width: 100%;
-  padding: 0.2em 0;
   margin: 5px 0;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   text-indent: 5px;
   color: var(--font-clr);
   border: none;
@@ -86,13 +85,15 @@
   border-radius: 5px;
   border: none;
   /* font-size: small; */
-  font-family: "Noto Sans Arabic", sans-serif;
+
 }
-.form input[type="date"]::placeholder {
-  font-family: "Noto Sans Arabic", sans-serif;
+.form .dateInput{
+  width: 25%;
 }
+/* .form input[type="date"]::placeholder {
+
+} */
 .form input::placeholder {
-  font-size: 1.1rem;
   color: var(--font-clr);
   opacity: 0.5;
 }
@@ -103,7 +104,7 @@
 }
 .form input[type="submit"] {
   margin: 15px auto;
-  font-size: larger;
+  /* font-size: larger; */
   transition: all 300ms;
   border-radius: 5px;
   color: #eee;
