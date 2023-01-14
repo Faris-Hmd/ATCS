@@ -1,5 +1,6 @@
 /** @format */
 import styles from "../../styles/Cars.module.css";
+import formStyles from "../../styles/Form.module.css";
 
 import { useEffect, useState } from "react";
 // import { useRef } from "react";
@@ -64,7 +65,7 @@ const Cars = () => {
     console.log(cars);
   }, [cars]);
   return (
-    <>
+    <div className={formStyles.contenier}>
       {/* <Head>
         <header>
           <title>Cars info</title>
@@ -91,6 +92,7 @@ const Cars = () => {
       </div>
       <table className={styles.table} style={{ direction: "rtl" }}>
         <thead className={styles.tableHead}>
+          <tr></tr>
           <tr className={styles.tableHeaderRow}>
             <th className={styles.tableHeader}>#</th>
             <th className={styles.tableHeader + " " + styles.bookNum}>
@@ -172,7 +174,7 @@ const Cars = () => {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 export default Cars;

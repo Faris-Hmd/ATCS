@@ -97,9 +97,9 @@ a {
   color: var(--dark-orange-clr);
 }
 
-.label {
+.header {
   background-color: royalblue;
-  /* padding: 10px; */
+  padding: 20px;
   text-align: right;
   width: 100%;
   direction: rtl;
@@ -107,7 +107,6 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
   padding-right: 20px;
 }
 
@@ -116,14 +115,14 @@ a {
   justify-content: space-between;
   align-items: center;
 }
-.label .btn-con span {
+.header .btn-con span {
   padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 300ms;
 }
-.label .btn-con span:hover {
+.header .btn-con span:hover {
   background-color: rgb(6, 47, 168);
 }
 .Link {
@@ -159,12 +158,12 @@ input:read-only {
   border-top: thin solid var(--shadow-clr);
 }
 select {
-  width: 35%;
+  /* width: 35%; */
   background-color: royalblue;
   color: #eee;
   border-radius: 5px;
   border: none;
-  padding: 6px;
+  padding: 6px 0;
   margin: 5px 0;
 }
 /** -------- GRID CONFIGRETION -----*/
@@ -211,7 +210,7 @@ select {
 /** ------------- TABLET VIEW ---------*/
 
 @media (min-width: 650px) {
-  /* .label {
+  /* .header {
     margin: 1em 0.4em 0;
     font-size: 2rem;
   } */
@@ -230,7 +229,7 @@ select {
   }
 }
 @media (min-width: 1000px) {
-  .label {
+  .header {
     font-size: large;
   }
   .rightSide {

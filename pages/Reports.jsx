@@ -1,6 +1,8 @@
 /** @format */
 
 import styles from "../styles/Reports.module.css";
+import tableStyles from "../styles/Cars.module.css";
+
 import formStyles from "../styles/Form.module.css";
 import { BsPrinter } from "react-icons/bs";
 import { useEffect, useRef, useState } from "react";
@@ -25,7 +27,7 @@ const Reports = () => {
 
   return (
     <div className={formStyles.contenier}>
-      <div className="label">
+      <div className="header">
         تقرير السيارات
         <form className={"w-60 " + formStyles.form}>
           <select
@@ -51,12 +53,70 @@ const Reports = () => {
           <BsPrinter />
         </div>
       </div>
-        {cars.length > 0 && (
-          <div>
-            <CarsReportToPrint ref={componentRef} value={cars} />
-          </div>
-        )}
-        {/* {cars.map((car) => (
+      <table className={tableStyles.table} style={{ direction: "rtl" }}>
+        <thead className={tableStyles.tableHead}>
+          <tr className={tableStyles.tableHeaderRow}>
+            <th className={tableStyles.tableHeader}>#</th>
+            <th className={tableStyles.tableHeader + " " + tableStyles.bookNum}>
+              اسم العميل
+            </th>
+            <th className={tableStyles.tableHeader + " " + tableStyles.carType}>
+              السيارة
+            </th>
+            <th className={tableStyles.tableHeader}>رقم الدفتر</th>
+            <th
+              className={tableStyles.tableHeader + " " + tableStyles.bookDate}
+            >
+              الدفتر
+            </th>
+            <th className={tableStyles.tableHeader}>الدخول</th>
+            {/* <th
+              className={tableStyles.tableHeader + " " + tableStyles.diffDate}
+            >
+              البقاء
+            </th> */}
+          </tr>
+        </thead>
+        <tbody className={styles.tableBody}>
+          {cars.map((item, index) => {
+            // var diff = cDate.getTime() - item.enteringDateBySec;
+            var dayDiff = diff / (1000 * 60 * 60 * 24);
+            return (
+              <tr
+                className={styles.tableRow}
+                style={{ background: item.state === "غادر" && "red" }}
+                key={index}
+              >
+                <td className={tableStyles.index}>{1 + index}</td>
+                <td
+                  className={tableStyles.ownerName}
+                  onClick={() => handleNav(item.bookNum)}
+                >
+                  {item.ownerFName + "  "}
+                  {item.ownerSName + "  "}
+                  {item.ownerTName + "  "}
+                  {/* {item.ownerFOname} */}
+                </td>
+                <td className={tableStyles.carType}>{item.carType}</td>
+                <td className={tableStyles.bookNum}>{item.bookNum}</td>
+                <td className={tableStyles.bookDate}>
+                  {item.bookMonth}/{item.bookDay}/{item.bookYear}
+                </td>
+                <td className={tableStyles.enteringDate}>
+                  {item.enteringMonth}/{item.enteringDay}/{item.enteringYear}
+                </td>
+                {/* <td className={tableStyles.diffDate}>{Math.floor(dayDiff)}</td> */}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      {cars.length > 0 && (
+        <div className="hidden">
+          <CarsReportToPrint ref={componentRef} value={cars} />
+        </div>
+      )}
+      {/* {cars.map((car) => (
           <h2>{car.ownerFName}</h2>
         ))} */}
     </div>

@@ -34,11 +34,11 @@ const CarsReportToPrint = React.forwardRef((props, ref) => {
             <th>#</th>
             <th className={styles.bookNum}>اسم العميل</th>
             <th>نوع السيارة</th>
-            <th className={styles.bookDate}>رقم الشاسيه</th>
+            <th>رقم الشاسيه</th>
             <th>رقم الدفتر</th>
-            <th className={styles.bookDate}>الدفتر</th>
+            <th>الدفتر</th>
             <th>الدخول</th>
-            <th className={styles.bookDate}>الهاتف</th>
+            <th>الهاتف</th>
           </tr>
         </thead>
         <tbody className={styles.tableBody}>
@@ -52,12 +52,9 @@ const CarsReportToPrint = React.forwardRef((props, ref) => {
                   {item.ownerTName + "  "}
                   {item.ownerFoName}
                 </td>
-                <td className={styles.bookNum + " " + styles.bookDate}>
-                  {item.carType}
-                </td>
-                <td className={styles.bookNum + " " + styles.bookDate}>
-                  {item.chaseNum}
-                </td>
+                <td className={styles.bookNum}>{item.carType}</td>
+                <td className={styles.bookNum}>{item.chaseNum}</td>
+
                 <td className={styles.bookNum}>{item.bookNum}</td>
                 <td className={styles.bookDate}>
                   {item.bookMonth}/{item.bookDay}/{item.bookYear}
@@ -65,9 +62,7 @@ const CarsReportToPrint = React.forwardRef((props, ref) => {
                 <td className={styles.enteringDate}>
                   {item.enteringMonth}/{item.enteringDay}/{item.enteringYear}
                 </td>
-                <td className={styles.bookNum + " " + styles.bookDate}>
-                  {item.phone2 ? item.phone2 : item.phone1}
-                </td>
+                <td className={styles.bookNum}>{item.phone2}</td>
               </tr>
             );
           })}
@@ -77,25 +72,4 @@ const CarsReportToPrint = React.forwardRef((props, ref) => {
   );
 });
 export default CarsReportToPrint;
-//  <div className={Styles.header}>
-//  <div className={Styles.dateCon}>
-//      <div className={Styles.date}>التاريخ  2022/1/8</div>
-//      <div className={Styles.bookNum}>رقم/ن/س/ر/ 2022/157</div>
-//  </div>
-//  <div classNameName={Styles.title}>تمديد دفاتر المرور الجمركي</div>
-//  <div className={Styles.for}>معنون للسيد / مدير ادارة مكافحة التهريب المحترم </div>
-//  </div>
-//  <div className={Styles.stamps}>
-// <div>ختم الشركة</div>
-// <div>التوقيع</div>
-// </div>
-{
-  /* <tr> 
- <td>التوصية :</td>
-<td>لامانع لدينا في تجديد لفترة ثلاثة شهور أخرى وفق النظام المعمول به.</td>
-</tr>
-<tr>
-<td>ملحوضة :</td>
-<td>اي كشط او تعديل يلغي هذا الارونيك </td>
-</tr>   */
-}
+

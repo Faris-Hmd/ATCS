@@ -93,7 +93,7 @@ const CarDetail = () => {
   // }, [car]);
   return (
     <div className={Styles.container}>
-      <div className="label">
+      <div className="header">
         <span>تفاصيل المركبة</span>
         <span className="btn-con">
           {isEditing && (

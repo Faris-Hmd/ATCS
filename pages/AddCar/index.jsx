@@ -54,7 +54,7 @@ const AddCar = () => {
     <>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.contenier}>
-          <div className="label">استمارة الافراج المؤقت</div>
+          <div className="header">استمارة الافراج المؤقت</div>
           <div className={styles.side}>
             <div className={styles.inputGroup}>
               <div className={styles.inputGroupLabel}>بيانات المالك</div>
@@ -281,7 +281,7 @@ const AddCar = () => {
           </div>
           <div className={styles.side}></div>
 
-          {/* <input type="submit" value="حفظ" disabled={isLoading} /> */}
+          <input type="submit" value="حفظ" disabled={isLoading} />
         </div>
       </form>
     </>

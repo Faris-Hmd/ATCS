@@ -53,7 +53,7 @@
   /* display: none; */
   margin: 0;
   margin-right: 10px;
-  padding: 0em 0.2em;
+  padding:  0.2em;
   font-size: small;
   cursor: pointer;
   background-color: var(--hover-clr);
@@ -157,10 +157,10 @@
   .form input[type="submit"] {
     width: 30%;
   }
-  .form input,
+  /* .form input,
   .form select {
     padding: 2px;
-  }
+  } */
   .form input[type="date"] {
     width: 70%;
   }
