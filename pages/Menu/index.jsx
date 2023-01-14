@@ -39,7 +39,7 @@ const Menu = () => {
           <Link href="/Cars" className={styles.opt}>
             <RiAdvertisementLine /> الرئيسة
           </Link>
-          <Link href="/Cars" className={styles.opt}>
+          <Link href="/Reports" className={styles.opt}>
             <BiCategoryAlt /> استخراج تقارير
           </Link>
         </div>

@@ -1,12 +1,12 @@
 /** @format */
 import React, { useEffect, useState } from "react";
-import Styles from "../../styles/report.module.css";
+import Styles from "../styles/report.module.css";
 
-const ExtentionReportToPrint = React.forwardRef((props, ref) => {
+const LeftingReportToPrint = React.forwardRef((props, ref) => {
   const [car, setCar] = useState({});
 
   useEffect(() => {
-    console.log("from priny", props.value);
+    // console.log("from priny", props.value);
     if (props.value) setCar(props.value);
   }, []);
 
@@ -17,7 +17,7 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
           <div className={Styles.date}>التاريخ 2022/1/8</div>
           <div className={Styles.bookNum}>رقم/ن/س/ر/ 2022/157</div>
         </div>
-        <div className={Styles.title}>تمديد دفاتر المرور الجمركي</div>
+        <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
         <div className={Styles.for}>
           معنون للسيد / مدير ادارة مكافحة التهريب المحترم{" "}
         </div>
@@ -30,7 +30,6 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
               {car.ownerFName} {car.ownerSName} {car.ownerTName}{" "}
               {car.ownerFoName}
             </td>
-
           </tr>
           <tr>
             <td>رقم الجواز :</td>
@@ -76,10 +75,9 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
           </tr>
           <tr>
             <td>التوصية :</td>
-            <td>
-              لامانع لدينا في تجديد لفترة ثلاثة شهور أخرى وفق النظام المعمول به.
-            </td>
+            <td>نوصي بالمغادرة فورا وفق النظام المعمول به. </td>
           </tr>
+
           <tr>
             <td>ملحوضة :</td>
             <td>اي كشط او تعديل يلغي هذا الارونيك </td>
@@ -95,4 +93,4 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
   );
 });
 
-export default ExtentionReportToPrint;
+export default LeftingReportToPrint;

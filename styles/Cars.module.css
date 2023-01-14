@@ -16,8 +16,8 @@
   align-items: center;
   flex-direction: row;
   background-color: none;
-  width: 100%;
-  margin-right: 30px;
+  width: 80%;
+  margin: auto;
 }
 .fillterMenu input {
   border: none;
@@ -54,7 +54,6 @@
   color: royalblue;
 }
 .table {
-
   width: 100%;
   margin: 0 auto;
   font-size: 1rem;
@@ -153,7 +152,7 @@
     font-size: 3.1vw;
   }
   .bookDate,
- .table th:nth-child(3) {
+  .table th:nth-child(3) {
     display: none;
   }
   .diffDate {

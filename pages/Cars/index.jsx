@@ -3,13 +3,14 @@ import styles from "../../styles/Cars.module.css";
 
 import { useEffect, useState } from "react";
 import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
-import { BsPrinter } from "react-icons/bs";
+// import { useReactToPrint } from "react-to-print";
+// import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import { baseUrl } from "../_app";
 import { useRouter } from "next/router";
-import CarsReportToPrint from "../../component/CarsReportToPrint/CarsReportToPrint";
-
+// import CarsReportToPrint from "../../component/CarsReportToPrint/CarsReportToPrint";
+// import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 var cDate = new Date();
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -21,9 +22,9 @@ const Cars = () => {
     router.push("CarDetail/" + bookNum);
   };
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
 
   const handleKeywordSearch = (e) => {
     e.preventDefault();
@@ -32,11 +33,32 @@ const Cars = () => {
       .then((res) => res.json())
       .then((data) => setCars(data));
   };
-
-  useEffect(() => {
+  const getDate = () => {
     fetch(`${baseUrl}/api/getCars?q=1/2023`)
       .then((res) => res.json())
       .then((data) => setCars(data));
+  };
+  // const handlethreeMonthExUpdate = async (car) => {
+  //   await updateDoc(doc(db, "cars", car.bookNum), {
+  //     threeMonthEx: !car.threeMonthEx,
+  //   });
+  //   getDate();
+  // };
+  // const handleSixMonthExUpdate = async (car) => {
+  //   await updateDoc(doc(db, "cars", car.bookNum), {
+  //     sixMonthEx: !car.sixMonthEx,
+  //   });
+  //   getDate();
+  // };
+  // const handleLeftExUpdate = async (car) => {
+  //   await updateDoc(doc(db, "cars", car.bookNum), {
+  //     leftEx: !car.leftEx,
+  //   });
+  //   getDate();
+  // };
+
+  useEffect(() => {
+    getDate();
   }, []);
   useEffect(() => {
     console.log(cars);
@@ -48,13 +70,13 @@ const Cars = () => {
           <title>Cars info</title>
         </header>
       </Head> */}
-      <div className="hidden">
+      {/* <div className="hidden">
         <CarsReportToPrint ref={componentRef} value={cars} />
-      </div>
+      </div> */}
       <div className={styles.fillterMenu}>
-        <div onClick={handlePrint} className={styles.printBtn}>
+        {/* <div onClick={handlePrint} className={styles.printBtn}>
           <BsPrinter />
-        </div>
+        </div> */}
         <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
@@ -94,16 +116,47 @@ const Cars = () => {
             return (
               <tr
                 className={styles.tableRow}
-                key={index}
-                onClick={() => handleNav(item.bookNum)}>
+                style={{ background: item.state === "غادر" && "red" }}
+                key={index}>
                 <td className={styles.index}>{1 + index}</td>
-                <td className={styles.ownerName}>
+                <td
+                  className={styles.ownerName}
+                  onClick={() => handleNav(item.bookNum)}>
                   {item.ownerFName + "  "}
                   {item.ownerSName + "  "}
                   {item.ownerTName + "  "}
                   {/* {item.ownerFOname} */}
                 </td>
                 <td className={styles.carType}>{item.carType}</td>
+                {/* <td>
+                  <input
+                    id="threeMonthEx"
+                    type="checkbox"
+                    name="threeMonthEx"
+                    onChange={() => handlethreeMonthExUpdate(item)}
+                    checked={item.threeMonthEx}
+                  />
+                </td>
+                <td>
+                  {" "}
+                  <input
+                    id="sixMonthEx"
+                    type="checkbox"
+                    name="sixMonthEx"
+                    onChange={() => handleSixMonthExUpdate(item)}
+                    checked={item.sixMonthEx}
+                  />
+                </td>
+                <td>
+                  <input
+                    id="leftEx"
+                    type="checkbox"
+                    onChange={() => handleLeftExUpdate(item)}
+                    name="leftEx"
+                    checked={item.leftEx}
+                  />
+                </td> */}
+
                 <td className={styles.bookNum}>{item.bookNum}</td>
                 <td className={styles.bookDate}>
                   {item.bookMonth}/{item.bookDay}/{item.bookYear}

@@ -3,38 +3,57 @@
 
 .form {
   direction: rtl;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  /* padding: 0.2em; */
+  border-radius: 8px;
+}
+.contenier {
+  direction: rtl;
+  max-width: 98%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 0.6em 0;
+  padding-top: 0;
   margin: 0.5em auto 1.2em;
   border-radius: 8px;
-  box-shadow: 5px 5px 5px var(--shadow-clr);
+  box-shadow: 5px 5px 5px var(--shadow-clr), -5px -5px 5px var(--shadow-clr);
   background-color: var(--sec-clr);
+  overflow: hidden;
 }
-.form .inputCon {
-  width: 100%;
+.inputGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 2px solid var(--shadow-clr);
+  border-radius: 10px;
+  padding: 5px;
+}
+.inputCon {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  margin: 5px;
+  margin: 2px 0px;
 }
-.form .side:nth-child(1) .inputCon:nth-child(1),
+/* .form .side:nth-child(1) .inputCon:nth-child(1),
 .form .side:nth-child(1) .inputCon:nth-child(2),
 .form .side:nth-child(1) .inputCon:nth-child(3),
 .form .side:nth-child(1) .inputCon:nth-child(4),
 .form .side:nth-child(1) .inputCon:nth-child(5),
 .form .side:nth-child(1) .inputCon:nth-child(6) {
-  /* background-color: aqua; */
   width: 47%;
-}
+} */
 
 .form label {
-  margin: 2px;
-  padding: 0em 0.5em;
+  /* display: none; */
+  margin: 0;
+  /* margin-right: 10px; */
+  padding: 0em 0.2em;
   font-size: small;
   cursor: pointer;
   background-color: var(--hover-clr);
@@ -43,17 +62,17 @@
 }
 .form .side {
   display: flex;
+  padding: 10px;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
 }
-.form input,
+/* .form input,
 .form select {
   direction: rtl;
   text-indent: 10px;
   width: 100%;
   margin: 5px 0;
-  /* font-size: 1rem; */
   text-indent: 5px;
   color: var(--font-clr);
   border: none;
@@ -63,13 +82,11 @@
 
 .form select {
   width: 25%;
-  /* margin: 5px 10px; */
   background-color: royalblue;
   color: #eee;
   border-radius: 5px;
-  /* padding: 0; */
   border: none;
-}
+} */
 .form div {
   display: flex;
   flex-wrap: wrap;
@@ -77,18 +94,9 @@
   justify-content: space-between;
   width: 100%;
 }
-.form input[type="date"] {
-  width: 25%;
-  margin: 5px;
-  background-color: royalblue;
-  color: #eee;
-  border-radius: 5px;
-  border: none;
-  /* font-size: small; */
 
-}
-.form .dateInput{
-  width: 25%;
+.form .dateInput {
+  width: 33%;
 }
 /* .form input[type="date"]::placeholder {
 
@@ -125,22 +133,33 @@
   color: royalblue;
   background-image: linear-gradient(rgb(180, 189, 217), rgb(180, 189, 217));
 }
-
+.printBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 300ms;
+  margin: 5px;
+}
 @media (min-width: 570px) {
   .form {
-    width: 90%;
-    margin-top: 1em;
+    width: 98%;
+    /* margin-top: 1em; */
     border-radius: 8px;
   }
   .form .side {
-    width: 48%;
+    width: 33%;
   }
   .form input[type="submit"] {
     width: 30%;
   }
   .form input,
   .form select {
-    padding: 10px;
+    padding: 2px;
   }
   .form input[type="date"] {
     width: 70%;
