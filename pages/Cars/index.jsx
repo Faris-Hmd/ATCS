@@ -2,7 +2,7 @@
 import styles from "../../styles/Cars.module.css";
 
 import { useEffect, useState } from "react";
-import { useRef } from "react";
+// import { useRef } from "react";
 // import { useReactToPrint } from "react-to-print";
 // import { BsPrinter } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
@@ -10,12 +10,12 @@ import { baseUrl } from "../_app";
 import { useRouter } from "next/router";
 // import CarsReportToPrint from "../../component/CarsReportToPrint/CarsReportToPrint";
 // import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+// import { db } from "../../firebase/firebase";
 var cDate = new Date();
 const Cars = () => {
   const [cars, setCars] = useState([]);
   const [keyword, setKeyword] = useState([]);
-  const componentRef = useRef();
+  // const componentRef = useRef();
   const router = useRouter();
 
   const handleNav = (bookNum) => {
@@ -117,11 +117,13 @@ const Cars = () => {
               <tr
                 className={styles.tableRow}
                 style={{ background: item.state === "غادر" && "red" }}
-                key={index}>
+                key={index}
+              >
                 <td className={styles.index}>{1 + index}</td>
                 <td
                   className={styles.ownerName}
-                  onClick={() => handleNav(item.bookNum)}>
+                  onClick={() => handleNav(item.bookNum)}
+                >
                   {item.ownerFName + "  "}
                   {item.ownerSName + "  "}
                   {item.ownerTName + "  "}

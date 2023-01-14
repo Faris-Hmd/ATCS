@@ -1,6 +1,32 @@
 /** @format */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
+.printContainer {
+  /* min-width: 120%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.header {
+  padding: 15px;
+  border-bottom: 2px solid black;
+  width: 100%;
+  text-align: center;
+}
+.header .dateCon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.header .title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.header .for {
+  font-size: larger;
+  text-indent: 15px;
+}
 .fillterMenu {
   display: flex;
   justify-content: space-between;
@@ -55,9 +81,8 @@
   color: royalblue;
 }
 .table {
-  width: 100%;
   margin: 0 auto;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   /* font-size: larger; */
   text-align: center;
   border-bottom: 1.5px solid var(--shadow-clr);
@@ -68,6 +93,7 @@
 }
 .tableBody {
   scrollbar-width: none;
+  min-width: 100%;
 }
 .tableHead {
   background-color: royalblue;
@@ -85,7 +111,7 @@
   text-align: right;
   padding: 5px 10px;
 
-  /* width: 30%; */
+  width: 50%;
 }
 .tableHeaderRow {
   border-bottom: 1.5px solid var(--shadow-clr);
@@ -95,7 +121,6 @@
   text-align: center;
 }
 .index {
-
   font-weight: 650;
   width: 2%;
 }

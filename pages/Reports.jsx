@@ -22,16 +22,9 @@ const Reports = () => {
       .then((res) => res.json())
       .then((data) => setCars(data));
   };
-  useEffect(() => {
-    console.log(cars.length);
-  }, [cars]);
+
   return (
     <div className={formStyles.contenier}>
-      {cars.length > 0 && (
-        <div className="hidden">
-          <CarsReportToPrint ref={componentRef} value={cars} />
-        </div>
-      )}
       <div className="label">
         تقرير السيارات
         <form className={"w-60 " + formStyles.form}>
@@ -58,11 +51,14 @@ const Reports = () => {
           <BsPrinter />
         </div>
       </div>
-      <div className={formStyles.side}>
-        {cars.map((car) => (
+        {cars.length > 0 && (
+          <div>
+            <CarsReportToPrint ref={componentRef} value={cars} />
+          </div>
+        )}
+        {/* {cars.map((car) => (
           <h2>{car.ownerFName}</h2>
-        ))}
-      </div>
+        ))} */}
     </div>
   );
 };
