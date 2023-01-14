@@ -1,14 +1,17 @@
 /** @format */
 
-/* @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"); */
 /** @format */
+
 html,
 body {
   padding: 0;
   margin: 0;
   scrollbar-width: thin;
-  font-family: "Noto Sans Arabic", sans-serif;
+  /* font-family: "Noto Sans Arabic"; */
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 .w-50 {
   min-width: 50%;
@@ -34,11 +37,9 @@ a {
 
 * {
   box-sizing: border-box;
-}
-* {
-  font-family: "Noto Sans Arabic", sans-serif;
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 600;
   scroll-behavior: smooth;
 }
 
@@ -99,7 +100,6 @@ a {
 .label {
   background-color: royalblue;
   /* padding: 10px; */
-  font-size: 1.2em;
   text-align: right;
   width: 100%;
   direction: rtl;
@@ -110,6 +110,7 @@ a {
   padding: 5px;
   padding-right: 20px;
 }
+
 .btn-con {
   display: flex;
   justify-content: space-between;
@@ -139,6 +140,7 @@ input {
   border: none;
   border-bottom: 2px solid var(--shadow-clr);
   background-color: var(--sec-clr);
+  padding: 5px;
 }
 input::placeholder {
   color: var(--font-clr);
@@ -152,16 +154,6 @@ input:focus {
 input:read-only {
   cursor: not-allowed;
 } */
-label {
-  margin: 0;
-  margin-right: 10px;
-  padding: 0em 0.2em;
-  font-size: small;
-  cursor: pointer;
-  background-color: var(--hover-clr);
-  border-radius: 5px;
-  color: black;
-}
 
 .sep-line {
   border-top: thin solid var(--shadow-clr);
@@ -172,12 +164,15 @@ select {
   color: #eee;
   border-radius: 5px;
   border: none;
+  padding: 6px;
+  margin: 5px 0;
 }
 /** -------- GRID CONFIGRETION -----*/
 
 /** -------- MOBILE VIEW -----*/
 
 .App {
+  font-size: medium;
   position: fixed;
   top: 0;
   left: 0;
@@ -235,6 +230,9 @@ select {
   }
 }
 @media (min-width: 1000px) {
+  .label {
+    font-size: large;
+  }
   .rightSide {
     display: block;
   }
