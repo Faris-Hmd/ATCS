@@ -80,7 +80,7 @@ const Reports = () => {
         <tbody className={styles.tableBody}>
           {cars.map((item, index) => {
             // var diff = cDate.getTime() - item.enteringDateBySec;
-            var dayDiff = diff / (1000 * 60 * 60 * 24);
+            // var dayDiff = diff / (1000 * 60 * 60 * 24);
             return (
               <tr
                 className={styles.tableRow}
@@ -90,7 +90,6 @@ const Reports = () => {
                 <td className={tableStyles.index}>{1 + index}</td>
                 <td
                   className={tableStyles.ownerName}
-                  onClick={() => handleNav(item.bookNum)}
                 >
                   {item.ownerFName + "  "}
                   {item.ownerSName + "  "}
