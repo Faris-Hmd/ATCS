@@ -6,7 +6,6 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
   const [car, setCar] = useState({});
 
   useEffect(() => {
-    // console.log("from priny", props.value);
     if (props.value) setCar(props.value);
   }, []);
 

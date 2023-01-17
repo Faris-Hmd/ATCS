@@ -1,13 +1,13 @@
 /** @format */
 
-import Menu from "../../pages/Menu";
-import ButtomNav from "../BottomNav/ButtomNav";
-import Navbar from "../Navbar/Navbar";
+import Menu from "../pages/Menu";
+import ButtomNav from "./ButtomNav";
+import Navbar from "./Navbar";
 
 /** @format */
 const Layout = ({ children }) => {
   return (
-    <div className={`App`}>
+    <div className={`App `}>
       <div className="rightSide"></div>
       <div className="leftSide">
         <Menu />

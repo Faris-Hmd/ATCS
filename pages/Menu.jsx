@@ -1,23 +1,14 @@
 /** @format */
 import { IconContext } from "react-icons";
-import {
-  BsFillMoonFill,
-  BsHouseDoor,
-  BsInfoCircle,
-  BsSunFill,
-} from "react-icons/bs";
+import { BsHouseDoor, BsInfoCircle } from "react-icons/bs";
 import { RiAdvertisementLine } from "react-icons/ri";
-import { VscSignOut } from "react-icons/vsc";
-
-import { MdOutlineLogin, MdOutlinePrivacyTip } from "react-icons/md";
-import { FaRegStar } from "react-icons/fa";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 import { BiCategoryAlt, BiPlusCircle } from "react-icons/bi";
-
-import styles from "./Menu.module.css";
+import styles from "../styles/Menu.module.css";
 
 import Link from "next/link";
 
-const Menu = () => {
+function Menu() {
   return (
     <IconContext.Provider value={{ className: styles.menuIcons }}>
       <div className={styles.menu}>
@@ -56,6 +47,6 @@ const Menu = () => {
       </div>
     </IconContext.Provider>
   );
-};
+}
 
 export default Menu;

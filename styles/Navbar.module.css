@@ -1,5 +1,4 @@
 /** @format */
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
 .nav {
   display: flex;
   justify-content: space-between;
@@ -17,13 +16,9 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--font-clr);
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 .nav .logo span {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  color: royalblue;
+  color: var(--theme-clr);
 }
 .theme {
   padding: 0.6em;

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { BsPencil, BsPrinter, BsSave2 } from "react-icons/bs";
 import { useReactToPrint } from "react-to-print";
-import ExtentionReportToPrint from "../../component/ExtentionReportToPrint/ExtentionReportToPrint";
+import ExtentionReportToPrint from "../../component/ExtentionReportToPrint";
 import LeftingReportToPrint from "../../component/LeftingReportToPrint";
 import Styles from "../../styles/report.module.css";
 import { baseUrl } from "../_app";

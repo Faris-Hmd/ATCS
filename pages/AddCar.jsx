@@ -1,8 +1,8 @@
 /** @format */
 import axios from "axios";
 import { useState } from "react";
-import styles from "../../styles/Form.module.css";
-import { baseUrl } from "../_app";
+import styles from "../styles/Form.module.css";
+import { baseUrl } from "./_app";
 
 const AddCar = () => {
   const [car, setCar] = useState({
@@ -52,9 +52,9 @@ const AddCar = () => {
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.contenier}>
-          <div className="header">استمارة الافراج المؤقت</div>
+      <div className={"contenier"}>
+        <div className="header">استمارة الافراج المؤقت</div>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.side}>
             <div className={styles.inputGroup}>
               <div className={styles.inputGroupLabel}>بيانات المالك</div>
@@ -282,8 +282,8 @@ const AddCar = () => {
           <div className={styles.side}></div>
 
           <input type="submit" value="حفظ" disabled={isLoading} />
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 };

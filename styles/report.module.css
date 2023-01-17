@@ -1,6 +1,4 @@
 /** @format */
-
-.container,
 .printContainer {
   display: flex;
   justify-content: space-between;
@@ -12,22 +10,13 @@
   background-color: var(--sec-clr);
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 2px 2px 5px var(--shadow-clr);
 }
-.printContainer {
-  box-shadow: none;
-  margin: 0 auto;
-}
-.container .side {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
+
 .header {
   padding: 7px;
   border-bottom: 2px solid black;
   width: 100%;
+  text-align: center;
 }
 .header .dateCon {
   display: flex;
@@ -45,22 +34,6 @@
 
   text-indent: 15px;
 }
-.table {
-  min-width: 100%;
-  margin: 10px auto;
-}
-.table td:nth-child(1) {
-  width: 28%;
-  text-align: left;
-  padding-left: 5px;
-}
-
-.table tr:nth-child(1) input:nth-child(1),
-.table tr:nth-child(1) input:nth-child(2),
-.table tr:nth-child(1) input:nth-child(3),
-.table tr:nth-child(1) input:nth-child(4) {
-  /* width: 20%; */
-}
 
 .dateInput {
   width: 20%;
@@ -68,29 +41,6 @@
   margin: 0 5px;
 }
 
-.btn-con {
-}
-.checkBox {
-  cursor: pointer;
-  width: 25%;
-  background-color: #eee;
-  color: royalblue;
-  border-radius: 5px;
-  border: 2px solid royalblue;
-  padding: 2px 7px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-.checkBoxChecked {
-  width: 25%;
-  background-color: royalblue;
-  color: #eee;
-  border-radius: 5px;
-  border: none;
-  padding: 2px 7px;
-  margin: 0 10px;
-  cursor: pointer;
-}
 .stamps {
   display: flex;
   justify-content: space-between;
@@ -101,29 +51,4 @@
 .stamps div {
   text-align: center;
   width: 35%;
-}
-.printBtn {
-  display: flex;
-  justify-content: center;
-  flex-direction: column-reverse;
-  align-items: center;
-  padding: 100px;
-  align-items: center;
-  font-size: small;
-  width: 110px;
-}
-.printBtn div {
-}
-
-@media (min-width: 567px) {
-  .container {
-    width: 99%;
-    margin-top: 10px;
-    margin-left: 10px;
-    border-radius: 8px;
-  }
-
-  .container .side {
-    width: 49%;
-  }
 }

@@ -1,6 +1,6 @@
 /** @format */
 import React, { useEffect, useState } from "react";
-import Styles from "../../styles/report.module.css";
+import Styles from "../styles/report.module.css";
 
 const ExtentionReportToPrint = React.forwardRef((props, ref) => {
   const [car, setCar] = useState({});

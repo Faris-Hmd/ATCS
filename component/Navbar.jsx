@@ -1,4 +1,4 @@
-/** @format */ import styles from "../../styles/Navbar.module.css";
+/** @format */ import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
   return (
