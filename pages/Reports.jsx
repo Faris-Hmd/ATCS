@@ -18,7 +18,12 @@ const Reports = () => {
 
   const handleOnChange = async (e) => {
     setCars([]);
-    fetch(baseUrl + "/api/getCars?q=" + e.target.value)
+    fetch(
+      baseUrl +
+        "/api/getCars?q=" +
+        e.target.value +
+        "&&orderBy=enteringDateBySec"
+    )
       .then((res) => res.json())
       .then((data) => setCars(data));
   };
