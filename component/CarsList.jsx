@@ -35,7 +35,7 @@ function CarsList({ cars }) {
             <tr
               className={styles.tableRow}
               style={{ background: item.state === "غادر" && "red" }}
-              onClick={() => handleNav(cars.bookNum)}
+              onClick={() => handleNav(item.bookNum)}
               key={index}
             >
               <td className={styles.index}>{1 + index}</td>

@@ -1,25 +1,30 @@
 /** @format */
 import formStyles from "../styles/Form.module.css";
 import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSpinner } from "react-icons/fa";
 import { baseUrl } from "./_app";
 import CarsList from "../component/CarsList";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
-  const [keyword, setKeyword] = useState([]);
+  const [keyword, setKeyword] = useState("1/2023");
+  const [order, setOrder] = useState("enteringDateBySec");
+  const [loading, setIsLoading] = useState(true);
 
+  const getData = () => {
+    console.log(order);
+    setIsLoading(true);
+    fetch(`${baseUrl}/api/getCars?q=${keyword}&&orderBy=${order}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCars(data);
+        setIsLoading(false);
+      });
+  };
   const handleKeywordSearch = (e) => {
     e.preventDefault();
     console.log(keyword);
-    fetch(`${baseUrl}/api/getCars?q=${keyword}`)
-      .then((res) => res.json())
-      .then((data) => setCars(data));
-  };
-  const getDate = () => {
-    fetch(`${baseUrl}/api/getCars?q=1/2023`)
-      .then((res) => res.json())
-      .then((data) => setCars(data));
+    getData();
   };
   // const handlethreeMonthExUpdate = async (car) => {
   //   await updateDoc(doc(db, "cars", car.bookNum), {
@@ -41,9 +46,8 @@ const Cars = () => {
   // };
 
   useEffect(() => {
-    getDate();
-  }, []);
-
+    getData();
+  }, [order]);
   return (
     <div className={"contenier"}>
       <div className="header">
@@ -60,9 +64,24 @@ const Cars = () => {
           <button onClick={handleKeywordSearch}>
             <FaSearch />
           </button>
+          <select
+            name="order"
+            id=""
+            className="bg-w"
+            onChange={(e) => setOrder(e.target.value)}
+          >
+            <option value="enteringDateBySec">تاريخ الدخول</option>
+            <option value="bookNumNo">رقم الدفتر</option>
+          </select>
         </form>
       </div>
-      <CarsList cars={cars} />
+      {!loading ? (
+        <CarsList cars={cars} />
+      ) : (
+        <h2>
+          <FaSpinner size={"25px"} />
+        </h2>
+      )}
     </div>
   );
 };

@@ -8,11 +8,13 @@ export default async function handler(req, res) {
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
   const q = searchParams.get("q");
+  const order = searchParams.get("orderBy");
+
   const querySnapShot = await getDocs(
     query(
       collection(db, "cars"),
       where("keywords", "array-contains", q),
-      orderBy("ownerFName")
+      orderBy(order)
     )
   );
   const cars = querySnapShot.docs.map((car) => {

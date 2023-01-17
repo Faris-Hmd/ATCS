@@ -7,8 +7,11 @@ import { BsPencil, BsPrinter, BsSave2 } from "react-icons/bs";
 import { useReactToPrint } from "react-to-print";
 import ExtentionReportToPrint from "../../component/ExtentionReportToPrint";
 import LeftingReportToPrint from "../../component/LeftingReportToPrint";
-import Styles from "../../styles/report.module.css";
+import formStyles from "../../styles/Form.module.css";
+
 import { baseUrl } from "../_app";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 
 const CarDetail = () => {
   const [car, setCar] = useState({});
@@ -31,7 +34,6 @@ const CarDetail = () => {
     const { name, value } = event.target;
 
     if (event.target.type === "checkbox") {
-      console.log(444);
       setCar((prev) => {
         return { ...prev, [name]: event.target.checked };
       });
@@ -79,6 +81,17 @@ const CarDetail = () => {
       .catch(setIsLoading(false));
   };
 
+  // useEffect(() => {
+  //   const getdata = async () => {
+  //     const data = await getDocs(collection(db, "cars"));
+  //     const cars = data.docs.map((car) => {
+  //       return { ...car.data() };
+  //     });
+
+  //   };
+  //   getdata();
+  // }, []);
+
   useEffect(() => {
     console.log(bookNum);
     fetch(baseUrl + "/api/getCar?bookNum=" + bookNum)
@@ -88,393 +101,408 @@ const CarDetail = () => {
         setIsLoading(false);
       });
   }, []);
-  // useEffect(() => {
-  //   console.log(car);
-  // }, [car]);
-  return (
-    <div className={Styles.container}>
-      <div className="header">
-        <span>تفاصيل المركبة</span>
-        <span className="btn-con">
-          {isEditing && (
-            <span onClick={handleUpdate} className={Styles.printBtn}>
-              <div> حفظ</div>
 
-              <BsSave2 size={"25px"} />
-            </span>
-          )}
-          {(car.threeMonthEx || car.sixMonthEx || car.leftEx) && !isEditing && (
-            <span onClick={handleExPrint} className={Styles.printBtn}>
-              <div>تمديد </div>
-
-              <BsPrinter size={"25px"} />
-            </span>
-          )}
-          {car.state === "غادر" && !isEditing && (
-            <span onClick={handleLeftPrint} className={Styles.printBtn}>
-              <div> مغادرة </div>
-
-              <BsPrinter size={"25px"} />
-            </span>
-          )}
-          <span
-            onClick={() => setIsEditing((prev) => !prev)}
-            className={Styles.printBtn}
-          >
-            <div> تعديل</div>
-
-            <BsPencil size={"25px"} />
+  if (isLoading) return <h2>Loading... </h2>;
+  if (car)
+    return (
+      <div className={"contenier"}>
+        <div className="header">
+          <span>استمارة الافراج المؤقت</span>
+          <span className="btn-con">
+            {isEditing && (
+              <div onClick={handleUpdate} className={"printBtn"}>
+                <BsSave2 size={"22px"} />
+                حفظ
+              </div>
+            )}
+            {(car.threeMonthEx || car.sixMonthEx || car.leftEx) &&
+              !isEditing && (
+                <div onClick={handleExPrint} className={"printBtn"}>
+                  <BsPrinter size={"22px"} />
+                  تمديد
+                </div>
+              )}
+            {car.state === "غادر" && !isEditing && (
+              <div onClick={handleLeftPrint} className={"printBtn"}>
+                <BsPrinter size={"22px"} />
+                مغادرة
+              </div>
+            )}
+            <div
+              onClick={() => setIsEditing((prev) => !prev)}
+              className={"printBtn"}
+            >
+              <BsPencil size={"22px"} />
+              تعديل
+            </div>
           </span>
-        </span>
-      </div>
-
-      {!isLoading ? (
-        <>
-          <div className={Styles.side}>
-            <form>
-              <table className={Styles.table}>
-                <tbody>
-                  <tr>
-                    <td>اسم المالك :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="ownerFName"
-                        placeholder="الاول"
-                        onChange={handleChage}
-                        value={car?.ownerFName}
-                      />{" "}
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="ownerSName"
-                        placeholder="الثاني"
-                        onChange={handleChage}
-                        value={car?.ownerSName}
-                      />{" "}
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="ownerTName"
-                        placeholder="الثالث"
-                        onChange={handleChage}
-                        value={car.ownerTName}
-                      />{" "}
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="ownerFoName"
-                        placeholder="الرابع"
-                        onChange={handleChage}
-                        value={car.ownerFoName}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>رقم الجواز :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="passport"
-                        placeholder="رقم الجواز"
-                        onChange={handleChage}
-                        value={car?.passport}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="w-40">العنوان :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="address"
-                        placeholder="العنوان"
-                        onChange={handleChage}
-                        value={car.address}
-                      />
-                    </td>
-                  </tr>
-                  <tr></tr>
-
-                  {car.carType && (
-                    <tr>
-                      <td>نوع المركبة :</td>
-                      <td>
-                        <input
-                          readOnly={!isEditing}
-                          type="text"
-                          name="carType"
-                          placeholder="ادخل ماركة المركبة"
-                          onChange={handleChage}
-                          value={car.carType}
-                        />
-                      </td>
-                    </tr>
-                  )}
-                  <tr>
-                    <td>ماركة المركبة :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="carModel"
-                        placeholder="ادخل ماركة المركبة"
-                        onChange={handleChage}
-                        value={car.carModel}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>موديل المركبة :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="carManDate"
-                        placeholder="موديل المركبة"
-                        onChange={handleChage}
-                        value={car.carManDate}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>رقم الهيكل :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="chaseNum"
-                        placeholder="موديل المركبة"
-                        onChange={handleChage}
-                        value={car.chaseNum}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>رقم اللوحة :</td>
-                    <td>
-                      {" "}
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="carPlate"
-                        placeholder="ادخل رقم اللوحة"
-                        onChange={handleChage}
-                        value={car?.carPlate}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>رقم الدفتر :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="bookNum"
-                        placeholder="رقم الدفتر"
-                        onChange={handleChage}
-                        value={car.bookNum}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>تاريخ الدفتر :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="bookDay"
-                        placeholder="اليوم"
-                        onChange={handleChage}
-                        className={Styles.dateInput}
-                        value={car.bookDay}
-                      />
-
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="bookMonth"
-                        placeholder="الشهر"
-                        onChange={handleChage}
-                        className={Styles.dateInput}
-                        value={car.bookMonth}
-                      />
-
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="bookYear"
-                        placeholder="السنة"
-                        onChange={handleChage}
-                        className={Styles.dateInput}
-                        value={car.bookYear}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>تاربخ الدخول :</td>
-                    <td>
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="enteringDay"
-                        placeholder="اليوم"
-                        onChange={handleChage}
-                        value={car.enteringDay}
-                        className={Styles.dateInput}
-                      />
-
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="enteringMonth"
-                        placeholder="الشهر"
-                        onChange={handleChage}
-                        className={Styles.dateInput}
-                        value={car.enteringMonth}
-                      />
-
-                      <input
-                        readOnly={!isEditing}
-                        type="text"
-                        name="enteringYear"
-                        placeholder="السنة"
-                        onChange={handleChage}
-                        className={Styles.dateInput}
-                        value={car.enteringYear}
-                      />
-                    </td>
-                  </tr>
-                  {car.state === "غادر" && (
-                    <tr>
-                      <td>تاريخ المغادرة : </td>
-                      <td>
-                        <input
-                          readOnly={!isEditing}
-                          type="text"
-                          name="leftDay"
-                          placeholder="اليوم"
-                          onChange={handleChage}
-                          className={Styles.dateInput}
-                          value={car.leftDay}
-                        />
-
-                        <input
-                          readOnly={!isEditing}
-                          type="text"
-                          name="leftMonth"
-                          placeholder="الشهر"
-                          onChange={handleChage}
-                          className={Styles.dateInput}
-                          value={car.leftMonth}
-                        />
-                        <input
-                          readOnly={!isEditing}
-                          type="text"
-                          name="leftYear"
-                          placeholder="السنة"
-                          onChange={handleChage}
-                          className={Styles.dateInput}
-                          value={car.leftYear}
-                        />
-                      </td>
-                    </tr>
-                  )}
-                  <tr>
-                    <td>الحالة :</td>
-                    <td>
-                      <select
-                        disabled={!isEditing}
-                        name="state"
-                        onChange={handleChage}
-                        value={car.state}
-                        defaultValue="موجود"
-                      >
-                        <option value="موجود">لم يغادر</option>
-                        <option value="غادر">غادر</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>التمديد :</td>
-                    <td>
-                      {" "}
-                      <input
-                        disabled={!isEditing}
-                        id="threeMonthEx"
-                        type="checkbox"
-                        name="threeMonthEx"
-                        onChange={handleChage}
-                        checked={car.threeMonthEx}
-                        className="hidden"
-                      />
-                      <input
-                        disabled={!isEditing}
-                        id="sixMonthEx"
-                        type="checkbox"
-                        name="sixMonthEx"
-                        onChange={handleChage}
-                        checked={car.sixMonthEx}
-                        className="hidden"
-                      />
-                      <input
-                        disabled={!isEditing}
-                        id="leftEx"
-                        type="checkbox"
-                        name="leftEx"
-                        onChange={handleChage}
-                        checked={car.leftEx}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="threeMonthEx"
-                        className={
-                          car.threeMonthEx
-                            ? Styles.checkBoxChecked
-                            : Styles.checkBox
-                        }
-                      >
-                        ثلاثة اشهر
-                      </label>
-                      <label
-                        htmlFor="sixMonthEx"
-                        className={
-                          car.sixMonthEx
-                            ? Styles.checkBoxChecked
-                            : Styles.checkBox
-                        }
-                      >
-                        ستة اشهر
-                      </label>
-                      <label
-                        htmlFor="leftEx"
-                        className={
-                          car.leftEx ? Styles.checkBoxChecked : Styles.checkBox
-                        }
-                      >
-                        مغادرة
-                      </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </form>
-          </div>
-          <div className={Styles.side}>
-            <div className="hidden">
-              <LeftingReportToPrint ref={leftReportRef} value={car} />
-              <ExtentionReportToPrint ref={exReportRef} value={car} />
+        </div>
+        <form className={formStyles.form} onSubmit={handleUpdate}>
+          <div className={formStyles.side}>
+            <div className={formStyles.inputGroup}>
+              <div className={formStyles.inputGroupLabel}>بيانات المالك</div>
+              <div className={"w-50 " + formStyles.inputCon}>
+                <label htmlFor="ownerFName">الاسم الاول</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="ownerFName"
+                  placeholder="الاسم الاول"
+                  onChange={handleChage}
+                  value={car.ownerFName}
+                  className="w-50"
+                  required
+                />
+              </div>
+              <div className={formStyles.inputCon + " w-50"}>
+                <label htmlFor="ownerSName">الاسم الثاني</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="ownerSName"
+                  placeholder="الاسم الثاني"
+                  onChange={handleChage}
+                  value={car.ownerSName}
+                  className="w-50"
+                  required
+                />
+              </div>
+              <div className={formStyles.inputCon + " w-50"}>
+                <label htmlFor="ownerSName">الاسم الثالث</label>{" "}
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="ownerTName"
+                  placeholder="الاسم الثالث"
+                  onChange={handleChage}
+                  value={car.ownerTName}
+                  className="w-50"
+                  required
+                />
+              </div>
+              <div className={formStyles.inputCon + " w-50"}>
+                <label htmlFor="ownerSName">الاسم الرابع</label>{" "}
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="ownerFoName"
+                  placeholder="الاسم الرابع"
+                  onChange={handleChage}
+                  value={car.ownerFoName}
+                  className="w-50"
+                  required
+                />
+              </div>{" "}
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName">رقم الجواز</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="passport"
+                  placeholder="رقم الجواز"
+                  onChange={handleChage}
+                  value={car.passport}
+                  required
+                />
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName">رقم الدفتر</label>{" "}
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="bookNum"
+                  placeholder="رقم الدفتر"
+                  onChange={handleChage}
+                  value={car.bookNum}
+                  required
+                  min={8}
+                />
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName">العنوان</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="address"
+                  placeholder="العنوان"
+                  onChange={handleChage}
+                  value={car.address}
+                />
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName">رقم الهاتف</label>
+                <input
+                  readOnly={!isEditing}
+                  type="number"
+                  name="phone1"
+                  placeholder="رقم الهاتف"
+                  onChange={handleChage}
+                  value={car.phones1}
+                  required
+                />
+              </div>
             </div>
           </div>
-        </>
-      ) : (
-        <h2>Loading </h2>
-      )}
-    </div>
-  );
+          <div className={formStyles.side}>
+            {" "}
+            <div className={formStyles.inputGroup}>
+              <div className={formStyles.inputGroupLabel}>بيانات السيارة</div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="chaseNum">رقم الشاسيه</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="chaseNum"
+                  id="chaseNum"
+                  placeholder="رقم الشاسيه"
+                  onChange={handleChage}
+                  value={car.chaseNum}
+                  required
+                />
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName"> رقم اللوحة</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="carPlate"
+                  placeholder="ادخل رقم اللوحة"
+                  onChange={handleChage}
+                  value={car.carPlate}
+                />
+              </div>{" "}
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName"> ماركة المركبة</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="carType"
+                  placeholder="ادخل ماركة المركبة"
+                  onChange={handleChage}
+                  value={car.carType}
+                />
+              </div>{" "}
+              <div className={formStyles.inputCon}>
+                <label htmlFor="ownerSName">موديل المركبة</label>
+                <input
+                  readOnly={!isEditing}
+                  type="text"
+                  name="carManDate"
+                  placeholder="موديل المركبة"
+                  onChange={handleChage}
+                  value={car.carManDate}
+                />
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="bookType">نوع الدفتر</label>
+                <select
+                  disabled={!isEditing}
+                  name="bookType"
+                  id="bookType"
+                  onChange={handleChage}
+                  value={car.bookType}
+                  defaultValue={"عادي"}
+                  required
+                >
+                  <option value={"عادي"}>عادي</option>
+                  <option value={"سياحي"}>سياحي</option>
+                </select>{" "}
+                <label htmlFor="enteringtype">نوع الدخول</label>
+                <select
+                  disabled={!isEditing}
+                  name="enteringType"
+                  id="enteringtype"
+                  onChange={handleChage}
+                  value={car.enteringType}
+                  defaultValue={"جديد"}
+                  required
+                >
+                  <option value={"جديد"}>جديد</option>
+                  <option value={"مكرر"}>مكرر</option>
+                </select>
+              </div>
+              <label htmlFor="bookDate">تاريخ الدفتر</label>
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="bookDay"
+                placeholder="اليوم"
+                onChange={handleChage}
+                value={car.bookDay}
+                className={formStyles.dateInput + " w-20"}
+                min={0}
+                max={31}
+                maxLength={2}
+              />
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="bookMonth"
+                placeholder="الشهر"
+                onChange={handleChage}
+                value={car.bookMonth}
+                className={formStyles.dateInput + " w-20"}
+              />
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="bookYear"
+                placeholder="السنة"
+                onChange={handleChage}
+                value={car.bookYear}
+                className={formStyles.dateInput}
+              />
+              <label htmlFor="enteringDate">تاريخ الدخول</label>
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="enteringDay"
+                placeholder="اليوم"
+                onChange={handleChage}
+                className={formStyles.dateInput + " w-20"}
+                value={car.enteringDay}
+              />
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="enteringMonth"
+                placeholder="الشهر"
+                onChange={handleChage}
+                className={formStyles.dateInput + " w-20"}
+                value={car.enteringMonth}
+              />
+              <input
+                readOnly={!isEditing}
+                type="text"
+                name="enteringYear"
+                placeholder="السنة"
+                onChange={handleChage}
+                className={formStyles.dateInput}
+                value={car.enteringYear}
+              />
+            </div>
+            <div className={formStyles.inputGroup}>
+              {" "}
+              {car.state === "غادر" && (
+                <div className={formStyles.inputCon}>
+                  <label htmlFor="enteringDate">تاريخ المغادرة</label>
+
+                  <input
+                    readOnly={!isEditing}
+                    type="text"
+                    name="leftDay"
+                    placeholder="اليوم"
+                    onChange={handleChage}
+                    className={formStyles.dateInput}
+                    value={car.leftDay}
+                  />
+
+                  <input
+                    readOnly={!isEditing}
+                    type="text"
+                    name="leftMonth"
+                    placeholder="الشهر"
+                    onChange={handleChage}
+                    className={formStyles.dateInput}
+                    value={car.leftMonth}
+                  />
+                  <input
+                    readOnly={!isEditing}
+                    type="text"
+                    name="leftYear"
+                    placeholder="السنة"
+                    onChange={handleChage}
+                    className={formStyles.dateInput}
+                    value={car.leftYear}
+                  />
+                </div>
+              )}
+              <div className={formStyles.inputCon + " w-50"}>
+                <label htmlFor="enteringDate"> الحالة</label>
+
+                <select
+                  disabled={!isEditing}
+                  name="state"
+                  onChange={handleChage}
+                  value={car.state}
+                  defaultValue="موجود"
+                >
+                  <option value="موجود">لم يغادر</option>
+                  <option value="غادر">غادر</option>
+                </select>
+              </div>
+              <div className={formStyles.inputCon}>
+                <label htmlFor="enteringDate"> التمديد</label>
+
+                <input
+                  disabled={!isEditing}
+                  id="threeMonthEx"
+                  type="checkbox"
+                  name="threeMonthEx"
+                  onChange={handleChage}
+                  checked={car.threeMonthEx}
+                  className="hidden"
+                />
+                <input
+                  disabled={!isEditing}
+                  id="sixMonthEx"
+                  type="checkbox"
+                  name="sixMonthEx"
+                  onChange={handleChage}
+                  checked={car.sixMonthEx}
+                  className="hidden"
+                />
+                <input
+                  disabled={!isEditing}
+                  id="leftEx"
+                  type="checkbox"
+                  name="leftEx"
+                  onChange={handleChage}
+                  checked={car.leftEx}
+                  className="hidden"
+                />
+                <label
+                  htmlFor="threeMonthEx"
+                  className={
+                    car.threeMonthEx
+                      ? formStyles.checkBoxChecked
+                      : formStyles.checkBox
+                  }
+                >
+                  اول
+                </label>
+                <label
+                  htmlFor="sixMonthEx"
+                  className={
+                    car.sixMonthEx
+                      ? formStyles.checkBoxChecked
+                      : formStyles.checkBox
+                  }
+                >
+                  ثاني
+                </label>
+                <label
+                  htmlFor="leftEx"
+                  className={
+                    car.leftEx
+                      ? formStyles.checkBoxChecked
+                      : formStyles.checkBox
+                  }
+                >
+                  مغادرة
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className={formStyles.side}></div>
+          {/* <input readOnly={!isEditing} type="submit" value="حفظ" disabled={isLoading} /> */}
+        </form>
+        <div className="hidden">
+          <LeftingReportToPrint ref={leftReportRef} value={car} />
+          <ExtentionReportToPrint ref={exReportRef} value={car} />
+        </div>
+      </div>
+    );
 };
 
 export default CarDetail;
