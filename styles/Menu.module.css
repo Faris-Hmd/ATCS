@@ -26,9 +26,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  padding: 0.5em 0;
-  text-indent: 10px;
+  min-width: 100%;
+  padding: .5em 0;
+  text-indent: 5px;
   font-size: 0.9rem;
   transition: all 300ms;
   border-bottom: 1px solid var(--shadow-clr);
@@ -55,5 +55,5 @@
 }
 .menuIcons {
   font-size: 22px;
-  margin: 8px 13px;
+  margin: 8px 10px;
 }

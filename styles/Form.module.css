@@ -1,37 +1,25 @@
 /** @format */
 .fillter {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  background-color: none;
-  min-width: 100%;
+  width: 100%;
   margin: auto;
 }
 .fillter input {
-  border: none;
-  flex-direction: row;
-  width: 60%;
-  transition: all 300ms;
   direction: rtl;
-  text-indent: 40px;
-  font-size: medium;
-  border-radius: 4px;
-  padding: 8px;
-  margin-right: 10px;
+  text-indent: 30px;
 }
-
+.fillter select {
+  text-indent: 20px;
+}
 .fillter button {
   position: absolute;
-  top: 8px;
-  right: 10px;
+  top: 15%;
+  right: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 33px;
   height: 33px;
-  margin: 0 2px;
   background-color: var(--theme-clr);
   color: #eee;
   border: none;
@@ -48,7 +36,6 @@
   direction: rtl;
   display: flex;
   flex-wrap: wrap;
-  /* align-items: baseline; */
   justify-content: space-between;
   border-radius: 8px;
   width: 100%;
@@ -83,18 +70,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-}
-
-.form div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.form .dateInput {
-  width: 33%;
 }
 
 .form input::placeholder {
@@ -153,6 +128,10 @@
   text-align: center;
 }
 @media (min-width: 570px) {
+  .fillter {
+    position: relative;
+    width: 70%;
+  }
   .form {
     width: 98%;
     border-radius: 8px;

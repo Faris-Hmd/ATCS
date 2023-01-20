@@ -2,8 +2,7 @@
 
 import { useRouter } from "next/router";
 import React from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
-import styles from "../styles/List.module.css";
+import { Table } from "react-bootstrap";
 
 function CarsList({ cars }) {
   const currentDate = new Date();
@@ -14,8 +13,8 @@ function CarsList({ cars }) {
   };
 
   return (
-    <Table className={styles.table} striped responsive={"sm"} hover>
-      <thead>
+    <Table striped responsive={"sm"} hover>
+      <thead style={{ backgroundColor: "var(--theme-clr)", color: "white" }}>
         <tr>
           <th>#</th>
           <th>اسم العميل</th>
@@ -37,10 +36,10 @@ function CarsList({ cars }) {
               key={index}
             >
               <td>{1 + index}</td>
-              <td>
+              <td style={{ minWidth: "200px" }}>
                 {`${item.ownerFName} ${item.ownerSName} ${item.ownerTName}`}
               </td>
-              <td>{item.carType}</td>
+              <td style={{ minWidth: "200px" }}>{item.carType}</td>
               <td>{item.bookNum}</td>
               <td>
                 {item.bookMonth}/{item.bookDay}/{item.bookYear}
