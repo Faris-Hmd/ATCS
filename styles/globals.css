@@ -3,7 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
 /* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"); */
 /** @format */
-
 html,
 body {
   padding: 0;
@@ -64,17 +63,14 @@ a {
 }
 .contenier {
   direction: rtl;
-  max-width: 98%;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6em 0;
-  padding-top: 0;
-  margin: 0.5em auto 1.2em;
-  border-radius: 8px;
+  border-radius: 0 0 8px;
   box-shadow: 5px 5px 5px var(--shadow-clr), -5px -5px 5px var(--shadow-clr);
-  background-color: var(--sec-clr);
+  background-color: var(--prime-clr);
   overflow: hidden;
 }
 
@@ -113,6 +109,7 @@ a {
 .rightSide {
   display: none;
   grid-area: rightSide;
+  border-left: 1px solid var(--shadow-clr);
 }
 .leftSide {
   border-right: 1px solid var(--shadow-clr);

@@ -10,10 +10,9 @@
   min-height: 100%;
   width: min(100%, 700px);
   margin: auto;
-
 }
 .optCon {
-  width: 90%;
+  width: 98%;
   margin: 10px 0;
   display: flex;
   justify-content: center;
@@ -31,9 +30,10 @@
   padding: 0.5em 0;
   text-indent: 10px;
   font-size: 0.9rem;
-
   transition: all 300ms;
   border-bottom: 1px solid var(--shadow-clr);
+  color: var(--font-clr);
+  text-decoration: none;
 }
 .opt:last-child {
   border: none;

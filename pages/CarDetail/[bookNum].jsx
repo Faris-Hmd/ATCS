@@ -10,8 +10,10 @@ import LeftingReportToPrint from "../../component/LeftingReportToPrint";
 import formStyles from "../../styles/Form.module.css";
 
 import { baseUrl } from "../_app";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+// import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+// import { db } from "../../firebase/firebase";
+import UserForm from "../../component/Form";
+import { FloatingLabel, Form } from "react-bootstrap";
 
 const CarDetail = () => {
   const [car, setCar] = useState({});
@@ -30,17 +32,15 @@ const CarDetail = () => {
   const handleLeftPrint = useReactToPrint({
     content: () => leftReportRef.current,
   });
-  const handleChage = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
-
     if (event.target.type === "checkbox") {
       setCar((prev) => {
         return { ...prev, [name]: event.target.checked };
       });
       return;
     }
-
-    console.log([name], event.target.checked);
+    console.log([name], value);
     if (value.split(" ").length > 1) return;
     setCar((prev) => {
       return { ...prev, [name]: value };
@@ -137,366 +137,201 @@ const CarDetail = () => {
             </div>
           </span>
         </div>
-        <form className={formStyles.form} onSubmit={handleUpdate}>
-          <div className={formStyles.side}>
-            <div className={formStyles.inputGroup}>
-              <div className={formStyles.inputGroupLabel}>بيانات المالك</div>
-              <div className={"w-50 " + formStyles.inputCon}>
-                <label htmlFor="ownerFName">الاسم الاول</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="ownerFName"
-                  placeholder="الاسم الاول"
-                  onChange={handleChage}
-                  value={car.ownerFName}
-                  className="w-50"
-                  required
-                />
-              </div>
-              <div className={formStyles.inputCon + " w-50"}>
-                <label htmlFor="ownerSName">الاسم الثاني</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="ownerSName"
-                  placeholder="الاسم الثاني"
-                  onChange={handleChage}
-                  value={car.ownerSName}
-                  className="w-50"
-                  required
-                />
-              </div>
-              <div className={formStyles.inputCon + " w-50"}>
-                <label htmlFor="ownerSName">الاسم الثالث</label>{" "}
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="ownerTName"
-                  placeholder="الاسم الثالث"
-                  onChange={handleChage}
-                  value={car.ownerTName}
-                  className="w-50"
-                  required
-                />
-              </div>
-              <div className={formStyles.inputCon + " w-50"}>
-                <label htmlFor="ownerSName">الاسم الرابع</label>{" "}
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="ownerFoName"
-                  placeholder="الاسم الرابع"
-                  onChange={handleChage}
-                  value={car.ownerFoName}
-                  className="w-50"
-                  required
-                />
-              </div>{" "}
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName">رقم الجواز</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="passport"
-                  placeholder="رقم الجواز"
-                  onChange={handleChage}
-                  value={car.passport}
-                  required
-                />
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName">رقم الدفتر</label>{" "}
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="bookNum"
-                  placeholder="رقم الدفتر"
-                  onChange={handleChage}
-                  value={car.bookNum}
-                  required
-                  min={8}
-                />
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName">العنوان</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="address"
-                  placeholder="العنوان"
-                  onChange={handleChage}
-                  value={car.address}
-                />
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName">رقم الهاتف</label>
-                <input
-                  readOnly={!isEditing}
-                  type="number"
-                  name="phone1"
-                  placeholder="رقم الهاتف"
-                  onChange={handleChage}
-                  value={car.phones1}
-                  required
-                />
-              </div>
+        <UserForm handleChange={handleChange} car={car} isEditing={isEditing}>
+          <div className={formStyles.inputGroup}>
+            <div className={formStyles.inputGroupLabel}>الاجرائات</div>
+            <div className="mb-2">
+              <label
+                htmlFor="threeMonthEx"
+                className={
+                  car.threeMonthEx
+                    ? formStyles.checkBoxChecked
+                    : formStyles.checkBox
+                }
+              >
+                تمديد الاول
+              </label>
+              <label
+                htmlFor="sixMonthEx"
+                className={
+                  car.sixMonthEx
+                    ? formStyles.checkBoxChecked
+                    : formStyles.checkBox
+                }
+              >
+                تمديد ثاني
+              </label>
+              <label
+                htmlFor="leftMonthEx"
+                className={
+                  car.leftEx ? formStyles.checkBoxChecked : formStyles.checkBox
+                }
+              >
+                تمديد مغادرة
+              </label>
             </div>
-          </div>
-          <div className={formStyles.side}>
-            {" "}
-            <div className={formStyles.inputGroup}>
-              <div className={formStyles.inputGroupLabel}>بيانات السيارة</div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="chaseNum">رقم الشاسيه</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="chaseNum"
-                  id="chaseNum"
-                  placeholder="رقم الشاسيه"
-                  onChange={handleChage}
-                  value={car.chaseNum}
-                  required
-                />
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName"> رقم اللوحة</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="carPlate"
-                  placeholder="ادخل رقم اللوحة"
-                  onChange={handleChage}
-                  value={car.carPlate}
-                />
-              </div>{" "}
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName"> ماركة المركبة</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="carType"
-                  placeholder="ادخل ماركة المركبة"
-                  onChange={handleChage}
-                  value={car.carType}
-                />
-              </div>{" "}
-              <div className={formStyles.inputCon}>
-                <label htmlFor="ownerSName">موديل المركبة</label>
-                <input
-                  readOnly={!isEditing}
-                  type="text"
-                  name="carManDate"
-                  placeholder="موديل المركبة"
-                  onChange={handleChage}
-                  value={car.carManDate}
-                />
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="bookType">نوع الدفتر</label>
-                <select
-                  disabled={!isEditing}
-                  name="bookType"
-                  id="bookType"
-                  onChange={handleChage}
-                  value={car.bookType}
-                  defaultValue={"عادي"}
-                  required
+            {car.threeMonthEx && (
+              <Form.Group className="mb-2">
+                <FloatingLabel
+                  controlId="threeMonthExRec"
+                  label="رقم ايصال التمديد الاول"
                 >
-                  <option value={"عادي"}>عادي</option>
-                  <option value={"سياحي"}>سياحي</option>
-                </select>{" "}
-                <label htmlFor="enteringtype">نوع الدخول</label>
-                <select
-                  disabled={!isEditing}
-                  name="enteringType"
-                  id="enteringtype"
-                  onChange={handleChage}
-                  value={car.enteringType}
-                  defaultValue={"جديد"}
-                  required
-                >
-                  <option value={"جديد"}>جديد</option>
-                  <option value={"مكرر"}>مكرر</option>
-                </select>
-              </div>
-              <label htmlFor="bookDate">تاريخ الدفتر</label>
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="bookDay"
-                placeholder="اليوم"
-                onChange={handleChage}
-                value={car.bookDay}
-                className={formStyles.dateInput + " w-20"}
-                min={0}
-                max={31}
-                maxLength={2}
-              />
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="bookMonth"
-                placeholder="الشهر"
-                onChange={handleChage}
-                value={car.bookMonth}
-                className={formStyles.dateInput + " w-20"}
-              />
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="bookYear"
-                placeholder="السنة"
-                onChange={handleChage}
-                value={car.bookYear}
-                className={formStyles.dateInput}
-              />
-              <label htmlFor="enteringDate">تاريخ الدخول</label>
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="enteringDay"
-                placeholder="اليوم"
-                onChange={handleChage}
-                className={formStyles.dateInput + " w-20"}
-                value={car.enteringDay}
-              />
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="enteringMonth"
-                placeholder="الشهر"
-                onChange={handleChage}
-                className={formStyles.dateInput + " w-20"}
-                value={car.enteringMonth}
-              />
-              <input
-                readOnly={!isEditing}
-                type="text"
-                name="enteringYear"
-                placeholder="السنة"
-                onChange={handleChage}
-                className={formStyles.dateInput}
-                value={car.enteringYear}
-              />
-            </div>
-            <div className={formStyles.inputGroup}>
-              {" "}
-              {car.state === "غادر" && (
-                <div className={formStyles.inputCon}>
-                  <label htmlFor="enteringDate">تاريخ المغادرة</label>
-
-                  <input
-                    readOnly={!isEditing}
+                  <Form.Control
                     type="text"
-                    name="leftDay"
+                    value={car.threeMonthExRec}
+                    placeholder="threeMonthExRec"
+                    name="threeMonthExRec"
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                    required
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            )}
+            {car.sixMonthEx && (
+              <Form.Group className="mb-2">
+                <FloatingLabel
+                  controlId="sixMonthExRec"
+                  label="رقم ايصال التمديد الثاني"
+                >
+                  <Form.Control
+                    type="text"
+                    value={car.sixMonthExRec}
+                    placeholder="رقم ايصال التمديد الثاني"
+                    name="sixMonthExRec"
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                    required
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            )}
+            {car.leftEx && (
+              <Form.Group className="mb-2">
+                <FloatingLabel
+                  controlId="leftExRec"
+                  label="رقم ايصال تمديد المغادرة"
+                >
+                  <Form.Control
+                    type="text"
+                    value={car.leftExRec}
+                    placeholder="رقم ايصال تمديد المغادرة"
+                    name="leftEx"
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                    required
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            )}
+            {car.state && (
+              <Form.Group className="mb-2">
+                <FloatingLabel controlId="state" label="الحالة">
+                  <Form.Select
+                    type="text"
+                    value={car?.state}
+                    placeholder="الحالة"
+                    name="state"
+                    onChange={handleChange}
+                    disabled={!isEditing}
+                    required
+                  >
+                    <option value="لم يغادر">لم يغادر</option>
+                    <option value="غادر">غادر</option>
+                  </Form.Select>
+                </FloatingLabel>
+              </Form.Group>
+            )}{" "}
+            {car.state === "غادر" && (
+              <>
+                <FloatingLabel
+                  controlId="leftDay"
+                  label="اليوم"
+                  className={"w-30 mb-2"}
+                >
+                  <Form.Control
+                    type="text"
+                    value={car?.leftDay}
                     placeholder="اليوم"
-                    onChange={handleChage}
-                    className={formStyles.dateInput}
-                    value={car.leftDay}
-                  />
-
-                  <input
+                    name="leftDay"
+                    onChange={handleChange}
                     readOnly={!isEditing}
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="leftMonth"
+                  label="الشهر"
+                  className={"w-30 mb-2"}
+                >
+                  <Form.Control
                     type="text"
-                    name="leftMonth"
+                    value={car?.leftMonth}
                     placeholder="الشهر"
-                    onChange={handleChage}
-                    className={formStyles.dateInput}
-                    value={car.leftMonth}
-                  />
-                  <input
+                    name="leftMonth"
+                    onChange={handleChange}
                     readOnly={!isEditing}
-                    type="text"
-                    name="leftYear"
-                    placeholder="السنة"
-                    onChange={handleChage}
-                    className={formStyles.dateInput}
-                    value={car.leftYear}
                   />
-                </div>
-              )}
-              <div className={formStyles.inputCon + " w-50"}>
-                <label htmlFor="enteringDate"> الحالة</label>
-
-                <select
-                  disabled={!isEditing}
-                  name="state"
-                  onChange={handleChage}
-                  value={car.state}
-                  defaultValue="موجود"
+                </FloatingLabel>{" "}
+                <FloatingLabel
+                  controlId="leftYear"
+                  label="السنة"
+                  className={"w-30 mb-2"}
                 >
-                  <option value="موجود">لم يغادر</option>
-                  <option value="غادر">غادر</option>
-                </select>
-              </div>
-              <div className={formStyles.inputCon}>
-                <label htmlFor="enteringDate"> التمديد</label>
-
-                <input
+                  <Form.Control
+                    type="text"
+                    value={car?.leftYear}
+                    placeholder="السنة"
+                    name="leftYear"
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                  />
+                </FloatingLabel>
+              </>
+            )}
+            <Form.Group className="mb-2">
+              <FloatingLabel controlId="isViolate" label="المخالفة">
+                <Form.Select
+                  type="text"
+                  value={car?.isViolate}
+                  placeholder="المخالفة"
+                  name="isViolate"
+                  onChange={handleChange}
                   disabled={!isEditing}
-                  id="threeMonthEx"
-                  type="checkbox"
-                  name="threeMonthEx"
-                  onChange={handleChage}
-                  checked={car.threeMonthEx}
-                  className="hidden"
-                />
-                <input
-                  disabled={!isEditing}
-                  id="sixMonthEx"
-                  type="checkbox"
-                  name="sixMonthEx"
-                  onChange={handleChage}
-                  checked={car.sixMonthEx}
-                  className="hidden"
-                />
-                <input
-                  disabled={!isEditing}
-                  id="leftEx"
-                  type="checkbox"
-                  name="leftEx"
-                  onChange={handleChage}
-                  checked={car.leftEx}
-                  className="hidden"
-                />
-                <label
-                  htmlFor="threeMonthEx"
-                  className={
-                    car.threeMonthEx
-                      ? formStyles.checkBoxChecked
-                      : formStyles.checkBox
-                  }
                 >
-                  اول
-                </label>
-                <label
-                  htmlFor="sixMonthEx"
-                  className={
-                    car.sixMonthEx
-                      ? formStyles.checkBoxChecked
-                      : formStyles.checkBox
-                  }
-                >
-                  ثاني
-                </label>
-                <label
-                  htmlFor="leftEx"
-                  className={
-                    car.leftEx
-                      ? formStyles.checkBoxChecked
-                      : formStyles.checkBox
-                  }
-                >
-                  مغادرة
-                </label>
-              </div>
-            </div>
+                  <option value="غير مخالف">غير مخالف</option>
+                  <option value="مخالف">مخالف</option>
+                </Form.Select>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Check
+              style={{ display: "none" }}
+              disabled={!isEditing}
+              name={"threeMonthEx"}
+              id={"threeMonthEx"}
+              onChange={handleChange}
+              checked={car.threeMonthEx}
+              required
+            />
+            <Form.Check
+              style={{ display: "none" }}
+              disabled={!isEditing}
+              name={"sixMonthEx"}
+              id={"sixMonthEx"}
+              checked={car.sixMonthEx}
+              onChange={handleChange}
+              required
+            />
+            <Form.Check
+              style={{ display: "none" }}
+              disabled={!isEditing}
+              name={"leftEx"}
+              id={"leftEx"}
+              checked={car.leftEx}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div className={formStyles.side}></div>
-          {/* <input readOnly={!isEditing} type="submit" value="حفظ" disabled={isLoading} /> */}
-        </form>
+        </UserForm>
         <div className="hidden">
           <LeftingReportToPrint ref={leftReportRef} value={car} />
           <ExtentionReportToPrint ref={exReportRef} value={car} />

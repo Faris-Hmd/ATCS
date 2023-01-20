@@ -1,74 +1,28 @@
 /** @format */
 
 .table {
-  min-width: 100%;
+  min-width: 800px;
   margin: 0 auto;
-  text-align: center;
-  border-bottom: 1.5px solid var(--shadow-clr);
+  text-align: start;
   background-color: var(--sec-clr);
-  border-collapse: collapse;
   scrollbar-width: thin;
-}
-.table tBody {
-  scrollbar-width: none;
-  min-width: 100%;
 }
 .table thead {
   background-color: var(--theme-clr);
   color: #eee;
 }
-
-.tableRow:nth-child(even) {
-  background-color: lightgray;
-}
-.tableRow:hover {
-  background: darkgray;
-  outline: 1px solid black;
-}
-.ownerName {
-  text-align: right;
-  padding: 5px 10px;
-  width: 50%;
-}
-.tableHeaderRow {
-  border-bottom: 1.5px solid var(--shadow-clr);
-}
-
 .table th {
   padding: 10px 5px;
   text-align: center;
 }
-.index {
-  font-weight: 650;
-  width: 2%;
-}
-.diffDate {
-  width: 1%;
-}
-.enteringDate,
-.bookDate {
-  width: 10%;
-  text-align: right;
-  padding: 2px 10px;
-}
-.bookNum {
-  width: 30%;
-}
 
-.carType {
-  text-align: right;
-  width: 20%;
-}
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .table {
     width: 100%;
     font-size: 3.1vw;
   }
-  .bookDate,
-  .table th:nth-child(3) {
-    display: none;
-  }
+
   .diffDate {
     display: none;
   }
@@ -80,4 +34,4 @@
   .carType {
     display: none;
   }
-}
+} */

@@ -1,12 +1,12 @@
 /** @format */
 
 .w-50 {
-  min-width: 50%;
-  max-width: 50%;
+  min-width: 45%;
+  max-width: 45%;
 }
-.w-60 {
-  min-width: 60%;
-  max-width: 60%;
+.w-30 {
+  min-width: 30%;
+  max-width: 30%;
 }
 .w-20 {
   max-width: 20%;
@@ -36,7 +36,12 @@
   background-color: var(--light-orange-clr);
   color: var(--dark-orange-clr);
 }
-
+.hide {
+  display: none;
+}
+.table-responsive-sm {
+  width: 100%;
+}
 .header {
   background-color: var(--theme-clr);
   padding: 10px;
@@ -77,23 +82,24 @@
 .header .btn-con span:hover {
   background-color: rgb(6, 47, 168);
 }
-.Link {
+Link {
   color: var(--font-clr);
   text-decoration: none;
 }
-input {
-  width: 70%;
-  direction: rtl;
+
+/* input {
+  padding: 1em;
+  min-width: 70%;
   text-indent: 10px;
-  margin: 5px 0;
+
   text-indent: 5px;
   color: var(--font-clr);
   border: none;
   border-bottom: 2px solid var(--shadow-clr);
   background-color: var(--sec-clr);
-  padding: 5px;
 }
-.inputCon{
+
+.inputCon {
   width: 100%;
   background: #020202;
 }
@@ -101,10 +107,11 @@ input::placeholder {
   color: var(--font-clr);
   opacity: 0.5;
 }
+
 input:focus {
   outline: none;
   border-bottom-color: var(--theme-clr);
-}
+} */
 
 .sep-line {
   border-top: thin solid var(--shadow-clr);
