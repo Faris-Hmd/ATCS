@@ -1,8 +1,8 @@
 /** @format */
 
 import axios from "axios";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -12,13 +12,13 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import { auth } from "../firebase/firebase";
-import { baseUrl } from "./_app";
+import { baseUrl } from "../_app";
 
-function SignUp() {
+function UserDetail() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
+  const { uid } = router.query;
   function handleChage(event) {
     const { name, value } = event.target;
     if (value.split(" ").length > 1) return;
@@ -27,21 +27,12 @@ function SignUp() {
     });
   }
   function handleSubmit(event) {
-    setIsLoading(true);
     event.preventDefault();
-    if (userData.password !== userData.password2) return;
+    setIsLoading(true);
+    handleSetUserData();
     console.log(userData);
-    createUserWithEmailAndPassword(auth, userData.email, userData.password)
-      .then((userCredential) => {
-        handleSetUserData(userCredential.user.uid);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
   }
-  async function handleSetUserData(uid) {
+  async function handleSetUserData() {
     axios({
       method: "post",
       url: `${baseUrl}/api/addUser`,
@@ -58,6 +49,12 @@ function SignUp() {
       })
       .catch(setIsLoading(false));
   }
+
+  useEffect(() => {
+    fetch(baseUrl + "/api/getUser?uid=" + uid)
+      .then((res) => res.json())
+      .then((data) => setUserData(data));
+  }, []);
 
   return (
     <Container fluid dir="rtl">
@@ -127,7 +124,7 @@ function SignUp() {
                   name="userType"
                   placeholder="البريد الالكتروني"
                   onChange={handleChage}
-                  value={userData.usertype}
+                  value={userData.userType}
                 >
                   <option value="admin">مشرف</option>
                   <option value="swakinUser">مكتب سواكن</option>
@@ -145,4 +142,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default UserDetail;

@@ -1,16 +1,16 @@
 /** @format */
 
-import { FloatingLabel, Form } from "react-bootstrap";
-import styles from "../styles/Form.module.css";
+import { Col, Container, Form, Row } from "react-bootstrap";
+import InputGroup from "./InputGroup";
 
-function UserForm({ handleChange, car, isEditing, children }) {
+function UserForm({ handleChange, car, isEditing }) {
   const ownerDetail = [
     { name: "ownerFName", placeholder: "الاسم الاول", class: "w-50" },
     { name: "ownerSName", placeholder: "الاسم الثاني", class: "w-50" },
     { name: "ownerTName", placeholder: "الاسم الثالث", class: "w-50" },
     { name: "ownerFoName", placeholder: "الاسم الرابع", class: "w-50" },
-    { name: "passport", placeholder: "رقم الجواز", class: "" },
-    { name: "address", placeholder: "العنوان", class: "" },
+    { name: "passport", placeholder: "رقم الجواز", class: "w-100" },
+    { name: "address", placeholder: "العنوان", class: "w-100" },
     { name: "phone1", placeholder: " رقم الهاتف الاول", class: "w-50" },
     { name: "phone2", placeholder: " رقم الهاتف الثاني", class: "w-50" },
   ];
@@ -18,12 +18,12 @@ function UserForm({ handleChange, car, isEditing, children }) {
     {
       name: "chaseNum",
       placeholder: "رقم الهيكل",
-      class: "",
+      class: "w-100",
     },
     {
       name: "plateNum",
       placeholder: "رقم اللوحة",
-      class: "",
+      class: "w-100",
     },
     {
       name: "carType",
@@ -51,6 +51,7 @@ function UserForm({ handleChange, car, isEditing, children }) {
   ];
   const enteringDetail = [
     {
+      class: "w-100",
       name: "dest",
       placeholder: "جهة القدوم",
       type: "select",
@@ -62,164 +63,44 @@ function UserForm({ handleChange, car, isEditing, children }) {
   ];
 
   return (
-    <Form className={styles.form}>
-      <div className={styles.side}>
-        <div className={styles.inputGroup}>
-          <div className={styles.inputGroupLabel}>بيانات المالك</div>
-          {ownerDetail.map((item, index) => {
-            return (
-              <FloatingLabel
-                controlId={item.name}
-                label={item.placeholder}
-                className={(item.class && item.class) + " mb-2"}
-                key={index}
-              >
-                <Form.Control
-                  readOnly={!isEditing}
-                  placeholder={item.placeholder}
-                  type="text"
-                  value={car?.[item.name]}
-                  name={item.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FloatingLabel>
-            );
-          })}
-        </div>{" "}
-        <div className={styles.inputGroup}>
-          <div className={styles.inputGroupLabel}>بيانات الدفتر</div>
-          {bookDetail.map((item, index) => {
-            if (item.type === "select")
-              return (
-                <FloatingLabel
-                  controlId={item.name}
-                  label={item.placeholder}
-                  className={(item.class && item.class) + " mb-2"}
-                  key={index}
-                >
-                  <Form.Select
-                    disable={isEditing}
-                    placeholder={item.placeholder}
-                    value={car?.[item.name]}
-                    onChange={handleChange}
-                    required
-                    name={item.name}
-                  >
-                    {item.opt.map((option, index) => (
-                      <option key={index} value={option.value}>
-                        {option.value}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </FloatingLabel>
-              );
-            else
-              return (
-                <FloatingLabel
-                  controlId={item.name}
-                  label={item.placeholder}
-                  className={(item.class && item.class) + " mb-2"}
-                  key={index}
-                >
-                  <Form.Control
-                    readOnly={!isEditing}
-                    placeholder={item.placeholder}
-                    type="text"
-                    value={car?.[item.name]}
-                    onChange={handleChange}
-                    required
-                    maxLength={
-                      item.name === "bookDay" || item.name === "bookMonth"
-                        ? 2
-                        : 4
-                    }
-                  />
-                </FloatingLabel>
-              );
-          })}
-        </div>
-      </div>
-
-      <div className={styles.side}>
-        <div className={styles.inputGroup}>
-          <div className={styles.inputGroupLabel}>بيانات السيارة</div>
-          {carDetail.map((item, index) => {
-            return (
-              <FloatingLabel
-                controlId={item.name}
-                label={item.placeholder}
-                className={(item.class && item.class) + " mb-2"}
-                key={index}
-              >
-                <Form.Control
-                  readOnly={!isEditing}
-                  placeholder={item.placeholder}
-                  type="text"
-                  name={item.name}
-                  value={car?.[item.name]}
-                  onChange={handleChange}
-                  required
-                />
-              </FloatingLabel>
-            );
-          })}
-        </div>
-
-        <div className={styles.inputGroup}>
-          <div className={styles.inputGroupLabel}>بيانات الدخول</div>
-          {enteringDetail.map((item, index) => {
-            if (item.type === "select")
-              return (
-                <FloatingLabel
-                  controlId={item.name}
-                  label={item.placeholder}
-                  className={(item.class && item.class) + " mb-2"}
-                  key={index}
-                >
-                  <Form.Select
-                    disable={!isEditing}
-                    placeholder={item.placeholder}
-                    value={car?.[item.name]}
-                    onChange={handleChange}
-                    required
-                    name={item.name}
-                  >
-                    {item.opt.map((option, index) => (
-                      <option key={index} value={option.value}>
-                        {option.value}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </FloatingLabel>
-              );
-            else
-              return (
-                <FloatingLabel
-                  controlId={item.name}
-                  label={item.placeholder}
-                  className={(item.class && item.class) + " mb-2"}
-                  key={index}
-                >
-                  <Form.Control
-                    readOnly={!isEditing}
-                    placeholder={item.placeholder}
-                    type="text"
-                    value={car?.[item.name]}
-                    onChange={handleChange}
-                    required
-                    maxLength={
-                      item.name === "bookDay" || item.name === "bookMonth"
-                        ? 2
-                        : 4
-                    }
-                  />
-                </FloatingLabel>
-              );
-          })}
-        </div>
-      </div>
-      <div className={styles.side}>{children}</div>
+    <Form>
+      <Container>
+        <Row>
+          <Col xs={12} lg={4}>
+            <InputGroup
+              car={car}
+              title={"بيانات المالك"}
+              handleChage={handleChange}
+              isEditing={isEditing}
+              feilds={ownerDetail}
+            />
+            <InputGroup
+              car={car}
+              title={"بيانات الدخول"}
+              handleChage={handleChange}
+              isEditing={isEditing}
+              feilds={enteringDetail}
+            />
+          </Col>
+          <Col xs={12} lg={4}>
+            <InputGroup
+              car={car}
+              title={"بيانات الدفتر"}
+              handleChage={handleChange}
+              isEditing={isEditing}
+              feilds={bookDetail}
+            />
+            <InputGroup
+              car={car}
+              title={"بيانات السيارة"}
+              handleChage={handleChange}
+              isEditing={isEditing}
+              feilds={carDetail}
+            />
+          </Col>
+          <Col xs={12} lg={4}></Col>
+        </Row>
+      </Container>
     </Form>
   );
 }

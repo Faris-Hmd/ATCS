@@ -26,12 +26,6 @@ a {
   scroll-behavior: smooth;
 }
 
-.hidden {
-  display: none;
-}
-.disable {
-  opacity: 0.6;
-}
 :root {
   --theme-clr: royalblue;
   --sec-clr: #fdfdfd;
@@ -61,18 +55,7 @@ a {
   --dark-orange-clr: #cc6600;
   --hover-clr: #dedede;
 }
-.contenier {
-  direction: rtl;
-  max-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 0 0 8px;
-  box-shadow: 5px 5px 5px var(--shadow-clr), -5px -5px 5px var(--shadow-clr);
-  background-color: var(--prime-clr);
-  overflow: hidden;
-}
+
 
 /** -------- GRID CONFIGRETION -----*/
 

@@ -57,22 +57,10 @@ function Menu() {
               تسجيل الخروج
             </div>
           )}
-          <div className={styles.opt}>
+          <Link href="/Settings" className={styles.opt}>
             <BsGear />
-            <Accordion className="w-100 no-border" dir="rtl">
-              <Accordion.Item eventKey="0" className="w-100">
-                <Accordion.Header>الاعدادات</Accordion.Header>
-                <Accordion.Body>
-                  <Link href="/SignUp" className={styles.opt}>
-                    <FaUserPlus /> اضافة مستخدم
-                  </Link>{" "}
-                  <Link href="/SignUp" className={styles.opt}>
-                    <FaUserPlus /> اضافة مستخدم
-                  </Link>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </div>
+            الاعدادات
+          </Link>
         </div>
       </div>
     </IconContext.Provider>

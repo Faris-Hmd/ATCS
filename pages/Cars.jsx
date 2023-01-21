@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import { FaSearch, FaSpinner } from "react-icons/fa";
 import { baseUrl } from "./_app";
 import CarsList from "../component/CarsList";
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -56,7 +50,7 @@ const Cars = () => {
     getData();
   }, [order]);
   return (
-    <div className={"contenier"}>
+    <div className={"containe"}>
       <div className="header">
         <Form
           onSubmit={(e) => e.preventDefault()}

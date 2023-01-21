@@ -29,7 +29,7 @@ const Reports = () => {
   };
 
   return (
-    <div className={"contenier"}>
+    <div className={"containe"}>
       <div className="header">
         تقرير السيارات
         <form className={"w-60 " + formStyles.form}>
