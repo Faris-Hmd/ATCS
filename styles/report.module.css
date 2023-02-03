@@ -10,11 +10,13 @@
   background-color: var(--sec-clr);
   border-radius: 0;
   overflow: hidden;
+  /* font-size: .8rem; */
 }
-
+.table td:nth-child(odd) {
+  width: 110px;
+}
 .header {
   padding: 7px;
-  border-bottom: 2px solid black;
   width: 100%;
   text-align: center;
 }
@@ -26,13 +28,17 @@
 
 .header .title {
   text-align: center;
+  border-bottom: 3px solid black;
   font-size: 1.5rem;
+  max-width: max-content;
+  padding: 2px;
+  margin: .5em auto;
 }
 .header .for {
   font-size: larger;
   text-align: center;
-
-  text-indent: 15px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .dateInput {
@@ -46,6 +52,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 15px auto;
+  margin-top: 80px;
   width: 100%;
 }
 .stamps div {

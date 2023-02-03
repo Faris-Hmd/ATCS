@@ -1,35 +1,17 @@
 /** @format */
 .fillter {
-  position: relative;
-  width: 100%;
-  margin: auto;
+  background-color: var(--sec-clr);
+  border-radius: 5px;
 }
-.fillter input {
-  direction: rtl;
-  text-indent: 30px;
+.fillter .row > * {
+  padding: 0;
 }
-.fillter select {
-  text-indent: 20px;
-}
+
 .fillter button {
-  position: absolute;
-  top: 15%;
-  right: 15px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 33px;
-  height: 33px;
-  background-color: var(--theme-clr);
-  color: #eee;
   border: none;
+  border-left: 2px solid var(--shadow-clr);
   border-radius: 50%;
   transition: all 250ms;
-}
-.fillter button:hover {
-  transform: scale(1.1);
-  background-color: #eee;
-  color: var(--theme-clr);
 }
 
 .inputGroupLabel {
@@ -49,8 +31,6 @@
   margin: 10px auto;
   min-width: 100%;
 }
-
-
 
 .form input[type="submit"] {
   margin: 15px auto;

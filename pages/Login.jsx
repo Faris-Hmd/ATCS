@@ -15,6 +15,7 @@ import {
 import { UserContext } from "../context/userContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
+import styles from "../styles/Form.module.css";
 
 function Login() {
   const [userData, setUserData] = useState({});
@@ -57,7 +58,7 @@ function Login() {
     }
   }, [user, isLoading]);
   return (
-    <Container fluid dir="rtl">
+    <Container dir="rtl"  className="w-100">
       <Row>
         <Col>
           <div className="p-3 bg-clr">تسجيل الدخول</div>
@@ -66,11 +67,11 @@ function Login() {
       <Row className="justify-content-center">
         <Col xs={10} lg={5}>
           <Form className="justify-content-center" onSubmit={handleSubmit}>
-            <Form.Group className="inputGroup  mt-5 p-1">
+           <div className={styles.inputGroup}>
               <FloatingLabel
                 label="البريد الالكتروني"
                 controlId="email"
-                className="mb-2"
+                className="mb-2 w-100"
               >
                 <Form.Control
                   type="email"
@@ -83,7 +84,7 @@ function Login() {
               <FloatingLabel
                 label="كلمة المرور"
                 controlId="password"
-                className="mb-2"
+                className="mb-2 w-100"
               >
                 <Form.Control
                   type="password"
@@ -96,7 +97,7 @@ function Login() {
               <Button type="submit" className="mt-2 w-100" disabled={isLoading}>
                 {isLoading ? <Spinner /> : "تسجيل"}
               </Button>
-            </Form.Group>
+        </div>
           </Form>
         </Col>
       </Row>

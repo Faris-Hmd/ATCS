@@ -1,5 +1,4 @@
 /** @format */
-
 .w-50 {
   min-width: 45%;
   max-width: 45%;
@@ -16,18 +15,8 @@
 .table-responsive-sm {
   width: 100%;
 }
-.containe {
-  direction: rtl;
-  min-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--prime-clr);
-  overflow: hidden;
-}
+
 .header {
-  direction: rtl;
   background-color: var(--theme-clr);
   padding: 0.5em;
   min-width: 100%;
