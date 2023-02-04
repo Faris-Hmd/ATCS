@@ -15,7 +15,7 @@
   /* font-size: .8rem; */
 }
 .table td:nth-child(odd) {
-  width: 115px;
+  width: 120px;
 }
 .header {
   padding: 7px;
@@ -34,7 +34,7 @@
   font-size: 1.5rem;
   max-width: max-content;
   padding: 2px;
-  margin: .5em auto;
+  margin: 0.5em auto;
 }
 .header .for {
   font-size: larger;
