@@ -21,7 +21,7 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
               "/" +
               date.getMonth() +
               "/" +
-              (date.getDay() - 2)}
+              (date.getUTCDate())}
           </div>
           <div className={Styles.bookNum}>
             رقم/ن/س/ر/ {car.threeMonthExSerialNum}
