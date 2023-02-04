@@ -37,6 +37,7 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
         <tbody>
           <tr>
             <td>اســــــم المــــالك :</td>
+
             <td>
               {car.ownerFName} {car.ownerSName} {car.ownerTName}{" "}
               {car.ownerFoName}
@@ -48,11 +49,11 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
             <td>{car.passport}</td>
           </tr>
           <tr>
-            <td>العـــــــــــــــــــنوان :</td>
+            <td>العــــــــــــــــــــنوان :</td>
             <td>{car.address}</td>
           </tr>
           <tr>
-            <td>رقــــم الهــــــاتف :</td>
+            <td>رقـــــم الهــــــاتف :</td>
             <td>
               {car.phone1} {car.phone2}
             </td>

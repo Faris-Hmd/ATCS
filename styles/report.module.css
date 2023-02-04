@@ -10,10 +10,12 @@
   background-color: var(--sec-clr);
   border-radius: 0;
   overflow: hidden;
+  padding: 5em;
+  padding-top: 7em;
   /* font-size: .8rem; */
 }
 .table td:nth-child(odd) {
-  width: 120px;
+  width: 115px;
 }
 .header {
   padding: 7px;
