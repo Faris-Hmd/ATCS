@@ -18,7 +18,7 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
             التاريخ{" "}
             {date.getFullYear() +
               "/" +
-              date.getMonth() +
+              (date.getMonth() + 1) +
               "/" +
               date.getUTCDate()}
           </div>

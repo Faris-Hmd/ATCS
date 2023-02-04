@@ -7,16 +7,26 @@ import {
   BiLogOut,
   BiPlusCircle,
   BiPrinter,
+  BiSync,
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
 import { UserContext } from "../context/userContext";
-import { useContext } from "react";
-import { Accordion } from "react-bootstrap";
-import { FaUser, FaUserAlt, FaUserPlus } from "react-icons/fa";
+import { useContext, useState } from "react";
+import { baseUrl } from "./_app";
+import { Spinner } from "react-bootstrap";
 
 function Menu() {
   const { user, handleSignOut } = useContext(UserContext);
+  const [syncing, setIsSyncing] = useState(false);
+
+  function dataSync() {
+    setIsSyncing(true);
+    fetch(baseUrl + "/api/dataSync")
+      .then((res) => res.json())
+      .then((data) => data === true && setIsSyncing(false))
+      .catch(setIsSyncing(false));
+  }
 
   return (
     <IconContext.Provider value={{ className: styles.menuIcons }}>
@@ -57,6 +67,15 @@ function Menu() {
               تسجيل الخروج
             </div>
           )}
+          <div
+            className={styles.opt}
+            onClick={() => {
+              !syncing && dataSync();
+            }}
+          >
+            {syncing ? <Spinner /> : <BiSync />}
+            مزامنة البيانات
+          </div>
           <Link href="/Settings" className={styles.opt}>
             <BsGear />
             الاعدادات

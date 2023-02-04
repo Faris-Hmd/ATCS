@@ -5,7 +5,6 @@ import { FaSearch } from "react-icons/fa";
 import { baseUrl } from "./_app";
 import CarsList from "../component/CarsList";
 import {
-  Button,
   Col,
   Container,
   Dropdown,
@@ -37,6 +36,7 @@ const Cars = () => {
     // console.log(keyword);
     getData();
   };
+
   // const handlethreeMonthExUpdate = async (car) => {
   //   await updateDoc(doc(db, "cars", car.bookNum), {
   //     threeMonthEx: !car.threeMonthEx,
@@ -57,7 +57,11 @@ const Cars = () => {
   // };
 
   useEffect(() => {
+    // updateIsVio();
+  }, [cars]);
+  useEffect(() => {
     getData();
+    // updateIsVio();
   }, [order]);
   return (
     <Container className="m-0 p-0">
