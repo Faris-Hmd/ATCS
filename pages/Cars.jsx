@@ -22,7 +22,6 @@ const Cars = () => {
   const [loading, setIsLoading] = useState(true);
 
   const getData = () => {
-    // console.log(order);
     setIsLoading(true);
     fetch(`${baseUrl}/api/getCars?q=${keyword}&&orderBy=${order}`)
       .then((res) => res.json())
@@ -33,7 +32,6 @@ const Cars = () => {
   };
   const handleKeywordSearch = (e) => {
     e.preventDefault();
-    // console.log(keyword);
     getData();
   };
 
@@ -57,12 +55,8 @@ const Cars = () => {
   // };
 
   useEffect(() => {
-    // updateIsVio();
-  }, [cars]);
-  useEffect(() => {
     getData();
-    // updateIsVio();
-  }, [order]);
+  }, [order, keyword]);
   return (
     <Container className="m-0 p-0">
       <Col className="header">
@@ -84,6 +78,7 @@ const Cars = () => {
                     onClick={handleKeywordSearch}
                     title={<FaSearch size={"22px"} />}
                   >
+                    <Dropdown.Header>الترتيب</Dropdown.Header>
                     <Dropdown.Item
                       onClick={(e) => setOrderBy("enteringDateBySec")}
                       href="#"
@@ -92,6 +87,35 @@ const Cars = () => {
                     </Dropdown.Item>
                     <Dropdown.Item onClick={(e) => setOrderBy("bookNumNo")}>
                       رقم الدفتر
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Header>الفرز</Dropdown.Header>
+
+                    <Dropdown.Item
+                      onClick={(e) => setKeyword("مخالف")}
+                      href="#"
+                    >
+                      مخالفين
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => setKeyword("مغادر")}>
+                      مغادرين
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item>
+                      <Form.Control
+                        type="date"
+                        name="keyword"
+                        onChange={(e) => setKeyword(e.target.value)}
+                        className="p-2 w-50
+                      rounded border-0"
+                      />
+                      <Form.Control
+                        type="date"
+                        name="keyword"
+                        onChange={(e) => setKeyword(e.target.value)}
+                        className="p-2 w-50
+                      rounded border-0"
+                      />
                     </Dropdown.Item>
                   </SplitButton>
                   <Form.Control

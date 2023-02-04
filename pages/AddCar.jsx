@@ -2,14 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-  ButtonGroup,
-  Col,
-  Container,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
-import { BsPrinter } from "react-icons/bs";
+import { Col, Container } from "react-bootstrap";
 import UserForm from "../component/UserForm";
 import { baseUrl } from "./_app";
 
@@ -17,9 +10,10 @@ const AddCar = () => {
   const router = useRouter();
   const [customer, setCustomer] = useState({
     bookType: "عادي",
-    enteringType: "جديد",
+    dest: "السعودية",
   });
   const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -32,26 +26,12 @@ const AddCar = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    var eDate = new Date(
-      `${customer.enteringMonth}/${customer.enteringDay}/${customer.enteringYear}`
-    );
+
     axios({
       method: "post",
       url: `${baseUrl}/api/addCars`,
       data: {
         ...customer,
-        enteringDate: `${customer.enteringMonth}/${customer.enteringYear}`,
-        enteringDateBySec: eDate.getTime(),
-        keywords: [
-          customer.ownerSName.trim(),
-          customer.ownerFName.trim(),
-          customer.ownerTName.trim(),
-          customer.ownerFoName.trim(),
-          customer.chaseNum.trim(),
-          customer.bookNum.trim(),
-          customer.bookType,
-          `${customer.enteringMonth}/${customer.enteringYear}`,
-        ],
       },
     })
       .then(() => {
@@ -60,7 +40,7 @@ const AddCar = () => {
 
         // setCar({});
       })
-      .catch(setIsLoading(false));
+      .catch((e) => setIsLoading(false));
   };
   useEffect(() => {
     console.log(customer);

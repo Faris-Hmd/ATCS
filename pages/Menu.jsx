@@ -67,12 +67,7 @@ function Menu() {
               تسجيل الخروج
             </div>
           )}
-          <div
-            className={styles.opt}
-            onClick={() => {
-              !syncing && dataSync();
-            }}
-          >
+          <div className={styles.opt} onClick={() => {}}>
             {syncing ? <Spinner /> : <BiSync />}
             مزامنة البيانات
           </div>
