@@ -168,7 +168,7 @@ const CarDetail = () => {
           </Tabs>
         </Col>
         {!isEditing && (
-          <div className="hidde">
+          <div className="hidden">
             <LeftingReportToPrint ref={leftReportRef} value={customer} />
             <ExtentionReportToPrint ref={exReportRef} value={customer} />
           </div>
