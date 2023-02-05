@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { UserProvider } from "../context/userContext";
 const internetUrl = "https://atcs-demo.netlify.app";
 const localurl = " http://localhost:3005";
-export const baseUrl = internetUrl;
+export const baseUrl = localurl;
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
