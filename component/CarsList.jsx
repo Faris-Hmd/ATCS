@@ -31,7 +31,12 @@ function CarsList({ cars }) {
           var dayDiff = diff / (1000 * 60 * 60 * 24);
           return (
             <tr
-              style={{ background: item.state === "غادر" && "pink" }}
+              style={{
+                background:
+                  item.state === "غادر"
+                    ? "lightGreen"
+                    : item.isViolate === "مخالف" && "pink",
+              }}
               onClick={() => handleNav(item.bookNum)}
               key={index}
             >

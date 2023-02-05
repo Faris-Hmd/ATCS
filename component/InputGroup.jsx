@@ -4,7 +4,7 @@ import React from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import styles from "../styles/Form.module.css";
 
-function InputGroup({ feilds, title, isEditing, handleChange, car }) {
+function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
   return (
     <div className={styles.inputGroup}>
       <div className={styles.inputGroupLabel}>{title}</div>
@@ -20,7 +20,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, car }) {
               <Form.Select
                 disable={!isEditing}
                 placeholder={feild.placeholder}
-                value={car?.[feild.name]}
+                value={customer?.[feild.name]}
                 onChange={handleChange}
                 required
                 name={feild.name}
@@ -42,15 +42,16 @@ function InputGroup({ feilds, title, isEditing, handleChange, car }) {
               key={index}
             >
               <Form.Control
+                name={feild.name}
                 readOnly={!isEditing}
                 placeholder={feild.placeholder}
                 type="text"
-                value={car?.[feild.name]}
+                value={customer?.[feild.name]}
                 onChange={handleChange}
                 required
-                maxLength={
-                  feild.name === "bookDay" || feild.name === "bookMonth" ? 2 : 4
-                }
+                // maxLength={
+                //   feild.name === "bookDay" || feild.name === "bookMonth" ? 2 : 4
+                // }
               />
             </FloatingLabel>
           );

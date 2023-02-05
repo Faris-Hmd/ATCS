@@ -1,15 +1,19 @@
-import React from 'react'
-import { FloatingLabel, Form } from 'react-bootstrap';
+/** @format */
+
+import React from "react";
+import { FloatingLabel, Form } from "react-bootstrap";
 import formStyles from "../styles/Form.module.css";
 
-function Actions({ handleChange, car, isEditing, }) {
+function Actions({ handleChange, customer, isEditing }) {
   return (
     <div className={formStyles.inputGroup + " w-50"}>
       <div className={formStyles.inputGroupLabel}>الاجرائات</div>
       <label
         htmlFor="threeMonthEx"
         className={
-          car.threeMonthEx ? formStyles.checkBoxChecked : formStyles.checkBox
+          customer.threeMonthEx
+            ? formStyles.checkBoxChecked
+            : formStyles.checkBox
         }
       >
         تمديد الاول
@@ -17,37 +21,54 @@ function Actions({ handleChange, car, isEditing, }) {
       <label
         htmlFor="sixMonthEx"
         className={
-          car.sixMonthEx ? formStyles.checkBoxChecked : formStyles.checkBox
+          customer.sixMonthEx ? formStyles.checkBoxChecked : formStyles.checkBox
         }
       >
         تمديد ثاني
       </label>
       <label
-        htmlFor="leftMonthEx"
+        htmlFor="leftEx"
         className={
-          car.leftEx ? formStyles.checkBoxChecked : formStyles.checkBox
+          customer.leftEx ? formStyles.checkBoxChecked : formStyles.checkBox
         }
       >
         تمديد مغادرة
       </label>
-      {car.threeMonthEx && (
-        <FloatingLabel
-          controlId="threeMonthExRec"
-          label="رقم ايصال التمديد الاول"
-          className="mb-2  w-100"
-        >
-          <Form.Control
-            type="text"
-            value={car.threeMonthExRec}
-            placeholder="threeMonthExRec"
-            name="threeMonthExRec"
-            onChange={handleChange}
-            readOnly={!isEditing}
-            required
-          />
-        </FloatingLabel>
+      {customer.threeMonthEx && (
+        <>
+          <FloatingLabel
+            controlId="threeMonthExRec"
+            label="رقم ايصال التمديد الاول"
+            className="mb-2  w-50"
+          >
+            <Form.Control
+              type="text"
+              value={customer.threeMonthExRec}
+              placeholder="threeMonthExRec"
+              name="threeMonthExRec"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="threeMonthExSerialNum"
+            label="رقم خطاب التمديد الاول"
+            className="mb-2  w-50"
+          >
+            <Form.Control
+              type="text"
+              value={customer.threeMonthExSerialNum}
+              placeholder="threeMonthExSerialNum"
+              name="threeMonthExSerialNum"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+        </>
       )}
-      {car.sixMonthEx && (
+      {customer.sixMonthEx && (
         <FloatingLabel
           controlId="sixMonthExRec"
           label="رقم ايصال التمديد الثاني"
@@ -55,7 +76,7 @@ function Actions({ handleChange, car, isEditing, }) {
         >
           <Form.Control
             type="text"
-            value={car.sixMonthExRec}
+            value={customer.sixMonthExRec}
             placeholder="رقم ايصال التمديد الثاني"
             name="sixMonthExRec"
             onChange={handleChange}
@@ -64,28 +85,45 @@ function Actions({ handleChange, car, isEditing, }) {
           />
         </FloatingLabel>
       )}
-      {car.leftEx && (
-        <FloatingLabel
-          controlId="leftExRec"
-          label="رقم ايصال تمديد المغادرة"
-          className="mb-2  w-100"
-        >
-          <Form.Control
-            type="text"
-            value={car.leftExRec}
-            placeholder="رقم ايصال تمديد المغادرة"
-            name="leftEx"
-            onChange={handleChange}
-            readOnly={!isEditing}
-            required
-          />
-        </FloatingLabel>
+      {customer.leftEx && (
+        <>
+          <FloatingLabel
+            controlId="leftExRec"
+            label="رقم ايصال تمديد المغادرة"
+            className="mb-2  w-50"
+          >
+            <Form.Control
+              type="text"
+              value={customer.leftExRec}
+              placeholder="رقم ايصال تمديد المغادرة"
+              name="leftEx"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="leftExSerialNum"
+            label="رقم خطاب تمديد المغادرة"
+            className="mb-2  w-50"
+          >
+            <Form.Control
+              type="text"
+              value={customer.leftExSerialNum}
+              placeholder="رقم خطاب تمديد المغادرة"
+              name="leftExSerialNum"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+        </>
       )}
-      {car.state && (
+      {
         <FloatingLabel controlId="state" label="الحالة" className="mb-2  w-100">
           <Form.Select
             type="text"
-            value={car?.state}
+            value={customer?.state}
             placeholder="الحالة"
             name="state"
             onChange={handleChange}
@@ -96,8 +134,8 @@ function Actions({ handleChange, car, isEditing, }) {
             <option value="غادر">غادر</option>
           </Form.Select>
         </FloatingLabel>
-      )}{" "}
-      {car.state === "غادر" && (
+      }
+      {customer.state === "غادر" && (
         <>
           <FloatingLabel
             controlId="leftDay"
@@ -106,7 +144,7 @@ function Actions({ handleChange, car, isEditing, }) {
           >
             <Form.Control
               type="text"
-              value={car?.leftDay}
+              value={customer?.leftDay}
               placeholder="اليوم"
               name="leftDay"
               onChange={handleChange}
@@ -120,7 +158,7 @@ function Actions({ handleChange, car, isEditing, }) {
           >
             <Form.Control
               type="text"
-              value={car?.leftMonth}
+              value={customer?.leftMonth}
               placeholder="الشهر"
               name="leftMonth"
               onChange={handleChange}
@@ -134,7 +172,7 @@ function Actions({ handleChange, car, isEditing, }) {
           >
             <Form.Control
               type="text"
-              value={car?.leftYear}
+              value={customer?.leftYear}
               placeholder="السنة"
               name="leftYear"
               onChange={handleChange}
@@ -150,7 +188,7 @@ function Actions({ handleChange, car, isEditing, }) {
       >
         <Form.Select
           type="text"
-          value={car?.isViolate}
+          value={customer?.isViolate}
           placeholder="المخالفة"
           name="isViolate"
           onChange={handleChange}
@@ -160,13 +198,14 @@ function Actions({ handleChange, car, isEditing, }) {
           <option value="مخالف">مخالف</option>
         </Form.Select>
       </FloatingLabel>
+
       <Form.Check
         style={{ display: "none" }}
         disabled={!isEditing}
         name={"threeMonthEx"}
         id={"threeMonthEx"}
         onChange={handleChange}
-        checked={car.threeMonthEx}
+        checked={customer.threeMonthEx}
         required
       />
       <Form.Check
@@ -174,7 +213,7 @@ function Actions({ handleChange, car, isEditing, }) {
         disabled={!isEditing}
         name={"sixMonthEx"}
         id={"sixMonthEx"}
-        checked={car.sixMonthEx}
+        checked={customer.sixMonthEx}
         onChange={handleChange}
         required
       />
@@ -183,7 +222,7 @@ function Actions({ handleChange, car, isEditing, }) {
         disabled={!isEditing}
         name={"leftEx"}
         id={"leftEx"}
-        checked={car.leftEx}
+        checked={customer.leftEx}
         onChange={handleChange}
         required
       />
@@ -191,4 +230,4 @@ function Actions({ handleChange, car, isEditing, }) {
   );
 }
 
-export default Actions
+export default Actions;

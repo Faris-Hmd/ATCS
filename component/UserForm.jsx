@@ -1,9 +1,16 @@
 /** @format */
 
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import InputGroup from "./InputGroup";
 
-function UserForm({ handleChange, car, isEditing }) {
+function UserForm({
+  handleChange,
+  customer,
+  isEditing,
+  handleSubmit,
+  isForm,
+  isLoading,
+}) {
   const ownerDetail = [
     { name: "ownerFName", placeholder: "الاسم الاول", class: "w-50" },
     { name: "ownerSName", placeholder: "الاسم الثاني", class: "w-50" },
@@ -28,12 +35,12 @@ function UserForm({ handleChange, car, isEditing }) {
     {
       name: "carType",
       placeholder: "ماركة المركبة",
-      class: "w-50",
+      class: "w-100",
     },
     {
       name: "carModel",
       placeholder: "موديل المركبة",
-      class: "w-50",
+      class: "w-100",
     },
   ];
   const bookDetail = [
@@ -63,43 +70,58 @@ function UserForm({ handleChange, car, isEditing }) {
   ];
 
   return (
-    <Form>
+    <Form className="pb-3">
       <Container>
         <Row>
           <Col xs={12} lg={4}>
             <InputGroup
-              car={car}
+              customer={customer}
               title={"بيانات المالك"}
-              handleChage={handleChange}
+              handleChange={handleChange}
               isEditing={isEditing}
               feilds={ownerDetail}
             />
+          </Col>
+
+          <Col xs={12} lg={4}>
             <InputGroup
-              car={car}
+              customer={customer}
+              title={"بيانات الدفتر"}
+              handleChange={handleChange}
+              isEditing={isEditing}
+              feilds={bookDetail}
+            />{" "}
+            <InputGroup
+              customer={customer}
               title={"بيانات الدخول"}
-              handleChage={handleChange}
+              handleChange={handleChange}
               isEditing={isEditing}
               feilds={enteringDetail}
             />
           </Col>
           <Col xs={12} lg={4}>
             <InputGroup
-              car={car}
-              title={"بيانات الدفتر"}
-              handleChage={handleChange}
-              isEditing={isEditing}
-              feilds={bookDetail}
-            />
-            <InputGroup
-              car={car}
+              customer={customer}
               title={"بيانات السيارة"}
-              handleChage={handleChange}
+              handleChange={handleChange}
               isEditing={isEditing}
               feilds={carDetail}
             />
           </Col>
-          <Col xs={12} lg={4}></Col>
         </Row>
+        {isForm && (
+          <Row className="d-flex justify-content-center">
+            <Col xs={12} lg={4}>
+              <Button
+                className="w-100"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <Spinner /> : "اضافة"}
+              </Button>
+            </Col>
+          </Row>
+        )}
       </Container>
     </Form>
   );

@@ -3,15 +3,14 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { BsPencil, BsPrinter, BsSave2 } from "react-icons/bs";
+import { BsPencil, BsPrinter, BsSave } from "react-icons/bs";
+import { ImBin } from "react-icons/im";
+
 import { useReactToPrint } from "react-to-print";
 import ExtentionReportToPrint from "../../component/ExtentionReportToPrint";
 import LeftingReportToPrint from "../../component/LeftingReportToPrint";
-
 import { baseUrl } from "../_app";
-// import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-// import { db } from "../../firebase/firebase";
-import UserForm from "../../component/Form";
+import UserForm from "../../component/UserForm";
 import {
   Button,
   ButtonGroup,
@@ -26,14 +25,13 @@ import {
 import Actions from "../../component/Actions";
 
 const CarDetail = () => {
-  const [car, setCar] = useState({});
+  const [customer, setCustomer] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   const route = useRouter();
+  const { bookNum } = route.query;
   const leftReportRef = useRef();
   const exReportRef = useRef();
-  const { bookNum } = route.query;
 
   const handleExPrint = useReactToPrint({
     content: () => exReportRef.current,
@@ -42,103 +40,88 @@ const CarDetail = () => {
   const handleLeftPrint = useReactToPrint({
     content: () => leftReportRef.current,
   });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (event.target.type === "checkbox") {
-      setCar((prev) => {
+      setCustomer((prev) => {
         return { ...prev, [name]: event.target.checked };
       });
-      return;
+    } else {
+      // if (value.split(" ").length > 1) return;
+      setCustomer((prev) => {
+        return { ...prev, [name]: value };
+      });
     }
-    console.log([name], value);
-    if (value.split(" ").length > 1) return;
-    setCar((prev) => {
-      return { ...prev, [name]: value };
-    });
   };
 
   const handleUpdate = async () => {
     setIsEditing(false);
     setIsLoading(true);
-    var eDate = new Date(
-      `${car.enteringMonth}/${car.enteringDay}/${car.enteringYear}`
-    );
     axios({
       method: "post",
       url: `${baseUrl}/api/addCars`,
       data: {
-        ...car,
-        enteringDate: `${car.enteringMonth}/${car.enteringYear}`,
-        enteringDateBySec: eDate.getTime(),
-        keywords: [
-          car.ownerSName,
-          car.ownerFName,
-          car.ownerTName,
-          car.ownerFoName,
-          car.bookNum,
-          car.bookType,
-          car.enteringType,
-          `${car.enteringMonth}/${car.enteringYear}`,
-          car.state,
-        ],
+        ...customer,
       },
     })
       .then((res) => {
-        setCar(res.data);
+        setCustomer(res.data);
         setIsLoading(false);
       })
       .catch(setIsLoading(false));
   };
-
-  // useEffect(() => {
-  //   const getdata = async () => {
-  //     const data = await getDocs(collection(db, "cars"));
-  //     const cars = data.docs.map((car) => {
-  //       return { ...car.data() };
-  //     });
-
-  //   };
-  //   getdata();
-  // }, []);
-
+  const handleDelete = () => {
+    fetch(baseUrl + "/api/dltCustomer?bookNum=" + bookNum).then(
+      route.push("/Cars")
+    );
+  };
   useEffect(() => {
-    console.log(bookNum);
+    // console.log(bookNum);
     fetch(baseUrl + "/api/getCar?bookNum=" + bookNum)
       .then((res) => res.json())
       .then((data) => {
-        setCar(data);
+        setCustomer(data);
         setIsLoading(false);
       });
   }, []);
 
   if (isLoading) return <h2>Loading... </h2>;
-  if (car)
+  if (customer)
     return (
-      <div className={"containe"}>
-        <div className="header">
-          <span>بيانات العميل</span>
-          <ButtonGroup size="sm">
+      <Container className="p-0 m-0">
+        <Col className="header">
+          <span>
+            <h4>بيانات العميل</h4>
+          </span>
+          <ButtonGroup className="rounded">
             <Button
               onClick={handleUpdate}
               variant="light"
               disabled={!isEditing}
             >
-              <BsSave2 size={"22px"} className="m-1" />
+              <BsSave size={"30px"} className="p-1" />
             </Button>
 
             <Button
               variant="light"
               onClick={() => setIsEditing((prev) => !prev)}
             >
-              <BsPencil size={"22px"} className="m-1" />
+              <BsPencil size={"30px"} className="p-1" />
             </Button>
-
-            {(car.threeMonthEx || car.sixMonthEx || car.leftEx) &&
+            {isEditing && (
+              <Button variant="light" onClick={() => handleDelete()}>
+                <ImBin size={"30px"} className="p-1" />
+              </Button>
+            )}
+            {(customer.threeMonthEx ||
+              customer.sixMonthEx ||
+              customer.leftEx) &&
               !isEditing && (
                 <DropdownButton
                   variant="light"
                   as={ButtonGroup}
-                  title={<BsPrinter size={"22px"} />}
+                  title={<BsPrinter size={"25px"} />}
                 >
                   <Dropdown.Item eventKey="1" onClick={handleExPrint}>
                     <div>تمديد</div>
@@ -149,44 +132,48 @@ const CarDetail = () => {
                 </DropdownButton>
               )}
           </ButtonGroup>
-        </div>
-        <Tabs className="bg-clr w-100">
-          <Tab
-            eventKey={"الاجرائات"}
-            title={"الاجرائات"}
-            tabClassName={"m-1 mb-0"}
-          >
-            <Container>
-              <Row className="justify-content-center">
-                <Col xs={"auto"} lg={4}>
-                  <Actions
-                    handleChange={handleChange}
-                    car={car}
-                    isEditing={isEditing}
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </Tab>
-          <Tab title="التفاصيل" eventKey="التفاصيل" tabClassName={"m-1 mb-0"}>
-            <Container>
-              <Row className="justify-content-center">
-                <Col>
-                  <UserForm
-                    handleChange={handleChange}
-                    car={car}
-                    isEditing={isEditing}
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </Tab>
-        </Tabs>
-        <div className="hidden">
-          <LeftingReportToPrint ref={leftReportRef} value={car} />
-          <ExtentionReportToPrint ref={exReportRef} value={car} />
-        </div>
-      </div>
+        </Col>
+        <Col>
+          <Tabs className="bg-clr w-100">
+            <Tab
+              eventKey={"الاجرائات"}
+              title={"الاجرائات"}
+              tabClassName={"m-1 mb-0"}
+            >
+              <Container>
+                <Row className="justify-content-center">
+                  <Col xs={"auto"} lg={6}>
+                    <Actions
+                      handleChange={handleChange}
+                      customer={customer}
+                      isEditing={isEditing}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </Tab>
+            <Tab title="التفاصيل" eventKey="التفاصيل" tabClassName={"m-1 mb-0"}>
+              <Container>
+                <Row className="justify-content-center">
+                  <Col>
+                    <UserForm
+                      handleChange={handleChange}
+                      customer={customer}
+                      isEditing={isEditing}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </Tab>
+          </Tabs>
+        </Col>
+        {!isEditing && (
+          <div className="hidden">
+            <LeftingReportToPrint ref={leftReportRef} value={customer} />
+            <ExtentionReportToPrint ref={exReportRef} value={customer} />
+          </div>
+        )}
+      </Container>
     );
 };
 

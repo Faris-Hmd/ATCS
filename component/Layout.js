@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 const Layout = ({ children }) => {
   return (
     <ThemeProvider dir="rtl">
-      <div className={`App `}>
+      <div className={`App`}>
         <div className="rightSide"></div>
         <div className="leftSide">
           <Menu />
