@@ -6,8 +6,6 @@ const ExtentionReportToPrint = React.forwardRef((props, ref) => {
   const [car, setCar] = useState({});
   const date = new Date();
   useEffect(() => {
-    // console.log("from priny", props.value);
-    console.log(date.getDay());
     if (props.value) setCar(props.value);
   }, []);
 

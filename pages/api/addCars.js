@@ -31,9 +31,9 @@ export default async function handler(req, res) {
     bookDateBySec: bookDate.getTime(),
     keywords: [
       ...new Set([
-        customer.bookNum.split("Ded")[1]
-          ? customer.bookNum.split("Ded")[1]
-          : customer.bookNum.split("Det")[1],
+        customer.bookNum.split("Ded0")[1]
+          ? customer.bookNum.split("Ded0")[1]
+          : customer.bookNum.split("Det0")[1],
         customer.ownerSName.trim(),
         customer.ownerFName.trim(),
         customer.ownerTName.trim(),

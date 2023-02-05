@@ -17,6 +17,9 @@
 .table td:nth-child(odd) {
   width: 120px;
 }
+.table td {
+  padding-bottom: 5px;
+}
 .header {
   padding: 7px;
   width: 100%;
