@@ -23,6 +23,7 @@ import {
   Tabs,
 } from "react-bootstrap";
 import Actions from "../../component/Actions";
+import LeftingExReportToPrint from "../../component/LeftingExReport";
 
 const CarDetail = () => {
   const [customer, setCustomer] = useState({});
@@ -32,6 +33,7 @@ const CarDetail = () => {
   const { bookNum } = route.query;
   const leftReportRef = useRef();
   const exReportRef = useRef();
+  const leftExReportRef = useRef();
 
   const handleExPrint = useReactToPrint({
     content: () => exReportRef.current,
@@ -39,6 +41,9 @@ const CarDetail = () => {
 
   const handleLeftPrint = useReactToPrint({
     content: () => leftReportRef.current,
+  });
+  const handleLeftExPrint = useReactToPrint({
+    content: () => leftExReportRef.current,
   });
 
   const handleChange = (event) => {
@@ -73,7 +78,7 @@ const CarDetail = () => {
   };
   const handleDelete = () => {
     fetch(baseUrl + "/api/dltCustomer?bookNum=" + bookNum).then(
-      route.push("/Cars")
+      route.push("/Cars"),
     );
   };
   useEffect(() => {
@@ -98,15 +103,13 @@ const CarDetail = () => {
             <Button
               onClick={handleUpdate}
               variant="light"
-              disabled={!isEditing}
-            >
+              disabled={!isEditing}>
               <BsSave size={"30px"} className="p-1" />
             </Button>
 
             <Button
               variant="light"
-              onClick={() => setIsEditing((prev) => !prev)}
-            >
+              onClick={() => setIsEditing((prev) => !prev)}>
               <BsPencil size={"30px"} className="p-1" />
             </Button>
             {isEditing && (
@@ -121,12 +124,14 @@ const CarDetail = () => {
                 <DropdownButton
                   variant="light"
                   as={ButtonGroup}
-                  title={<BsPrinter size={"25px"} />}
-                >
+                  title={<BsPrinter size={"25px"} />}>
                   <Dropdown.Item eventKey="1" onClick={handleExPrint}>
                     <div>تمديد</div>
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="2" onClick={handleLeftPrint}>
+                  <Dropdown.Item eventKey="2" onClick={handleLeftExPrint}>
+                    <div>تمديد مغادرة</div>
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="3" onClick={handleLeftPrint}>
                     <div>مغادرة</div>
                   </Dropdown.Item>
                 </DropdownButton>
@@ -138,8 +143,7 @@ const CarDetail = () => {
             <Tab
               eventKey={"الاجرائات"}
               title={"الاجرائات"}
-              tabClassName={"m-1 mb-0"}
-            >
+              tabClassName={"m-1 mb-0"}>
               <Container>
                 <Row className="justify-content-center">
                   <Col xs={"auto"} lg={6}>
@@ -171,6 +175,7 @@ const CarDetail = () => {
           <div className="hidden">
             <LeftingReportToPrint ref={leftReportRef} value={customer} />
             <ExtentionReportToPrint ref={exReportRef} value={customer} />
+            <LeftingExReportToPrint ref={leftExReportRef} value={customer} />
           </div>
         )}
       </Container>

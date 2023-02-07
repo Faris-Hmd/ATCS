@@ -22,7 +22,7 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
               "/" +
               date.getUTCDate()}
           </div>
-          <div className={Styles.bookNum}>رقم/ن/س/ر/ {car.leftExSerialNum}</div>
+          <div className={Styles.bookNum}>رقم/ن/س/ر/ {car.leftSerialNum}</div>
         </div>
         <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
         <div className={Styles.for}>
