@@ -89,7 +89,7 @@ const CarDetail = () => {
         setCustomer(data);
         setIsLoading(false);
       });
-  }, [bookNum]);
+  }, [route]);
 
   if (isLoading) return <h2>Loading... </h2>;
   if (customer)
