@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import styles from "../styles/Form.module.css";
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { baseUrl } from "../pages/_app";
 
@@ -33,7 +33,7 @@ function Premessions() {
         setUserType(data.userType);
         setPremessions(data.premessions);
         setUserChangeLoading(false);
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -65,7 +65,7 @@ function Premessions() {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
+      <Row className="justify-content-center">
         <Col xs={11} lg={6}>
           <Form>
             <Container>
