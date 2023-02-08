@@ -1,16 +1,9 @@
-import {
-  Col,
-  Container,
-  FloatingLabel,
-  Form,
-  Row,
-  Spinner,
-} from "react-bootstrap";
-import styles from "../styles/Form.module.css";
+import { Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { baseUrl } from "../pages/_app";
+import Loading from "./Loading";
 
 function Premessions() {
   const [premessions, setPremessions] = useState();
@@ -65,7 +58,57 @@ function Premessions() {
 
   return (
     <Container>
-      <Row className="justify-content-center">
+      <Tab.Container defaultActiveKey="#1">
+        <Row>
+          <Col xs={4}>
+            <ListGroup>
+              <ListGroup.Item
+                action
+                href="#1"
+                onClick={() => setUserType("admin")}>
+                مشرف
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
+                href="#2"
+                onClick={() => setUserType("swakinUser")}>
+                مكتب سواكن
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
+                href="#3"
+                onClick={() => setUserType("ksaUser")}>
+                مكتب السعودية
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+          <Col xs={8}>
+            {userChangeLoading ? (
+              <Tab.Content>
+                {premessionsList.map((item, index) => {
+                  return (
+                    <Tab.Pane eventKey={"#" + index + 1} key={index}>
+                      <div
+                        key={item.name}
+                        className={`mt-2 w-100 ${
+                          premessions?.includes(item.route)
+                            ? "checkBoxChecked"
+                            : "checkBox"
+                        }`}
+                        onClick={() => handlePremChange(item.route)}>
+                        {item.name}
+                      </div>
+                    </Tab.Pane>
+                  );
+                })}
+              </Tab.Content>
+            ) : (
+              <Loading />
+            )}
+          </Col>
+        </Row>
+      </Tab.Container>
+      {/* <Row className="justify-content-center">
         <Col xs={11} lg={6}>
           <Form>
             <Container>
@@ -106,7 +149,7 @@ function Premessions() {
             </Container>
           </Form>
         </Col>
-      </Row>
+      </Row> */}
     </Container>
   );
 }

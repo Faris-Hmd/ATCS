@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Spinner, Table } from "react-bootstrap";
+import { Col, Container, Row,  Table } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { baseUrl } from "../pages/_app";
 
@@ -14,7 +14,7 @@ function Users() {
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
-    
+
   return (
     <Container>
       <Row className="justify-content-center">
