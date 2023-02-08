@@ -12,7 +12,6 @@ import {
   InputGroup,
   Modal,
   Row,
-  Spinner,
 } from "react-bootstrap";
 import Loading from "../component/Loading";
 
@@ -59,45 +58,29 @@ const Cars = () => {
 
   useEffect(() => {
     getData();
-  }, [order, keyword]);
+  }, [order]);
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        keyboard={false}>
+      <Modal show={show} onHide={handleClose} keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>قائمة الفرز</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label
-            className="p-2 w-50
-                     ">
-            الترتيب
-          </Form.Label>
+          <Form.Label className="p-2 w-50">الترتيب</Form.Label>
           <Form.Select onChange={(e) => setOrderBy(e.target.value)}>
             <option value="bookNumNo">برقم الدفتر</option>
             <option value="enteringDateBySec">بتاريخ الدخول</option>
           </Form.Select>
-          <Form.Label
-            className="p-2 w-50
-                     ">
-            الحالة
-          </Form.Label>
+          <Form.Label className="p-2 w-50">الحالة</Form.Label>
           <Form.Select onChange={(e) => setKeyword(e.target.value)}>
             <option value="مخالف">مخالفين</option>
             <option value="مغادر">مغادرين</option>
           </Form.Select>
-          <Form.Label
-            className="p-2 w-50
-                     ">
-            من
-          </Form.Label>
+          <Form.Label className="p-2 w-50">من</Form.Label>
           <Form.Control
             type="date"
             name="keyword"
-            className="p-2 w-50
-                      rounded "
+            className="p-2 w-50 rounded"
           />
           <Form.Label>الى</Form.Label>
           <Form.Control
@@ -127,7 +110,9 @@ const Cars = () => {
                   onSubmit={(e) => e.preventDefault()}
                   className={formStyles.fillter + " w-100"}>
                   <InputGroup>
-                    <Button variant="outline-secondary ">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={handleKeywordSearch}>
                       <FaSearch />
                     </Button>
                     <Button variant="outline-secondary " onClick={handleShow}>
@@ -139,8 +124,7 @@ const Cars = () => {
                       name="keyword"
                       placeholder="ادخل الاسم, التاريخ, رقم الدفتر"
                       onChange={(e) => setKeyword(e.target.value)}
-                      className="p-2
-                      rounded border-0"
+                      className="p-2 rounded border-0"
                     />
                   </InputGroup>
                 </Form>
