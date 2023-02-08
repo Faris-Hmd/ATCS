@@ -24,6 +24,7 @@ import {
 } from "react-bootstrap";
 import Actions from "../../component/Actions";
 import LeftingExReportToPrint from "../../component/LeftingExReport";
+import Loading from "../../component/Loading";
 
 const CarDetail = () => {
   const [customer, setCustomer] = useState({});
@@ -76,22 +77,24 @@ const CarDetail = () => {
       })
       .catch(setIsLoading(false));
   };
+
   const handleDelete = () => {
     fetch(baseUrl + "/api/dltCustomer?bookNum=" + bookNum).then(
       route.push("/Cars"),
     );
   };
+
   useEffect(() => {
-    // console.log(bookNum);
+    if (!bookNum) return;
     fetch(baseUrl + "/api/getCar?bookNum=" + bookNum)
       .then((res) => res.json())
       .then((data) => {
         setCustomer(data);
         setIsLoading(false);
       });
-  }, [route]);
+  }, [bookNum]);
 
-  if (isLoading) return <h2>Loading... </h2>;
+  if (isLoading) return <Loading />;
   if (customer)
     return (
       <Container className="p-0 m-0">
@@ -100,12 +103,14 @@ const CarDetail = () => {
             <h4>بيانات العميل</h4>
           </span>
           <ButtonGroup className="rounded">
-            <Button
-              onClick={handleUpdate}
-              variant="light"
-              disabled={!isEditing}>
-              <BsSave size={"30px"} className="p-1" />
-            </Button>
+            {isEditing && (
+              <Button
+                onClick={handleUpdate}
+                variant="light"
+                disabled={!isEditing}>
+                <BsSave size={"30px"} className="p-1" />
+              </Button>
+            )}
 
             <Button
               variant="light"
