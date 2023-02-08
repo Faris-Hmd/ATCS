@@ -86,6 +86,7 @@ const Cars = () => {
           <Form.Control
             type="date"
             name="keyword"
+defaultValue = "2014-02-09"
             className="p-2 w-50
                       rounded"
           />
