@@ -18,7 +18,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               key={index}
             >
               <Form.Select
-                disable={!isEditing}
+                disabled={!isEditing}
                 placeholder={feild.placeholder}
                 value={customer?.[feild.name]}
                 onChange={handleChange}

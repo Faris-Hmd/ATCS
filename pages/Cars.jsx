@@ -8,13 +8,11 @@ import {
   Button,
   Col,
   Container,
-  Dropdown,
   Form,
   InputGroup,
   Modal,
   Row,
   Spinner,
-  SplitButton,
 } from "react-bootstrap";
 
 const Cars = () => {

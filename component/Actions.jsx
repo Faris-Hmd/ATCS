@@ -44,6 +44,21 @@ function Actions({ handleChange, customer, isEditing }) {
           <option value="غادر">غادر</option>
         </Form.Select>
       </FloatingLabel>
+      <FloatingLabel
+        controlId="isViolate"
+        label="المخالفة"
+        className="mb-2  w-100">
+        <Form.Select
+          type="text"
+          value={customer?.isViolate}
+          placeholder="المخالفة"
+          name="isViolate"
+          onChange={handleChange}
+          disabled={!isEditing}>
+          <option value="غير مخالف">غير مخالف</option>
+          <option value="مخالف">مخالف</option>
+        </Form.Select>
+      </FloatingLabel>
       {customer.threeMonthEx && (
         <>
           <FloatingLabel
@@ -183,21 +198,6 @@ function Actions({ handleChange, customer, isEditing }) {
           </FloatingLabel>
         </>
       )}
-      <FloatingLabel
-        controlId="isViolate"
-        label="المخالفة"
-        className="mb-2  w-100">
-        <Form.Select
-          type="text"
-          value={customer?.isViolate}
-          placeholder="المخالفة"
-          name="isViolate"
-          onChange={handleChange}
-          disabled={!isEditing}>
-          <option value="غير مخالف">غير مخالف</option>
-          <option value="مخالف">مخالف</option>
-        </Form.Select>
-      </FloatingLabel>
 
       <Form.Check
         style={{ display: "none" }}

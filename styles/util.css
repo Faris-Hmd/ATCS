@@ -12,14 +12,14 @@
   color: #020202;
   background-color: #f1f1f1;
 }
-.bg-b{
+.bg-b {
   background-color: aquamarine;
 }
 .table-responsive-sm {
   width: 100%;
 }
-.vh-100{
-  
+.modal-content {
+  direction: rtl;
 }
 .header {
   background-color: var(--theme-clr);
