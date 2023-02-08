@@ -14,6 +14,7 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import Loading from "../component/Loading";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -64,20 +65,52 @@ const Cars = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
         keyboard={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>قائمة الفرز</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
+          <Form.Label
+            className="p-2 w-50
+                     ">
+            الترتيب
+          </Form.Label>
+          <Form.Select onChange={(e) => setOrderBy(e.target.value)}>
+            <option value="bookNumNo">برقم الدفتر</option>
+            <option value="enteringDateBySec">بتاريخ الدخول</option>
+          </Form.Select>
+          <Form.Label
+            className="p-2 w-50
+                     ">
+            الحالة
+          </Form.Label>
+          <Form.Select onChange={(e) => setKeyword(e.target.value)}>
+            <option value="مخالف">مخالفين</option>
+            <option value="مغادر">مغادرين</option>
+          </Form.Select>
+          <Form.Label
+            className="p-2 w-50
+                     ">
+            من
+          </Form.Label>
+          <Form.Control
+            type="date"
+            name="keyword"
+            className="p-2 w-50
+                      rounded "
+          />
+          <Form.Label>الى</Form.Label>
+          <Form.Control
+            type="date"
+            name="keyword"
+            className="p-2 w-50
+                      rounded"
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            إغلاق
           </Button>
-          <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
       <Container className="m-0 p-0">
@@ -101,48 +134,6 @@ const Cars = () => {
                       <FaFilter />
                     </Button>
 
-                    {/* <SplitButton
-                      variant="outline-secondary"
-                      onClick={handleKeywordSearch}
-                      title={<FaSearch size={"22px"} />}>
-                      <Dropdown.Header>الترتيب</Dropdown.Header>
-                      <Dropdown.Item
-                        onClick={(e) => setOrderBy("enteringDateBySec")}
-                        href="#">
-                        تاريخ الدخول
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={(e) => setOrderBy("bookNumNo")}>
-                        رقم الدفتر
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Header>الفرز</Dropdown.Header>
-
-                      <Dropdown.Item
-                        onClick={(e) => setKeyword("مخالف")}
-                        href="#">
-                        مخالفين
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={(e) => setKeyword("مغادر")}>
-                        مغادرين
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item>
-                        <Form.Control
-                          type="date"
-                          name="keyword"
-                          onChange={(e) => setKeyword(e.target.value)}
-                          className="p-2 w-50
-                      rounded border-0"
-                        />
-                        <Form.Control
-                          type="date"
-                          name="keyword"
-                          onChange={(e) => setKeyword(e.target.value)}
-                          className="p-2 w-50
-                      rounded border-0"
-                        />
-                      </Dropdown.Item>
-                    </SplitButton> */}
                     <Form.Control
                       type="text"
                       name="keyword"
@@ -158,7 +149,7 @@ const Cars = () => {
           </Container>
         </Col>
         <Col className="text-center w-100">
-          {!loading ? <CarsList cars={cars} /> : <Spinner size={"25px"} />}
+          {!loading ? <CarsList cars={cars} /> : <Loading />}
         </Col>
       </Container>
     </>
