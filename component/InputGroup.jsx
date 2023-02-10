@@ -33,7 +33,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               </Form.Select>
             </FloatingLabel>
           );
-        else
+        else {
           return (
             <FloatingLabel
               controlId={feild.name}
@@ -45,16 +45,16 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
                 name={feild.name}
                 readOnly={!isEditing}
                 placeholder={feild.placeholder}
-                type="text"
+                type={feild.type}
+                min={feild.type === "date" ? "2021-07-01" : 0}
+                max={feild.type === "date" ? "2023-03-10" : 100}
                 value={customer?.[feild.name]}
                 onChange={handleChange}
                 required
-                // maxLength={
-                //   feild.name === "bookDay" || feild.name === "bookMonth" ? 2 : 4
-                // }
               />
             </FloatingLabel>
           );
+        }
       })}
     </div>
   );

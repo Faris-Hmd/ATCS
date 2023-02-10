@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import ExtentionReportToPrint from "../../component/ExtentionReportToPrint";
 import LeftingReportToPrint from "../../component/LeftingReportToPrint";
 import { baseUrl } from "../_app";
-import UserForm from "../../component/UserForm";
+import CustomerForm from "../../component/CustomerForm";
 import {
   Button,
   ButtonGroup,
@@ -84,7 +84,7 @@ const CarDetail = () => {
 
   const handleDelete = () => {
     fetch(baseUrl + "/api/dltCustomer?bookNum=" + bookNum).then(
-      route.push("/Cars"),
+      route.push("/Cars")
     );
   };
 
@@ -105,7 +105,8 @@ const CarDetail = () => {
         <Modal
           centered
           show={showDltModal}
-          onHide={() => setShowDltModal(false)}>
+          onHide={() => setShowDltModal(false)}
+        >
           <Modal.Header>
             <Modal.Title>
               هل انت متأكد من حذف
@@ -116,7 +117,8 @@ const CarDetail = () => {
             <Button
               onClick={() => handleDelete}
               variant="danger"
-              className="w-50">
+              className="w-50"
+            >
               حذف
               <ImBin size={"25px"} className="m-1" />
             </Button>
@@ -131,7 +133,8 @@ const CarDetail = () => {
           show={showRepModal}
           onHide={handleClose}
           // backdrop="static"
-          keyboard={false}>
+          keyboard={false}
+        >
           <Modal.Header>
             <Modal.Title>خطابات</Modal.Title>
           </Modal.Header>
@@ -139,19 +142,22 @@ const CarDetail = () => {
             <Button
               onClick={handleExPrint}
               disabled={!customer.threeMonthEx}
-              className="w-100 mb-2">
+              className="w-100 mb-2"
+            >
               <div>تمديد</div>
             </Button>
             <Button
               onClick={handleLeftExPrint}
               disabled={!customer.leftEx}
-              className="w-100 mb-2">
+              className="w-100 mb-2"
+            >
               <div>تمديد مغادرة</div>
             </Button>
             <Button
               onClick={handleLeftPrint}
               disabled={!customer.state === "غادر"}
-              className="w-100 mb-1">
+              className="w-100 mb-1"
+            >
               <div>مغادرة</div>
             </Button>
           </Modal.Body>
@@ -169,7 +175,8 @@ const CarDetail = () => {
             <ButtonGroup className="rounded overflow-hidden">
               <Button
                 variant="light"
-                onClick={() => setIsEditing((prev) => !prev)}>
+                onClick={() => setIsEditing((prev) => !prev)}
+              >
                 <BsPencil size={"25px"} />
               </Button>{" "}
               {!isEditing && (
@@ -182,12 +189,14 @@ const CarDetail = () => {
                   <Button
                     onClick={handleUpdate}
                     variant="light"
-                    disabled={!isEditing}>
+                    disabled={!isEditing}
+                  >
                     <BsSave size={"25px"} />
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => setShowDltModal(true)}>
+                    onClick={() => setShowDltModal(true)}
+                  >
                     <ImBin size={"25px"} />
                   </Button>{" "}
                 </>
@@ -199,7 +208,8 @@ const CarDetail = () => {
               <Tab
                 eventKey={"الاجرائات"}
                 title={"الاجرائات"}
-                tabClassName={"m-1 mb-0"}>
+                tabClassName={"m-1 mb-0"}
+              >
                 <Container>
                   <Row className="justify-content-center">
                     <Col xs={"auto"} lg={6}>
@@ -215,11 +225,12 @@ const CarDetail = () => {
               <Tab
                 title="التفاصيل"
                 eventKey="التفاصيل"
-                tabClassName={"m-1 mb-0"}>
+                tabClassName={"m-1 mb-0"}
+              >
                 <Container>
                   <Row className="justify-content-center">
                     <Col>
-                      <UserForm
+                      <CustomerForm
                         handleChange={handleChange}
                         customer={customer}
                         isEditing={isEditing}

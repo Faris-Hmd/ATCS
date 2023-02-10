@@ -3,7 +3,6 @@
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
-
 export default async function handler(req, res) {
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
@@ -12,13 +11,16 @@ export default async function handler(req, res) {
 
   const querySnapShot = await getDocs(
     query(
-      collection(db, "cars"),
+      collection(db, "customers"),
       where("keywords", "array-contains", q),
       orderBy(order)
     )
   );
-  const cars = querySnapShot.docs.map((car) => {
-    return { ...car.data() };
+  const customers = querySnapShot.docs.map((customer) => {
+    
+    return { ...customer.data(), customerId: customer.id };
   });
-  res.status(200).json(cars);
+
+  // console.log(customers);
+  res.status(200).json(customers);
 }

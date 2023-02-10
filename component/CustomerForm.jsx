@@ -3,7 +3,7 @@
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import InputGroup from "./InputGroup";
 
-function UserForm({
+function CustomerForm({
   handleChange,
   customer,
   isEditing,
@@ -12,61 +12,96 @@ function UserForm({
   isLoading,
 }) {
   const ownerDetail = [
-    { name: "ownerFName", placeholder: "الاسم الاول", class: "w-50" },
-    { name: "ownerSName", placeholder: "الاسم الثاني", class: "w-50" },
-    { name: "ownerTName", placeholder: "الاسم الثالث", class: "w-50" },
-    { name: "ownerFoName", placeholder: "الاسم الرابع", class: "w-50" },
-    { name: "passport", placeholder: "رقم الجواز", class: "w-100" },
-    { name: "address", placeholder: "العنوان", class: "w-100" },
-    { name: "phone1", placeholder: " رقم الهاتف الاول", class: "w-50" },
-    { name: "phone2", placeholder: " رقم الهاتف الثاني", class: "w-50" },
+    {
+      name: "ownerFName",
+      placeholder: "الاسم الاول",
+      class: "w-50",
+      type: "text",
+    },
+    {
+      name: "ownerSName",
+      placeholder: "الاسم الثاني",
+      class: "w-50",
+      type: "text",
+    },
+    {
+      name: "ownerTName",
+      placeholder: "الاسم الثالث",
+      class: "w-50",
+      type: "text",
+    },
+    {
+      name: "ownerFoName",
+      placeholder: "الاسم الرابع",
+      class: "w-50",
+      type: "text",
+    },
+    {
+      name: "passport",
+      placeholder: "رقم الجواز",
+      class: "w-100",
+      type: "text",
+    },
+    { name: "address", placeholder: "العنوان", class: "w-100", type: "text" },
+    {
+      name: "phone1",
+      placeholder: " رقم الهاتف الاول",
+      class: "w-50",
+      type: "text",
+    },
+    {
+      name: "phone2",
+      placeholder: " رقم الهاتف الثاني",
+      class: "w-50",
+      type: "text",
+    },
   ];
   const carDetail = [
     {
       name: "chaseNum",
       placeholder: "رقم الهيكل",
       class: "w-100",
+      type: "text",
     },
     {
       name: "plateNum",
       placeholder: "رقم اللوحة",
       class: "w-100",
+      type: "text",
     },
     {
       name: "carType",
       placeholder: "ماركة المركبة",
       class: "w-100",
+      type: "text",
     },
     {
       name: "carModel",
       placeholder: "موديل المركبة",
       class: "w-100",
+      type: "text",
     },
   ];
   const bookDetail = [
-    { name: "bookNum", placeholder: "رقم الدفتر", class: "w-50" },
+    { name: "bookNum", placeholder: "رقم الدفتر", class: "w-50", type: "text" },
     {
       name: "bookType",
       placeholder: "نوع الدفتر",
       type: "select",
       class: "w-50",
-      opt: [{ value: "سياحي" }, { value: "عادي" }],
+      opt: [{ value: "عادي" }, { value: "سياحي" }],
     },
-    { name: "bookDay", placeholder: "اليوم", class: "w-30" },
-    { name: "bookMonth", placeholder: "الشهر", class: "w-30" },
-    { name: "bookYear", placeholder: "السنة", class: "w-30" },
+    { name: "bookDate", type: "date", class: "w-100" },
   ];
   const enteringDetail = [
     {
       class: "w-100",
       name: "dest",
-      placeholder: "جهة القدوم",
+      placeholder: "جهة الوصول",
       type: "select",
       opt: [{ value: "السعودية" }, { value: "مصر" }],
     },
-    { name: "enteringDay", placeholder: "اليوم", class: "w-30" },
-    { name: "enteringMonth", placeholder: "الشهر", class: "w-30" },
-    { name: "enteringYear", placeholder: "السنة", class: "w-30" },
+    { name: "enteringDate", type: "date", class: "w-100" },
   ];
 
   return (
@@ -127,4 +162,4 @@ function UserForm({
   );
 }
 
-export default UserForm;
+export default CustomerForm;

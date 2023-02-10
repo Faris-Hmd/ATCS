@@ -4,9 +4,9 @@ import formStyles from "../styles/Form.module.css";
 import { BsPrinter } from "react-icons/bs";
 import { useRef, useState } from "react";
 import { baseUrl } from "./_app";
-import CarsReportToPrint from "../component/CarsReportToPrint";
+import CarsReportToPrint from "../component/CustomersReportToPrint";
 import { useReactToPrint } from "react-to-print";
-import CarsList from "../component/CarsList";
+import CarsList from "../component/CustomersList";
 
 const Reports = () => {
   const [cars, setCars] = useState([]);

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
-import UserForm from "../component/UserForm";
+import CustomerForm from "../component/CustomerForm";
 import { baseUrl } from "./_app";
 
 const AddCar = () => {
@@ -50,7 +50,7 @@ const AddCar = () => {
     <Container className="p-0 m-0">
       <Col className="header p-3">استمارة اضافة عميل</Col>
       <Col>
-        <UserForm
+        <CustomerForm
           customer={customer}
           handleChange={handleChange}
           isEditing={true}

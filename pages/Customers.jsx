@@ -3,7 +3,7 @@ import formStyles from "../styles/Form.module.css";
 import { useEffect, useState } from "react";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import { baseUrl } from "./_app";
-import CarsList from "../component/CarsList";
+import CarsList from "../component/CustomersList";
 import {
   Button,
   Col,
@@ -16,7 +16,7 @@ import {
 import Loading from "../component/Loading";
 
 const Cars = () => {
-  const [cars, setCars] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [keyword, setKeyword] = useState("1/2023");
   const [order, setOrderBy] = useState("enteringDateBySec");
   const [loading, setIsLoading] = useState(true);
@@ -26,7 +26,7 @@ const Cars = () => {
     fetch(`${baseUrl}/api/getCars?q=${keyword}&&orderBy=${order}`)
       .then((res) => res.json())
       .then((data) => {
-        setCars(data);
+        setCustomers(data);
         setIsLoading(false);
       });
   };
@@ -37,24 +37,6 @@ const Cars = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const handlethreeMonthExUpdate = async (car) => {
-  //   await updateDoc(doc(db, "cars", car.bookNum), {
-  //     threeMonthEx: !car.threeMonthEx,
-  //   });
-  //   getDate();
-  // };
-  // const handleSixMonthExUpdate = async (car) => {
-  //   await updateDoc(doc(db, "cars", car.bookNum), {
-  //     sixMonthEx: !car.sixMonthEx,
-  //   });
-  //   getDate();
-  // };
-  // const handleLeftExUpdate = async (car) => {
-  //   await updateDoc(doc(db, "cars", car.bookNum), {
-  //     leftEx: !car.leftEx,
-  //   });
-  //   getDate();
-  // };
 
   useEffect(() => {
     getData();
@@ -81,14 +63,17 @@ const Cars = () => {
             type="date"
             name="keyword"
             className="p-2 w-50 rounded"
+            min="2021-07-01"
+            max="2023-02-10"
           />
           <Form.Label>الى</Form.Label>
           <Form.Control
             type="date"
             name="keyword"
-defaultValue = "2014-02-09"
-            className="p-2 w-50
-                      rounded"
+            min="2021-07-01"
+            max="2023-02-10"
+            defaultValue="2014-02-09"
+            className="p-2 w-50 rounded"
           />
         </Modal.Body>
         <Modal.Footer>
@@ -109,11 +94,13 @@ defaultValue = "2014-02-09"
               <Col xs={12} className="d-flex justify-content-center m-1">
                 <Form
                   onSubmit={(e) => e.preventDefault()}
-                  className={formStyles.fillter + " w-100"}>
+                  className={formStyles.fillter + " w-100"}
+                >
                   <InputGroup>
                     <Button
                       variant="outline-secondary"
-                      onClick={handleKeywordSearch}>
+                      onClick={handleKeywordSearch}
+                    >
                       <FaSearch />
                     </Button>
                     <Button variant="outline-secondary " onClick={handleShow}>
@@ -133,8 +120,8 @@ defaultValue = "2014-02-09"
             </Row>
           </Container>
         </Col>
-        <Col className="text-center w-100">
-          {!loading ? <CarsList cars={cars} /> : <Loading />}
+        <Col className="text-center w-100 h-100">
+          {!loading ? <CarsList customer={customers} /> : <Loading />}
         </Col>
       </Container>
     </>

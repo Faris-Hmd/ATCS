@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Table } from "react-bootstrap";
 
-function CarsList({ cars }) {
+function CarsList({ customer }) {
   const currentDate = new Date();
   const router = useRouter();
 
-  const handleNav = (bookNum) => {
-    router.push("CarDetail/" + bookNum);
+  const handleNav = (customerId) => {
+    router.push("CustomerDetails/" + customerId);
   };
 
   return (
@@ -26,31 +26,36 @@ function CarsList({ cars }) {
         </tr>
       </thead>
       <tbody>
-        {cars.map((item, index) => {
-          var diff = currentDate.getTime() - item.enteringDateBySec;
+        {customer.map((customer, index) => {
+          var diff = currentDate.getTime() - customer.enteringDateBySec;
           var dayDiff = diff / (1000 * 60 * 60 * 24);
+          var eDate = new Date(customer.enteringDateBySec);
+          var bDate = new Date(customer.bookDateBySec);
+
           return (
             <tr
               style={{
                 background:
-                  item.state === "غادر"
+                  customer.state === "غادر"
                     ? "lightGreen"
-                    : item.isViolate === "مخالف" && "pink",
+                    : customer.isViolate === "مخالف" && "pink",
               }}
-              onClick={() => handleNav(item.bookNum)}
+              onClick={() => handleNav(customer.customerId)}
               key={index}
             >
               <td>{1 + index}</td>
-              <td style={{ minWidth: "200px" }}>
-                {`${item.ownerFName} ${item.ownerSName} ${item.ownerTName}`}
+              <td style={{ minWidth: "100px", textAlign: "right" }}>
+                {`${customer.ownerFName} ${customer.ownerSName} ${customer.ownerTName}`}
               </td>
-              <td style={{ minWidth: "200px" }}>{item.carType}</td>
-              <td>{item.bookNum}</td>
+              <td style={{ minWidth: "100px", textAlign: "right" }}>
+                {customer.carType}
+              </td>
+              <td>{customer.bookNum}</td>
               <td>
-                {item.bookMonth}/{item.bookDay}/{item.bookYear}
+                {eDate.getMonth() + 1}/{eDate.getDate()}/{eDate.getFullYear()}
               </td>
               <td>
-                {item.enteringMonth}/{item.enteringDay}/{item.enteringYear}
+                {bDate.getMonth() + 1}/{bDate.getDate()}/{bDate.getFullYear()}
               </td>
               <td>{Math.floor(dayDiff)}</td>
             </tr>
