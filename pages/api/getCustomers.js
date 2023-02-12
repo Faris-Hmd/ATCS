@@ -1,5 +1,4 @@
 /** @format */
-
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
@@ -13,11 +12,10 @@ export default async function handler(req, res) {
     query(
       collection(db, "customers"),
       where("keywords", "array-contains", q),
-      orderBy(order)
-    )
+      orderBy(order),
+    ),
   );
   const customers = querySnapShot.docs.map((customer) => {
-    
     return { ...customer.data(), customerId: customer.id };
   });
 

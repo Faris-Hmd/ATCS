@@ -17,7 +17,6 @@ const AddCar = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    // if (value.split(" ").length > 1) return;
     setCustomer((prev) => {
       return { ...prev, [name]: value };
     });
@@ -29,14 +28,14 @@ const AddCar = () => {
 
     axios({
       method: "post",
-      url: `${baseUrl}/api/addCars`,
+      url: `${baseUrl}/api/addCustomer`,
       data: {
         ...customer,
       },
     })
       .then(() => {
         setIsLoading(false);
-        router.push("/CarDetail/" + customer.bookNum.trim());
+        router.push("/CustomerDetails/" + customer.bookNum.trim());
 
         // setCar({});
       })

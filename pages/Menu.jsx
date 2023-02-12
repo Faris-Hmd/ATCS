@@ -36,11 +36,12 @@ function Menu() {
             <BsHouseDoor />
             الرئيسة
           </Link>
-          <Link href="/Cars" className={styles.opt}>
+          <Link href="/Customers" className={styles.opt}>
             <BiListUl />
             قائمة السيارات
           </Link>
-          <Link href="/AddCar" className={styles.opt}>
+          <Link href="/AddCustomer
+          " className={styles.opt}>
             <BiPlusCircle />
             اضافة سيارة
           </Link>

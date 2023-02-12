@@ -8,8 +8,8 @@ function CarsList({ customer }) {
   const currentDate = new Date();
   const router = useRouter();
 
-  const handleNav = (customerId) => {
-    router.push("CustomerDetails/" + customerId);
+  const handleNav = (bookNum) => {
+    router.push("CustomerDetails/" + bookNum);
   };
 
   return (
@@ -40,9 +40,8 @@ function CarsList({ customer }) {
                     ? "lightGreen"
                     : customer.isViolate === "مخالف" && "pink",
               }}
-              onClick={() => handleNav(customer.customerId)}
-              key={index}
-            >
+              onClick={() => handleNav(customer.bookNum)}
+              key={index}>
               <td>{1 + index}</td>
               <td style={{ minWidth: "100px", textAlign: "right" }}>
                 {`${customer.ownerFName} ${customer.ownerSName} ${customer.ownerTName}`}

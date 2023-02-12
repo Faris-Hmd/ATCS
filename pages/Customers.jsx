@@ -23,7 +23,7 @@ const Cars = () => {
   const [show, setShow] = useState(false);
   const getData = () => {
     setIsLoading(true);
-    fetch(`${baseUrl}/api/getCars?q=${keyword}&&orderBy=${order}`)
+    fetch(`${baseUrl}/api/getCustomers?q=${keyword}&&orderBy=${order}`)
       .then((res) => res.json())
       .then((data) => {
         setCustomers(data);

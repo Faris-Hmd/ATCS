@@ -7,11 +7,11 @@ import { BsPrinterFill } from "react-icons/bs";
 const ButtomNav = () => {
   return (
     <div className={styles.buttomNav}>
-      <Link href="/Cars" className={styles.page}>
+      <Link href="/Customers" className={styles.page}>
         <FaHome size={"25px"} />
         الرئيسية
       </Link>
-      <Link href="/AddCar" className={styles.page}>
+      <Link href="/AddCustomer" className={styles.page}>
         <BiPlusCircle size={"25px"} />
         اضافة
       </Link>

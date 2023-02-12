@@ -34,6 +34,7 @@ const CarDetail = () => {
 
   const route = useRouter();
   const { bookNum } = route.query;
+
   const leftReportRef = useRef();
   const exReportRef = useRef();
   const leftExReportRef = useRef();
@@ -54,6 +55,7 @@ const CarDetail = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    // console.log(value, name);
     if (event.target.type === "checkbox") {
       setCustomer((prev) => {
         return { ...prev, [name]: event.target.checked };
@@ -66,37 +68,40 @@ const CarDetail = () => {
   };
 
   const handleUpdate = async () => {
+    console.log(customer);
     setIsEditing(false);
     setIsLoading(true);
     axios({
       method: "post",
-      url: `${baseUrl}/api/addCars`,
+      url: `${baseUrl}/api/setCustomer`,
       data: {
         ...customer,
       },
     })
-      .then((res) => {
-        setCustomer(res.data);
-        setIsLoading(false);
-      })
+      .then(setIsLoading(false))
       .catch(setIsLoading(false));
   };
 
   const handleDelete = () => {
-    fetch(baseUrl + "/api/dltCustomer?bookNum=" + bookNum).then(
-      route.push("/Cars")
+    fetch(baseUrl + "/api/dltCustomer?customerId=" + customer.customerId).then(
+      route.push("/Cars"),
     );
   };
 
   useEffect(() => {
     if (!bookNum) return;
-    fetch(baseUrl + "/api/getCar?bookNum=" + bookNum)
+    console.log(bookNum);
+    fetch(baseUrl + "/api/getCustomer?bookNum=" + bookNum)
       .then((res) => res.json())
       .then((data) => {
         setCustomer(data);
         setIsLoading(false);
       });
   }, [bookNum]);
+
+  // useEffect(() => {
+  //   console.log(customer);
+  // }, [customer]);
 
   if (isLoading) return <Loading />;
   if (customer)
@@ -105,8 +110,7 @@ const CarDetail = () => {
         <Modal
           centered
           show={showDltModal}
-          onHide={() => setShowDltModal(false)}
-        >
+          onHide={() => setShowDltModal(false)}>
           <Modal.Header>
             <Modal.Title>
               هل انت متأكد من حذف
@@ -117,8 +121,7 @@ const CarDetail = () => {
             <Button
               onClick={() => handleDelete}
               variant="danger"
-              className="w-50"
-            >
+              className="w-50">
               حذف
               <ImBin size={"25px"} className="m-1" />
             </Button>
@@ -133,8 +136,7 @@ const CarDetail = () => {
           show={showRepModal}
           onHide={handleClose}
           // backdrop="static"
-          keyboard={false}
-        >
+          keyboard={false}>
           <Modal.Header>
             <Modal.Title>خطابات</Modal.Title>
           </Modal.Header>
@@ -142,22 +144,19 @@ const CarDetail = () => {
             <Button
               onClick={handleExPrint}
               disabled={!customer.threeMonthEx}
-              className="w-100 mb-2"
-            >
+              className="w-100 mb-2">
               <div>تمديد</div>
             </Button>
             <Button
               onClick={handleLeftExPrint}
               disabled={!customer.leftEx}
-              className="w-100 mb-2"
-            >
+              className="w-100 mb-2">
               <div>تمديد مغادرة</div>
             </Button>
             <Button
               onClick={handleLeftPrint}
               disabled={!customer.state === "غادر"}
-              className="w-100 mb-1"
-            >
+              className="w-100 mb-1">
               <div>مغادرة</div>
             </Button>
           </Modal.Body>
@@ -175,8 +174,7 @@ const CarDetail = () => {
             <ButtonGroup className="rounded overflow-hidden">
               <Button
                 variant="light"
-                onClick={() => setIsEditing((prev) => !prev)}
-              >
+                onClick={() => setIsEditing((prev) => !prev)}>
                 <BsPencil size={"25px"} />
               </Button>{" "}
               {!isEditing && (
@@ -189,14 +187,12 @@ const CarDetail = () => {
                   <Button
                     onClick={handleUpdate}
                     variant="light"
-                    disabled={!isEditing}
-                  >
+                    disabled={!isEditing}>
                     <BsSave size={"25px"} />
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => setShowDltModal(true)}
-                  >
+                    onClick={() => setShowDltModal(true)}>
                     <ImBin size={"25px"} />
                   </Button>{" "}
                 </>
@@ -208,8 +204,7 @@ const CarDetail = () => {
               <Tab
                 eventKey={"الاجرائات"}
                 title={"الاجرائات"}
-                tabClassName={"m-1 mb-0"}
-              >
+                tabClassName={"m-1 mb-0"}>
                 <Container>
                   <Row className="justify-content-center">
                     <Col xs={"auto"} lg={6}>
@@ -225,8 +220,7 @@ const CarDetail = () => {
               <Tab
                 title="التفاصيل"
                 eventKey="التفاصيل"
-                tabClassName={"m-1 mb-0"}
-              >
+                tabClassName={"m-1 mb-0"}>
                 <Container>
                   <Row className="justify-content-center">
                     <Col>
