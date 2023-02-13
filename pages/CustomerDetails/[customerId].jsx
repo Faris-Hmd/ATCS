@@ -33,7 +33,7 @@ const CarDetail = () => {
   const [showDltModal, setShowDltModal] = useState(false);
 
   const route = useRouter();
-  const { bookNum } = route.query;
+  const { customerId } = route.query;
 
   const leftReportRef = useRef();
   const exReportRef = useRef();
@@ -73,7 +73,7 @@ const CarDetail = () => {
     setIsLoading(true);
     axios({
       method: "post",
-      url: `${baseUrl}/api/setCustomer`,
+      url: `${baseUrl}/api/customer`,
       data: {
         ...customer,
       },
@@ -83,21 +83,21 @@ const CarDetail = () => {
   };
 
   const handleDelete = () => {
-    fetch(baseUrl + "/api/dltCustomer?customerId=" + customer.customerId).then(
+    fetch(baseUrl + "/api/customer?customerId=" + customer.customerId).then(
       route.push("/Cars"),
     );
   };
 
   useEffect(() => {
-    if (!bookNum) return;
-    console.log(bookNum);
-    fetch(baseUrl + "/api/getCustomer?bookNum=" + bookNum)
+    if (!customerId) return;
+    console.log(customerId);
+    fetch(baseUrl + "/api/customer?customerId=" + customerId)
       .then((res) => res.json())
       .then((data) => {
         setCustomer(data);
         setIsLoading(false);
       });
-  }, [bookNum]);
+  }, [customerId]);
 
   // useEffect(() => {
   //   console.log(customer);

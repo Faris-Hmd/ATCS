@@ -17,30 +17,47 @@ import Loading from "../component/Loading";
 
 const Cars = () => {
   const [customers, setCustomers] = useState([]);
-  const [keyword, setKeyword] = useState("1/2023");
+  const [startDate, setStartDate] = useState("2022-12-01");
+  const [endDate, setEndDate] = useState("2023-01-31");
+  const [repeatEntry, setRepeatEntry] = useState(false);
+  const [isViolate, setIsViolate] = useState("غير مخالف");
+  const [state, setState] = useState("لم يغادر");
+  const [keyword, setKeyword] = useState();
+  const [searchBy, setSearchBy] = useState("enteringDateBySec");
   const [order, setOrderBy] = useState("enteringDateBySec");
   const [loading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
   const getData = () => {
     setIsLoading(true);
-    fetch(`${baseUrl}/api/getCustomers?q=${keyword}&&orderBy=${order}`)
+    fetch(
+      `${baseUrl}/api/getCustomers?isViolate=${isViolate}&&orderBy=${order}&&startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setCustomers(data);
         setIsLoading(false);
       });
   };
-  const handleKeywordSearch = (e) => {
+  const handleFillterdSearch = (e) => {
     e.preventDefault();
     getData();
   };
 
+  const handleKeywordSearch = (e) => {
+    e.preventDefault();
+    fetch(`${baseUrl}/api/byKey?keyword=${keyword}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCustomers(data);
+        setIsLoading(false);
+      });
+  };
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
     getData();
-  }, [order]);
+  }, []);
   return (
     <>
       <Modal show={show} onHide={handleClose} keyboard={false}>
@@ -48,41 +65,81 @@ const Cars = () => {
           <Modal.Title>قائمة الفرز</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label className="p-2 w-50">الترتيب</Form.Label>
-          <Form.Select onChange={(e) => setOrderBy(e.target.value)}>
-            <option value="bookNumNo">برقم الدفتر</option>
+          <Form.Label className=" w-50">الترتيب</Form.Label>
+          <Form.Select
+            value={order}
+            onChange={(e) => setOrderBy(e.target.value)}>
+            <option value="bookByDateBySec">بتاريخ الدفتر</option>
             <option value="enteringDateBySec">بتاريخ الدخول</option>
           </Form.Select>
-          <Form.Label className="p-2 w-50">الحالة</Form.Label>
-          <Form.Select onChange={(e) => setKeyword(e.target.value)}>
-            <option value="مخالف">مخالفين</option>
-            <option value="مغادر">مغادرين</option>
+          <Form.Label className=" w-50">الحالة</Form.Label>
+          <Form.Select
+            value={isViolate}
+            onChange={(e) => setState(e.target.value)}>
+            <option value="لم يغادر">غير مغادرين</option>
+            <option value="غادر">مغادرين</option>
           </Form.Select>
-          <Form.Label className="p-2 w-50">من</Form.Label>
-          <Form.Control
-            type="date"
-            name="keyword"
-            className="p-2 w-50 rounded"
-            min="2021-07-01"
-            max="2023-02-10"
-          />
-          <Form.Label>الى</Form.Label>
-          <Form.Control
-            type="date"
-            name="keyword"
-            min="2021-07-01"
-            max="2023-02-10"
-            defaultValue="2014-02-09"
-            className="p-2 w-50 rounded"
-          />
+          <Form.Label className=" w-50">المخالفة</Form.Label>
+          <Form.Select
+            value={isViolate}
+            onChange={(e) => setIsViolate(e.target.value)}>
+            <option value="مخالف">مخالفين</option>
+            <option value="غير مخالف">غير مخالفين</option>
+          </Form.Select>
+          <Form.Label className=" w-50">الدخول المتكرر</Form.Label>
+          <Form.Select
+            value={repeatEntry}
+            onChange={(e) => setRepeatEntry(e.target.value)}>
+            <option value={true}>عرض</option>
+            <option value={false}>اخفاء</option>
+          </Form.Select>
+          <Form.Label className=" w-50">الحصر حسب </Form.Label>
+          <Form.Select
+            value={searchBy}
+            onChange={(e) => setSearchBy(e.target.value)}>
+            <option value="enteringDateBySec">تاريخ الدخول</option>
+            <option value="bookByDateBySec">تاريخ الدفتر</option>
+          </Form.Select>
+          <Container className="p-0">
+            <Row>
+              <Col>
+                <Form.Label>من</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="keyword"
+                  className="rounded"
+                  min="2021-07-01"
+                  max="2023-03-10"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+              </Col>
+              <Col>
+                <Form.Label>الى</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="keyword"
+                  min="2021-07-01"
+                  max="2023-02-10"
+                  defaultValue="2014-02-09"
+                  className="rounded"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </Col>
+            </Row>
+          </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             إغلاق
           </Button>
+          <Button variant="primary" onClick={handleFillterdSearch}>
+            بحث
+          </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="m-0 p-0">
+      <Container className="m-0 p-0 h-100">
         <Col className="header">
           <Container>
             <Row>
@@ -94,13 +151,11 @@ const Cars = () => {
               <Col xs={12} className="d-flex justify-content-center m-1">
                 <Form
                   onSubmit={(e) => e.preventDefault()}
-                  className={formStyles.fillter + " w-100"}
-                >
+                  className={formStyles.fillter + " w-100"}>
                   <InputGroup>
                     <Button
                       variant="outline-secondary"
-                      onClick={handleKeywordSearch}
-                    >
+                      onClick={handleKeywordSearch}>
                       <FaSearch />
                     </Button>
                     <Button variant="outline-secondary " onClick={handleShow}>
@@ -120,7 +175,7 @@ const Cars = () => {
             </Row>
           </Container>
         </Col>
-        <Col className="text-center w-100 h-100">
+        <Col className="text-center  h-100">
           {!loading ? <CarsList customer={customers} /> : <Loading />}
         </Col>
       </Container>

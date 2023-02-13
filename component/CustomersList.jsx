@@ -8,8 +8,8 @@ function CarsList({ customer }) {
   const currentDate = new Date();
   const router = useRouter();
 
-  const handleNav = (bookNum) => {
-    router.push("CustomerDetails/" + bookNum);
+  const handleNav = (customerId) => {
+    router.push("CustomerDetails/" + customerId);
   };
 
   return (
@@ -40,7 +40,7 @@ function CarsList({ customer }) {
                     ? "lightGreen"
                     : customer.isViolate === "مخالف" && "pink",
               }}
-              onClick={() => handleNav(customer.bookNum)}
+              onClick={() => handleNav(customer.customerId)}
               key={index}>
               <td>{1 + index}</td>
               <td style={{ minWidth: "100px", textAlign: "right" }}>
@@ -50,12 +50,8 @@ function CarsList({ customer }) {
                 {customer.carType}
               </td>
               <td>{customer.bookNum}</td>
-              <td>
-                {eDate.getMonth() + 1}/{eDate.getDate()}/{eDate.getFullYear()}
-              </td>
-              <td>
-                {bDate.getMonth() + 1}/{bDate.getDate()}/{bDate.getFullYear()}
-              </td>
+              <td>{bDate.toISOString().slice(0, 10)}</td>
+              <td>{eDate.toISOString().slice(0, 10)}</td>
               <td>{Math.floor(dayDiff)}</td>
             </tr>
           );

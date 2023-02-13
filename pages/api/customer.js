@@ -1,14 +1,6 @@
 /** @format */
 
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
 
@@ -16,21 +8,20 @@ export default async function handler(req, res) {
   const currentDate = new Date();
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
-  const bookNum = searchParams.get("bookNum");
+  const customerId = searchParams.get("customerId");
   switch (req.method) {
     case "GET":
       {
-        const querySnapShot = await getDocs(
-          query(collection(db, "customers"), where("bookNum", "==", bookNum)),
-        );
-        const customer = querySnapShot.docs.at(0).data();
+        const querySnapShot = await getDoc(doc(db, "customers", customerId));
+        const customer = querySnapShot.data();
+        console.log(customer);
         const bookDate = new Date(customer.bookDateBySec);
         const enteringDate = new Date(customer.enteringDateBySec);
         res.status(200).json({
           ...customer,
           bookDate: bookDate.toISOString().slice(0, 10),
           enteringDate: enteringDate.toISOString().slice(0, 10),
-          customerId: querySnapShot.docs.at(0).id,
+          customerId: querySnapShot.id,
         });
       }
       break;
@@ -72,7 +63,7 @@ export default async function handler(req, res) {
     }
 
     case "DELETE": {
-      await deleteDoc(doc(db, "cars", bookNum));
+      await deleteDoc(doc(db, "cars", customerId));
       res.status(200).json(true);
     }
     default:
