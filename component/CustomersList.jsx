@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Table } from "react-bootstrap";
 
-function CarsList({ customer }) {
+function CarsList({ customers }) {
   const currentDate = new Date();
   const router = useRouter();
 
@@ -26,7 +26,7 @@ function CarsList({ customer }) {
         </tr>
       </thead>
       <tbody>
-        {customer.map((customer, index) => {
+        {customers.map((customer, index) => {
           var diff = currentDate.getTime() - customer.enteringDateBySec;
           var dayDiff = diff / (1000 * 60 * 60 * 24);
           var eDate = new Date(customer.enteringDateBySec);
