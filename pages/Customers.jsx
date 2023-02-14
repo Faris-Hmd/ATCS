@@ -3,7 +3,7 @@ import formStyles from "../styles/Form.module.css";
 import { useEffect, useState } from "react";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import { baseUrl } from "./_app";
-import CarsList from "../component/CustomersList";
+import CustomersList from "../component/CustomersList";
 import {
   Button,
   Col,
@@ -176,7 +176,7 @@ const Cars = () => {
           </Container>
         </Col>
         <Col className="text-center  h-100">
-          {!loading ? <CarsList customers={customers} /> : <Loading />}
+          {!loading ? <CustomersList customers={customers} /> : <Loading />}
         </Col>
       </Container>
     </>

@@ -5,7 +5,6 @@ import { baseUrl } from "../_app";
 export default async function handler(req, res) {
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
-
   const keyword = searchParams.get("keyword");
   console.log(keyword);
   const querySnapShot = await getDocs(

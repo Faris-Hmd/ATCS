@@ -3,14 +3,16 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { Table } from "react-bootstrap";
+import Loading from "./Loading";
 
-function CarsList({ customers }) {
+function CustomersList({ customers }) {
   const currentDate = new Date();
   const router = useRouter();
 
   const handleNav = (customerId) => {
     router.push("CustomerDetails/" + customerId);
   };
+  if (!customers) return <Loading />;
 
   return (
     <Table striped responsive={"sm"} hover>
@@ -61,4 +63,4 @@ function CarsList({ customers }) {
   );
 }
 
-export default CarsList;
+export default CustomersList;
