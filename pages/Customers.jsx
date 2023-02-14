@@ -176,7 +176,7 @@ const Cars = () => {
           </Container>
         </Col>
         <Col className="text-center  h-100">
-          {!loading ? <CarsList customer={customers} /> : <Loading />}
+          {!loading ? <CarsList customers={customers} /> : <Loading />}
         </Col>
       </Container>
     </>
