@@ -20,7 +20,6 @@ const Cars = () => {
   const [startDate, setStartDate] = useState("2022-12-01");
   const [endDate, setEndDate] = useState("2023-01-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
-  const [isViolate, setIsViolate] = useState("غير مخالف");
   const [state, setState] = useState("لم يغادر");
   const [keyword, setKeyword] = useState();
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
@@ -30,7 +29,7 @@ const Cars = () => {
   const getData = () => {
     setIsLoading(true);
     fetch(
-      `${baseUrl}/api/getCustomers?isViolate=${isViolate}&&orderBy=${order}&&startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
+      `${baseUrl}/api/getCustomers?&&orderBy=${order}&&startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -45,7 +44,7 @@ const Cars = () => {
 
   const handleKeywordSearch = (e) => {
     e.preventDefault();
-    fetch(`${baseUrl}/api/byKey?keyword=${keyword}`)
+    fetch(`${baseUrl}/api/getCustomers?keyword=${keyword}`)
       .then((res) => res.json())
       .then((data) => {
         setCustomers(data);
@@ -72,19 +71,12 @@ const Cars = () => {
             <option value="bookByDateBySec">بتاريخ الدفتر</option>
             <option value="enteringDateBySec">بتاريخ الدخول</option>
           </Form.Select>
+
           <Form.Label className=" w-50">الحالة</Form.Label>
-          <Form.Select
-            value={isViolate}
-            onChange={(e) => setState(e.target.value)}>
+          <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
             <option value="لم يغادر">غير مغادرين</option>
             <option value="غادر">مغادرين</option>
-          </Form.Select>
-          <Form.Label className=" w-50">المخالفة</Form.Label>
-          <Form.Select
-            value={isViolate}
-            onChange={(e) => setIsViolate(e.target.value)}>
             <option value="مخالف">مخالفين</option>
-            <option value="غير مخالف">غير مخالفين</option>
           </Form.Select>
           <Form.Label className=" w-50">الدخول المتكرر</Form.Label>
           <Form.Select

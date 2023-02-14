@@ -13,7 +13,6 @@ function CustomersList({ customers }) {
     router.push("CustomerDetails/" + customerId);
   };
   if (!customers) return <Loading />;
-
   return (
     <Table striped responsive={"sm"} hover>
       <thead style={{ backgroundColor: "var(--theme-clr)", color: "white" }}>

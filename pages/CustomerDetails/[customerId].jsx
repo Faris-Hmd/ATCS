@@ -71,26 +71,26 @@ const CarDetail = () => {
     console.log(customer);
     setIsEditing(false);
     setIsLoading(true);
-    axios({
-      method: "post",
-      url: `${baseUrl}/api/customer`,
-      data: {
-        ...customer,
-      },
-    })
+    axios
+      .put({
+        url: `${baseUrl}/api/customer`,
+        data: {
+          ...customer,
+        },
+      })
       .then(setIsLoading(false))
       .catch(setIsLoading(false));
   };
 
   const handleDelete = () => {
-    fetch(baseUrl + "/api/customer?customerId=" + customer.customerId).then(
-      route.push("/Cars"),
-    );
+    fetch(baseUrl + "/api/customer?customerId=" + customer.customerId, {
+      method: "delete",
+    }).then(route.push("/Customers"));
   };
 
   useEffect(() => {
     if (!customerId) return;
-    console.log(customerId);
+    // console.log(customerId);
     fetch(baseUrl + "/api/customer?customerId=" + customerId)
       .then((res) => res.json())
       .then((data) => {
@@ -118,10 +118,7 @@ const CarDetail = () => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="d-flex justify-content-center">
-            <Button
-              onClick={() => handleDelete}
-              variant="danger"
-              className="w-50">
+            <Button onClick={handleDelete} variant="danger" className="w-50">
               حذف
               <ImBin size={"25px"} className="m-1" />
             </Button>

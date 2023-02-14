@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import formStyles from "../styles/Form.module.css";
 
@@ -42,23 +41,10 @@ function Actions({ handleChange, customer, isEditing }) {
           required>
           <option value="لم يغادر">لم يغادر</option>
           <option value="غادر">غادر</option>
-        </Form.Select>
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="isViolate"
-        label="المخالفة"
-        className="mb-2  w-100">
-        <Form.Select
-          type="text"
-          value={customer?.isViolate}
-          placeholder="المخالفة"
-          name="isViolate"
-          onChange={handleChange}
-          disabled={!isEditing}>
-          <option value="غير مخالف">غير مخالف</option>
           <option value="مخالف">مخالف</option>
         </Form.Select>
       </FloatingLabel>
+
       {customer.threeMonthEx && (
         <>
           <FloatingLabel
