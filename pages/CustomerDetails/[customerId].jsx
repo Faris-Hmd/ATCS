@@ -234,9 +234,12 @@ const CarDetail = () => {
           </Col>
           {!isEditing && (
             <div className="hidden">
-              <LeftingReportToPrint ref={leftReportRef} value={customer} />
-              <ExtentionReportToPrint ref={exReportRef} value={customer} />
-              <LeftingExReportToPrint ref={leftExReportRef} value={customer} />
+              <LeftingReportToPrint ref={leftReportRef} customer={customer} />
+              <ExtentionReportToPrint ref={exReportRef} customer={customer} />
+              <LeftingExReportToPrint
+                ref={leftExReportRef}
+                customer={customer}
+              />
             </div>
           )}
         </Container>

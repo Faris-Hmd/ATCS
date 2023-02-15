@@ -2,9 +2,9 @@
 import React from "react";
 import Styles from "../styles/report.module.css";
 
-const LeftingReportToPrint = React.forwardRef((props, ref) => {
+const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
   const date = new Date();
-  const eDate = new Date(props.value.enteringDateBySec);
+  const eDate = new Date(customer.enteringDateBySec);
 
   return (
     <div className={Styles.printContainer} ref={ref}>
@@ -19,7 +19,7 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
               date.getUTCDate()}
           </div>
           <div className={Styles.bookNum}>
-            رقم/ن/س/ر/ {props.value.leftSerialNum}
+            رقم/ن/س/ر/ {customer.leftSerialNum}
           </div>
         </div>
         <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
@@ -33,23 +33,23 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
           <tr>
             <td>اســــــم المــــالك :</td>
             <td>
-              {props.value.ownerFName} {props.value.ownerSName}{" "}
-              {props.value.ownerTName} {props.value.ownerFoName}
+              {customer.ownerFName} {customer.ownerSName} {customer.ownerTName}{" "}
+              {customer.ownerFoName}
             </td>
           </tr>
           <tr>
             <td>رقـــــــم الجــــــواز :</td>
 
-            <td>{props.value.passport}</td>
+            <td>{customer.passport}</td>
           </tr>
           <tr>
             <td>العـــــــــــــــــــنوان :</td>
-            <td>{props.value.address}</td>
+            <td>{customer.address}</td>
           </tr>
           <tr>
             <td>رقــــم الهــــــاتف :</td>
             <td>
-              {props.value.phone1} {props.value.phone2}
+              {customer.phone1} {customer.phone2}
             </td>
           </tr>
           <tr>
@@ -64,23 +64,23 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
           </tr>
           <tr>
             <td>مـــاركة الــمركبة :</td>
-            <td>{props.value.carType}</td>
+            <td>{customer.carType}</td>
           </tr>
           <tr>
             <td>مـــوديل المركبة :</td>
-            <td>{props.value.carModel}</td>
+            <td>{customer.carModel}</td>
           </tr>
           <tr>
             <td>رقــــــــم الـــهيكل :</td>
-            <td>{props.value.chaseNum}</td>
+            <td>{customer.chaseNum}</td>
           </tr>
           <tr>
             <td>رقـــــــم اللـــــوحة :</td>
-            <td>{props.value.plateNum}</td>
+            <td>{customer.plateNum}</td>
           </tr>
           <tr>
             <td>رقـــــــم الـــدفـــتر :</td>
-            <td>{props.value.bookNum}</td>
+            <td>{customer.bookNum}</td>
           </tr>
           <tr>
             <td>التــــــــــــــــوصية :</td>
@@ -99,88 +99,6 @@ const LeftingReportToPrint = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className={Styles.printContainer} ref={ref}>
-  //     <div className={Styles.header}>
-  //       <div className={Styles.dateCon}>
-  //         <div className={Styles.date}>التاريخ 2022/1/8</div>
-  //         <div className={Styles.bookNum}>رقم/ن/س/ر/ 2022/157</div>
-  //       </div>
-  //       <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
-  //       <div className={Styles.for}>
-  //         معنون للسيد / مدير ادارة مكافحة التهريب المحترم{" "}
-  //       </div>
-  //     </div>
-  //     <table className={Styles.table}>
-  //       <tbody>
-  //         <tr>
-  //           <td>اسم المالك :</td>
-  //           <td>
-  //             {car.ownerFName} {car.ownerSName} {car.ownerTName}{" "}
-  //             {car.ownerFoName}
-  //           </td>
-  //         </tr>
-  //         <tr>
-  //           <td>رقم الجواز :</td>
-
-  //           <td>{car.passport}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>العنوان :</td>
-  //           <td>{car.address}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>رقم الهاتف :</td>
-  //           <td>
-  //             {car.phone1} {car.phone2}
-  //           </td>
-  //         </tr>
-  //         <tr>
-  //           <td>تاربخ الدخول :</td>
-  //           <td>
-  //             {car.enteringYear}/{car.enteringMonth}/{car.enteringDay}
-  //           </td>
-  //         </tr>
-  //         <tr>
-  //           <td>ماركة المركبة :</td>
-  //           <td>{car.carModel}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>موديل المركبة :</td>
-
-  //           <td>{car.carManDate}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>رقم الهيكل :</td>
-  //           <td>{car.chaseNum}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>رقم اللوحة :</td>
-  //           <td>{car.carPlate}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>رقم الدفتر :</td>
-  //           <td>{car.bookNum}</td>
-  //         </tr>
-  //         <tr>
-  //           <td>التوصية :</td>
-  //           <td>نوصي بالمغادرة فورا وفق النظام المعمول به. </td>
-  //         </tr>
-
-  //         <tr>
-  //           <td>ملحوضة :</td>
-  //           <td>اي كشط او تعديل يلغي هذا الارونيك </td>
-  //         </tr>
-  //       </tbody>
-  //     </table>
-
-  //     <div className={Styles.stamps}>
-  //       <div>ختم الشركة</div>
-  //       <div>التوقيع</div>
-  //     </div>
-  //   </div>
-  // );
 });
 
 export default LeftingReportToPrint;
