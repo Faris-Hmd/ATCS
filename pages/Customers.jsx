@@ -1,6 +1,6 @@
 /** @format */
 import formStyles from "../styles/Form.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import { baseUrl } from "./_app";
 import CustomersList from "../component/CustomersList";
@@ -14,9 +14,10 @@ import {
   Row,
 } from "react-bootstrap";
 import Loading from "../component/Loading";
+import { CustomerContext } from "../context/customersContext";
 
 const Customers = () => {
-  const [customers, setCustomers] = useState([]);
+  const { customers, setCustomers } = useContext(CustomerContext);
   const [startDate, setStartDate] = useState("2022-12-01");
   const [endDate, setEndDate] = useState("2023-01-31");
   const [repeatEntry, setRepeatEntry] = useState(false);

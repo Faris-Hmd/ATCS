@@ -27,7 +27,6 @@ export default async function handler(req, res) {
       ),
     );
   } else {
-    // console.log(searchParams);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
@@ -37,7 +36,14 @@ export default async function handler(req, res) {
   }
 
   const customers = querySnapShot.docs.map((customer) => {
-    return { ...customer.data(), customerId: customer.id };
+    const bookDate = new Date(customer.data().bookDateBySec);
+    const enteringDate = new Date(customer.data().enteringDateBySec);
+    return {
+      ...customer.data(),
+      customerId: customer.id,
+      bookDate: bookDate.toISOString().slice(0, 10),
+      enteringDate: enteringDate.toISOString().slice(0, 10),
+    };
   });
 
   res.status(200).json(customers);

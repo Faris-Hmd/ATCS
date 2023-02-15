@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BsPencil, BsPrinter, BsSave } from "react-icons/bs";
 import { ImBin } from "react-icons/im";
 
@@ -24,8 +24,11 @@ import {
 import Actions from "../../component/Actions";
 import LeftingExReportToPrint from "../../component/LeftingExReport";
 import Loading from "../../component/Loading";
+import { CustomerContext } from "../../context/customersContext";
 
 const CarDetail = () => {
+  const { customers } = useContext(CustomerContext);
+
   const [customer, setCustomer] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,6 +57,7 @@ const CarDetail = () => {
   });
 
   const handleChange = (event) => {
+    console.log(customer);
     const { name, value } = event.target;
     // console.log(value, name);
     if (event.target.type === "checkbox") {
@@ -90,18 +94,22 @@ const CarDetail = () => {
 
   useEffect(() => {
     if (!customerId) return;
-    // console.log(customerId);
-    fetch(baseUrl + "/api/customer?customerId=" + customerId)
-      .then((res) => res.json())
-      .then((data) => {
-        setCustomer(data);
-        setIsLoading(false);
-      });
-  }, [customerId]);
+    if (customers.find((cust) => cust.customerId === customerId)) {
+      setCustomer(customers.find((cust) => cust.customerId === customerId));
+      setIsLoading(false);
+    } else {
+      fetch(baseUrl + "/api/customer?customerId=" + customerId)
+        .then((res) => res.json())
+        .then((data) => {
+          setCustomer(data);
+          setIsLoading(false);
+        });
+    }
+  }, [customerId, customers]);
 
   // useEffect(() => {
   //   console.log(customer);
-  // }, [customer]);
+  // }, [customerId]);
 
   if (isLoading) return <Loading />;
   if (customer)

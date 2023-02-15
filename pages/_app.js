@@ -5,6 +5,7 @@ import "../styles/util.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.rtl.min.css";
 import { UserProvider } from "../context/userContext";
+import { CustomerProvider } from "../context/customersContext";
 const internetUrl = "https://atcs-demo.netlify.app";
 const localurl = " http://localhost:3005";
 export let baseUrl = internetUrl;
@@ -17,9 +18,11 @@ if (process && process.env.NODE_ENV === "development") {
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <CustomerProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </CustomerProvider>
     </UserProvider>
   );
 }

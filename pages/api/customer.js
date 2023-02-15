@@ -63,6 +63,7 @@ export default async function handler(req, res) {
     case "PATCH":
       {
         const customer = req.body;
+        console.log(customer);
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
         await updateDoc(doc(db, "customers", customer.customerId), {
