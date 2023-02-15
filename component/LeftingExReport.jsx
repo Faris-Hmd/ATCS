@@ -1,14 +1,10 @@
 /** @format */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Styles from "../styles/report.module.css";
 
 const LeftingExReportToPrint = React.forwardRef((props, ref) => {
   const date = new Date();
-  const [car, setCar] = useState({});
-
-  useEffect(() => {
-    if (props.value) setCar(props.value);
-  }, []);
+  const eDate = new Date(props.value.enteringDateBySec);
 
   return (
     <div className={Styles.printContainer} ref={ref}>
@@ -22,7 +18,9 @@ const LeftingExReportToPrint = React.forwardRef((props, ref) => {
               "/" +
               date.getUTCDate()}
           </div>
-          <div className={Styles.bookNum}>رقم/ن/س/ر/ {car.leftExSerialNum}</div>
+          <div className={Styles.bookNum}>
+            رقم/ن/س/ر/ {props.value.leftExSerialNum}
+          </div>
         </div>
         <div className={Styles.title}>تمديد مغادرة عربة افراج مؤقت</div>
         <div className={Styles.for}>
@@ -35,50 +33,54 @@ const LeftingExReportToPrint = React.forwardRef((props, ref) => {
           <tr>
             <td>اســــــم المــــالك :</td>
             <td>
-              {car.ownerFName} {car.ownerSName} {car.ownerTName}{" "}
-              {car.ownerFoName}
+              {props.value.ownerFName} {props.value.ownerSName}{" "}
+              {props.value.ownerTName} {props.value.ownerFoName}
             </td>
           </tr>
           <tr>
             <td>رقـــــــم الجــــــواز :</td>
 
-            <td>{car.passport}</td>
+            <td>{props.value.passport}</td>
           </tr>
           <tr>
             <td>العـــــــــــــــــــنوان :</td>
-            <td>{car.address}</td>
+            <td>{props.value.address}</td>
           </tr>
           <tr>
             <td>رقــــم الهــــــاتف :</td>
             <td>
-              {car.phone1} {car.phone2}
+              {props.value.phone1} {props.value.phone2}
             </td>
           </tr>
           <tr>
             <td>تــاربخ الـــــدخول :</td>
             <td>
-              {car.enteringYear}/{car.enteringMonth}/{car.enteringDay}
+              {eDate.getFullYear() +
+                "/" +
+                (eDate.getMonth() + 1) +
+                "/" +
+                eDate.getUTCDate()}
             </td>
           </tr>
           <tr>
             <td>مـــاركة الــمركبة :</td>
-            <td>{car.carType}</td>
+            <td>{props.value.carType}</td>
           </tr>
           <tr>
             <td>مـــوديل المركبة :</td>
-            <td>{car.carModel}</td>
+            <td>{props.value.carModel}</td>
           </tr>
           <tr>
             <td>رقــــــــم الـــهيكل :</td>
-            <td>{car.chaseNum}</td>
+            <td>{props.value.chaseNum}</td>
           </tr>
           <tr>
             <td>رقـــــــم اللـــــوحة :</td>
-            <td>{car.plateNum}</td>
+            <td>{props.value.plateNum}</td>
           </tr>
           <tr>
             <td>رقـــــــم الـــدفـــتر :</td>
-            <td>{car.bookNum}</td>
+            <td>{props.value.bookNum}</td>
           </tr>
           <tr>
             <td>التــــــــــــــــوصية :</td>

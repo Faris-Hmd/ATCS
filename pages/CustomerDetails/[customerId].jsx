@@ -152,7 +152,7 @@ const CarDetail = () => {
             </Button>
             <Button
               onClick={handleLeftPrint}
-              disabled={!customer.state === "غادر"}
+              disabled={customer.state !== "غادر"}
               className="w-100 mb-1">
               <div>مغادرة</div>
             </Button>

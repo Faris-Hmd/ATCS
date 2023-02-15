@@ -1,4 +1,4 @@
-/** @format */
+ث; /** @format */
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -26,7 +26,6 @@ function CustomersList({ customers }) {
         key={index}
         href={"CustomerDetails/" + customer.customerId}
         style={{
-          maxWidth: "400px",
           color: "black",
           textDecoration: "none",
           background:
