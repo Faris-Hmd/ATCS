@@ -15,7 +15,7 @@ import {
 } from "react-bootstrap";
 import Loading from "../component/Loading";
 
-const Cars = () => {
+const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [startDate, setStartDate] = useState("2022-12-01");
   const [endDate, setEndDate] = useState("2023-01-31");
@@ -23,13 +23,12 @@ const Cars = () => {
   const [state, setState] = useState("لم يغادر");
   const [keyword, setKeyword] = useState();
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
-  const [order, setOrderBy] = useState("enteringDateBySec");
   const [loading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
   const getData = () => {
     setIsLoading(true);
     fetch(
-      `${baseUrl}/api/getCustomers?&&orderBy=${order}&&startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
+      `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -64,33 +63,25 @@ const Cars = () => {
           <Modal.Title>قائمة الفرز</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label className=" w-50">الترتيب</Form.Label>
-          <Form.Select
-            value={order}
-            onChange={(e) => setOrderBy(e.target.value)}>
-            <option value="bookByDateBySec">بتاريخ الدفتر</option>
-            <option value="enteringDateBySec">بتاريخ الدخول</option>
-          </Form.Select>
-
-          <Form.Label className=" w-50">الحالة</Form.Label>
+          <Form.Label>الحالة</Form.Label>
           <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
-            <option value="لم يغادر">غير مغادرين</option>
+            <option value="لم يغادر">داخل البلاد</option>
             <option value="غادر">مغادرين</option>
             <option value="مخالف">مخالفين</option>
           </Form.Select>
-          <Form.Label className=" w-50">الدخول المتكرر</Form.Label>
+          <Form.Label>الدخول المتكرر</Form.Label>
           <Form.Select
             value={repeatEntry}
             onChange={(e) => setRepeatEntry(e.target.value)}>
             <option value={true}>عرض</option>
             <option value={false}>اخفاء</option>
           </Form.Select>
-          <Form.Label className=" w-50">الحصر حسب </Form.Label>
+          <Form.Label>الحصر حسب </Form.Label>
           <Form.Select
             value={searchBy}
             onChange={(e) => setSearchBy(e.target.value)}>
             <option value="enteringDateBySec">تاريخ الدخول</option>
-            <option value="bookByDateBySec">تاريخ الدفتر</option>
+            <option value="bookDateBySec">تاريخ الدفتر</option>
           </Form.Select>
           <Container className="p-0">
             <Row>
@@ -174,4 +165,4 @@ const Cars = () => {
     </>
   );
 };
-export default Cars;
+export default Customers;

@@ -3,7 +3,7 @@
 import React from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import styles from "../styles/Form.module.css";
-
+const currentDate = new Date()
 function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
   return (
     <div className={styles.inputGroup}>
@@ -47,7 +47,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
                 placeholder={feild.placeholder}
                 type={feild.type}
                 min={feild.type === "date" ? "2021-07-01" : 0}
-                max={feild.type === "date" ? "2023-03-10" : 100}
+                max={feild.type === "date" ? currentDate.toISOString().slice(0,10) : 100}
                 value={customer?.[feild.name]}
                 onChange={handleChange}
                 required

@@ -68,16 +68,16 @@ const CarDetail = () => {
   };
 
   const handleUpdate = async () => {
-    console.log(customer);
+    // console.log(customer);
     setIsEditing(false);
     setIsLoading(true);
-    axios
-      .put({
-        url: `${baseUrl}/api/customer`,
-        data: {
-          ...customer,
-        },
-      })
+    axios({
+      method: "patch",
+      url: `${baseUrl}/api/customer`,
+      data: {
+        ...customer,
+      },
+    })
       .then(setIsLoading(false))
       .catch(setIsLoading(false));
   };

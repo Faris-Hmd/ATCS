@@ -10,25 +10,24 @@ export default async function handler(req, res) {
   const repeatEntry = searchParams.get("repeatEntry");
   const state = searchParams.get("state");
   const searchBy = searchParams.get("searchBy");
-  const order = searchParams.get("orderBy");
   const keyword = searchParams.get("keyword");
 
   const fromDateBySec = new Date(fromDate);
   const toDateBySec = new Date(toDate);
-
   let querySnapShot;
   if (!keyword) {
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
-        // where("repeatEntry", "==", repeatEntry),
         where(searchBy, ">=", fromDateBySec.getTime()),
         where(searchBy, "<=", toDateBySec.getTime()),
-        // where("state", "==", state),
-        orderBy(order),
+        where("repeatEntry", "==", repeatEntry === "false" ? false : true),
+        where("state", "==", state),
+        orderBy(searchBy),
       ),
     );
   } else {
+    // console.log(searchParams);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),

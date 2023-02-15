@@ -41,7 +41,9 @@ function Actions({ handleChange, customer, isEditing }) {
           required>
           <option value="لم يغادر">لم يغادر</option>
           <option value="غادر">غادر</option>
-          <option value="مخالف">مخالف</option>
+          <option disabled value="مخالف">
+            مخالف
+          </option>
         </Form.Select>
       </FloatingLabel>
 

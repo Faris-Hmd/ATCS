@@ -105,8 +105,8 @@ function CustomerForm({
   ];
 
   return (
-    <Form className="pb-3">
-      <Container>
+    <Form className="p-0 pb-3">
+      <Container className="p-0">
         <Row>
           <Col xs={12} lg={4}>
             <InputGroup
@@ -150,8 +150,7 @@ function CustomerForm({
               <Button
                 className="w-100"
                 onClick={handleSubmit}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {isLoading ? <Spinner /> : "اضافة"}
               </Button>
             </Col>
