@@ -104,7 +104,7 @@ const Customers = () => {
                   type="date"
                   name="keyword"
                   min="2021-07-01"
-                  max="2023-02-10"
+                  max="2023-02-20"
                   defaultValue="2014-02-09"
                   className="rounded"
                   value={endDate}

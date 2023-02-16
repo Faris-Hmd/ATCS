@@ -14,8 +14,10 @@ export default async function handler(req, res) {
 
   const fromDateBySec = new Date(fromDate);
   const toDateBySec = new Date(toDate);
+
   let querySnapShot;
   if (!keyword) {
+    // console.log(searchParams);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
@@ -45,6 +47,6 @@ export default async function handler(req, res) {
       enteringDate: enteringDate.toISOString().slice(0, 10),
     };
   });
-
+  console.log(customers);
   res.status(200).json(customers);
 }
