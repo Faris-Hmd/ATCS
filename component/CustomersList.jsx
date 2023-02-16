@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import Loading from "./Loading";
 
 function CustomersList({ customers }) {
@@ -86,12 +85,10 @@ function CustomersList({ customers }) {
               onClick={() => handleNav(customer.customerId)}
               key={index}>
               <td>{1 + index}</td>
-              <td style={{ minWidth: "100px", textAlign: "right" }}>
+              <td className="text-nowrap text-start">
                 {`${customer.ownerFName} ${customer.ownerSName} ${customer.ownerTName}`}
               </td>
-              <td style={{ minWidth: "100px", textAlign: "right" }}>
-                {customer.carType}
-              </td>
+              <td className="text-nowrap text-start">{customer.carType}</td>
               <td>{customer.bookNum}</td>
               <td>{bDate.toISOString().slice(0, 10)}</td>
               <td>{eDate.toISOString().slice(0, 10)}</td>

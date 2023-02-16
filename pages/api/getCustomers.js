@@ -18,16 +18,28 @@ export default async function handler(req, res) {
   let querySnapShot;
   if (!keyword) {
     // console.log(searchParams);
-    querySnapShot = await getDocs(
-      query(
-        collection(db, "customers"),
-        where(searchBy, ">=", fromDateBySec.getTime()),
-        where(searchBy, "<=", toDateBySec.getTime()),
-        where("repeatEntry", "==", repeatEntry === "false" ? false : true),
-        where("state", "==", state),
-        orderBy(searchBy),
-      ),
-    );
+    if (state !== "null" ) {
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
+          where("repeatEntry", "==", repeatEntry === "false" ? false : true),
+          where("state", "==", state),
+          orderBy(searchBy),
+        ),
+      );
+    } else {
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
+          where("repeatEntry", "==", repeatEntry === "false" ? false : true),
+          orderBy(searchBy),
+        ),
+      );
+    }
   } else {
     querySnapShot = await getDocs(
       query(

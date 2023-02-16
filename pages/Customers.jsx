@@ -18,10 +18,10 @@ import { CustomerContext } from "../context/customersContext";
 
 const Customers = () => {
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2022-12-01");
+  const [startDate, setStartDate] = useState("2022-12-20");
   const [endDate, setEndDate] = useState("2023-01-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
-  const [state, setState] = useState("لم يغادر");
+  const [state, setState] = useState(null);
   const [keyword, setKeyword] = useState();
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
   const [loading, setIsLoading] = useState(true);
@@ -66,6 +66,7 @@ const Customers = () => {
         <Modal.Body>
           <Form.Label>الحالة</Form.Label>
           <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
+            <option value={null}>الكل</option>
             <option value="لم يغادر">داخل البلاد</option>
             <option value="غادر">مغادرين</option>
             <option value="مخالف">مخالفين</option>
