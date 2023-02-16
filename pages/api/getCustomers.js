@@ -17,8 +17,8 @@ export default async function handler(req, res) {
 
   let querySnapShot;
   if (!keyword) {
-    // console.log(searchParams);
-    if (state !== "null" ) {
+    console.log(searchParams);
+    if (state !== "null") {
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
@@ -41,6 +41,8 @@ export default async function handler(req, res) {
       );
     }
   } else {
+    console.log(keyword);
+
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
@@ -59,6 +61,6 @@ export default async function handler(req, res) {
       enteringDate: enteringDate.toISOString().slice(0, 10),
     };
   });
-  console.log(customers);
+  // console.log(customers);
   res.status(200).json(customers);
 }

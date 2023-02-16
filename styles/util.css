@@ -7,13 +7,15 @@
   min-width: 30%;
   max-width: 30%;
 }
-
+.m-auto {
+  margin: 0 auto;
+}
 .bg-w {
   color: #020202;
   background-color: #f1f1f1;
 }
 .bg-b {
-  background-color: aquamarine;
+  background-color: lightgray;
 }
 .table-responsive-sm {
   width: 100%;

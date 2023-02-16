@@ -4,7 +4,7 @@ import formStyles from "../styles/Form.module.css";
 import { BsPrinter } from "react-icons/bs";
 import { useRef, useState } from "react";
 import { baseUrl } from "./_app";
-import CarsReportToPrint from "../component/CustomersReportToPrint";
+import CustsReportToPrint from "../component/CustomersReportToPrint";
 import { useReactToPrint } from "react-to-print";
 import CarsList from "../component/CustomersList";
 
@@ -22,7 +22,7 @@ const Reports = () => {
       baseUrl +
         "/api/getCars?q=" +
         e.target.value +
-        "&&orderBy=enteringDateBySec"
+        "&&orderBy=enteringDateBySec",
     )
       .then((res) => res.json())
       .then((data) => setCars(data));
@@ -37,8 +37,7 @@ const Reports = () => {
             name="keyword"
             id=""
             className={"bg-w"}
-            onChange={handleOnChange}
-          >
+            onChange={handleOnChange}>
             <option value="">التاريخ</option>
             <option value="1/2023">1/2023</option>
             <option value="12/2022">12/2022</option>
@@ -50,8 +49,7 @@ const Reports = () => {
             name="keyword"
             id=""
             className={"bg-w"}
-            onChange={handleOnChange}
-          >
+            onChange={handleOnChange}>
             <option value="">الحالة</option>
             <option value="مخالف">مخالفين</option>
             <option value="غادر">مغادرين</option>
@@ -64,7 +62,7 @@ const Reports = () => {
       <CarsList cars={cars} />
       {cars.length > 0 && (
         <div className="hidden">
-          <CarsReportToPrint ref={componentRef} value={cars} />
+          <CustsReportToPrint ref={componentRef} value={cars} />
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 /** @format */
 import formStyles from "../styles/Form.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import { baseUrl } from "./_app";
 import CustomersList from "../component/CustomersList";
@@ -15,8 +15,13 @@ import {
 } from "react-bootstrap";
 import Loading from "../component/Loading";
 import { CustomerContext } from "../context/customersContext";
+import { BsPrinter } from "react-icons/bs";
+import { useReactToPrint } from "react-to-print";
+import CustsReportToPrint from "../component/CustomersReportToPrint";
 
 const Customers = () => {
+  const reportRef = useRef();
+
   const { customers, setCustomers } = useContext(CustomerContext);
   const [startDate, setStartDate] = useState("2022-12-20");
   const [endDate, setEndDate] = useState("2023-01-31");
@@ -51,6 +56,11 @@ const Customers = () => {
         setIsLoading(false);
       });
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => reportRef.current,
+  });
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -66,7 +76,7 @@ const Customers = () => {
         <Modal.Body>
           <Form.Label>الحالة</Form.Label>
           <Form.Select value={state} onChange={(e) => setState(e.target.value)}>
-            <option value={null}>الكل</option>
+            <option value={"null"}>الكل</option>
             <option value="لم يغادر">داخل البلاد</option>
             <option value="غادر">مغادرين</option>
             <option value="مخالف">مخالفين</option>
@@ -133,10 +143,10 @@ const Customers = () => {
                   <h4>سجلات العملاء</h4>
                 </span>
               </Col>
-              <Col xs={12} className="d-flex justify-content-center m-1">
+              <Col xs={12} className="d-flex justify-content-center ">
                 <Form
-                  onSubmit={(e) => e.preventDefault()}
-                  className={formStyles.fillter + " w-100"}>
+                  onSubmit={(e) => handleKeywordSearch(e)}
+                  className={formStyles.fillter + " w-100 overflow-hidden"}>
                   <InputGroup>
                     <Button
                       variant="outline-secondary"
@@ -150,19 +160,33 @@ const Customers = () => {
                     <Form.Control
                       type="text"
                       name="keyword"
-                      placeholder="ادخل الاسم, التاريخ, رقم الدفتر"
+                      placeholder="ادخل الاسم أو رقم الدفتر"
                       onChange={(e) => setKeyword(e.target.value)}
                       className="p-2 rounded border-0"
                     />
+                    <Button variant="outline-secondary " onClick={handlePrint}>
+                      <BsPrinter size={"22px"} />
+                    </Button>
                   </InputGroup>
                 </Form>
               </Col>
             </Row>
           </Container>
         </Col>
-        <Col className="text-center  h-100">
+        <Col className="text-center h-100">
           {!loading ? <CustomersList customers={customers} /> : <Loading />}
         </Col>
+        {(state || state === "null") && (
+          <Col className="hidden">
+            <CustsReportToPrint
+              state={state}
+              startDate={startDate}
+              endDate={endDate}
+              customers={customers}
+              ref={reportRef}
+            />
+          </Col>
+        )}
       </Container>
     </>
   );
