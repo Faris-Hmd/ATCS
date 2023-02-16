@@ -26,7 +26,7 @@ const Customers = () => {
   const [startDate, setStartDate] = useState("2022-12-20");
   const [endDate, setEndDate] = useState("2023-01-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
-  const [state, setState] = useState(null);
+  const [state, setState] = useState("null");
   const [keyword, setKeyword] = useState();
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
   const [loading, setIsLoading] = useState(true);

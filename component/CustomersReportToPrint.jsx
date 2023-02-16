@@ -63,7 +63,7 @@ const CustsReportToPrint = React.forwardRef(
                   <td>{customer.bookNum}</td>
                   <td>{bDate.toISOString().slice(0, 10)}</td>
                   <td>{eDate.toISOString().slice(0, 10)}</td>
-                  <td>
+                  <td className="text-nowrap">
                     {customer.phone2
                       ? customer.phone2
                       : customer.phone1
