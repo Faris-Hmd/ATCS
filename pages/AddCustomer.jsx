@@ -28,7 +28,7 @@ const AddCar = () => {
 
     axios({
       method: "post",
-      url: `${baseUrl}/api/addCustomer`,
+      url: `${baseUrl}/api/customer`,
       data: {
         ...customer,
       },

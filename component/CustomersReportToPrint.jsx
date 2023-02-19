@@ -9,7 +9,7 @@ const CustsReportToPrint = React.forwardRef(
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className=" m-auto" ref={ref}>
+      <Container className="" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
             {(state === "لم يغادر" || state === "null") &&
@@ -32,11 +32,11 @@ const CustsReportToPrint = React.forwardRef(
               eDate.getDate()}
           </div>
         </div>
-        <Table striped className="w-100">
+        <Table responsive={"sm"} striped>
           <thead>
             <tr className="bg-b">
               <th>#</th>
-              <th className={styles.bookNum}>اسم العميل</th>
+              <th>اسم العميل</th>
               <th>نوع السيارة</th>
               <th>رقم الشاسيه</th>
               <th>رقم الدفتر</th>
@@ -45,7 +45,7 @@ const CustsReportToPrint = React.forwardRef(
               <th>الهاتف</th>
             </tr>
           </thead>
-          <tbody className={styles.tableBody}>
+          <tbody>
             {customers.map((customer, index) => {
               var eDate = new Date(customer.enteringDateBySec);
               var bDate = new Date(customer.bookDateBySec);
