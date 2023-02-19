@@ -27,7 +27,7 @@ const AddCar = () => {
     e.preventDefault();
 
     axios({
-      method: "post",
+      method: "POST",
       url: `${baseUrl}/api/customer`,
       data: {
         ...customer,
@@ -35,7 +35,7 @@ const AddCar = () => {
     })
       .then(() => {
         setIsLoading(false);
-        router.push("/CustomerDetails/" + customer.bookNum.trim());
+        // router.push("/CustomerDetails/" + customer.bookNum.trim());
 
         // setCar({});
       })

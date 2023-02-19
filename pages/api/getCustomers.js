@@ -54,12 +54,13 @@ export default async function handler(req, res) {
   const customers = querySnapShot.docs.map((customer) => {
     const bookDate = new Date(customer.data().bookDateBySec);
     const enteringDate = new Date(customer.data().enteringDateBySec);
-    return {
-      ...customer.data(),
-      customerId: customer.id,
-      bookDate: bookDate.toISOString().slice(0, 10),
-      enteringDate: enteringDate.toISOString().slice(0, 10),
-    };
+    // if (customers)
+      return {
+        ...customer.data(),
+        customerId: customer.id,
+        bookDate: bookDate.toISOString().slice(0, 10),
+        enteringDate: enteringDate.toISOString().slice(0, 10),
+      };
   });
   // console.log(customers);
   res.status(200).json(customers);

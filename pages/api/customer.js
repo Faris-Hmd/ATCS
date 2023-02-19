@@ -35,14 +35,37 @@ export default async function handler(req, res) {
     case "POST":
       {
         const customer = req.body;
-        console.log(customer);
+        // console.log(customer);
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
+
+        // console.log({
+        //   ...customer,
+        //   enteringDateBySec: enteringDate.getTime(),
+        //   bookDateBySec: bookDate.getTime(),
+        //   bookNumNo: parseInt(customer.bookNum.slice(4)),
+        //   reapetEntry: false,
+        //   state: "لم يغادر",
+        //   keywords: [
+        //     ...new Set([
+        //       parseInt(customer.bookNum.slice(4)),
+        //       customer.ownerSName,
+        //       customer.ownerFName,
+        //       customer.ownerTName,
+        //       customer.ownerFoName,
+        //       customer.bookNum.trim(),
+        //       customer.bookType !== undefined ? customer.bookType : "عادي",
+        //       "لم يغادر",
+        //     ]),
+        //   ],
+        // });
+
         await addDoc(collection(db, "customers"), {
           ...customer,
           enteringDateBySec: enteringDate.getTime(),
           bookDateBySec: bookDate.getTime(),
           bookNumNo: parseInt(customer.bookNum.slice(4)),
+          state: "لم يغادر",
           reapetEntry: false,
           keywords: [
             ...new Set([
@@ -53,7 +76,7 @@ export default async function handler(req, res) {
               customer.ownerFoName,
               customer.bookNum.trim(),
               customer.bookType !== undefined ? customer.bookType : "عادي",
-              customer.state,
+              "لم يغادر",
             ]),
           ],
         });
