@@ -1,4 +1,9 @@
 /** @format */
+.fos-6 {
+  font-size: 12px !important;
+}.fos-5 {
+  font-size: 12px !important;
+}
 .w-50 {
   min-width: 45%;
   max-width: 45%;
@@ -12,7 +17,7 @@
 }
 .bg-w {
   color: #020202;
-  background-color: #f1f1f1;
+  background-color: var(--sec-clr);
 }
 .bg-b {
   background-color: lightgray;
@@ -24,14 +29,15 @@
   direction: rtl;
 }
 .header {
-  background-color: var(--theme-clr);
-  padding: 0.5em;
-  min-width: 100%;
-  color: #fff;
+  /* background-color: var(--theme-clr); */
+  /* background-color: var(--sec-clr); */
+  /* min-width: 100%; */
+  /* color: #fff; */
   display: flex;
   align-items: center;
   /* flex-direction: row-reverse; */
   justify-content: space-between;
+  /* box-shadow: 3px 3px 5px var(--shadow-clr); */
 }
 .tab-content {
   min-width: 100% !important;

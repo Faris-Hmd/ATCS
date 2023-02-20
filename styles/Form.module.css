@@ -3,13 +3,9 @@
   background-color: var(--sec-clr);
   border-radius: 5px;
 }
-.fillter .row > * {
-  padding: 0;
-}
 
 .fillter button {
   border: none;
-  border-left: 2px solid var(--shadow-clr);
   border-radius: 50%;
   transition: all 250ms;
 }

@@ -148,7 +148,7 @@ function CustomerForm({
           <Row className="d-flex justify-content-center">
             <Col xs={12} lg={4}>
               <Button
-                className="w-100"
+                className="w-100 p-2"
                 onClick={handleSubmit}
                 disabled={isLoading}>
                 {isLoading ? <Spinner /> : "اضافة"}

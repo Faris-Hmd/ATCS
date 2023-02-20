@@ -134,29 +134,26 @@ const Customers = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="m-0 p-0 h-100">
-        <Col className="header">
-          <Container>
-            <Row>
-              <Col className="pb-1" xs={12}>
-                <span>
-                  <h4>سجلات العملاء</h4>
-                </span>
+      <Container className="h-100 d-flex">
+        <Col lg={9}>
+          <Container className="w-100  h-100 p-0 m-0">
+            <Row className="p-0 m-0">
+              <Col>
+                <h4>سجلات العملاء</h4>
               </Col>
-              <Col xs={12} className="d-flex justify-content-center ">
+              <Col xs={12}>
                 <Form
                   onSubmit={(e) => handleKeywordSearch(e)}
-                  className={formStyles.fillter + " w-100 overflow-hidden"}>
-                  <InputGroup>
+                  className={formStyles.fillter + " w-100 shadow p-2 "}>
+                  <InputGroup className="rounded w-100 border overflow-hidden">
                     <Button
                       variant="outline-secondary"
                       onClick={handleKeywordSearch}>
                       <FaSearch />
                     </Button>
-                    <Button variant="outline-secondary " onClick={handleShow}>
+                    <Button variant="outline-secondary" onClick={handleShow}>
                       <FaFilter />
                     </Button>
-
                     <Form.Control
                       type="text"
                       name="keyword"
@@ -164,30 +161,39 @@ const Customers = () => {
                       onChange={(e) => setKeyword(e.target.value)}
                       className="p-2 rounded border-0"
                     />
-                    <Button variant="outline-secondary " onClick={handlePrint}>
+                    <Button variant="outline-secondary" onClick={handlePrint}>
                       <BsPrinter size={"22px"} />
                     </Button>
                   </InputGroup>
                 </Form>
               </Col>
             </Row>
+            <Row className="text-center h-100">
+              <Col>
+                {!loading ? (
+                  <CustomersList customers={customers} />
+                ) : (
+                  <Loading />
+                )}
+              </Col>
+            </Row>
           </Container>
         </Col>
-        <Col className="text-center h-100">
-          {!loading ? <CustomersList customers={customers} /> : <Loading />}
-        </Col>
-        {(state || state === "null") && (
-          <Col className="hidden">
-            <CustsReportToPrint
-              state={state}
-              startDate={startDate}
-              endDate={endDate}
-              customers={customers}
-              ref={reportRef}
-            />
-          </Col>
-        )}
+        {/* <Col lg={3} className="bg-b">
+          f
+        </Col> */}
       </Container>
+      {(state || state === "null") && (
+        <div className="hidden">
+          <CustsReportToPrint
+            state={state}
+            startDate={startDate}
+            endDate={endDate}
+            customers={customers}
+            ref={reportRef}
+          />
+        </div>
+      )}
     </>
   );
 };

@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       );
     }
   } else {
-    console.log(keyword);
+    // console.log(keyword);
 
     querySnapShot = await getDocs(
       query(
