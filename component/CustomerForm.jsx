@@ -105,8 +105,8 @@ function CustomerForm({
   ];
 
   return (
-    <Form className="p-0 pb-3">
-      <Container className="p-0">
+    <Form className="pb-3">
+      <Container className="p-1">
         <Row>
           <Col xs={12} lg={4}>
             <InputGroup

@@ -28,7 +28,6 @@ function CustomersList({ customers }) {
                 key={index}
                 href={"CustomerDetails/" + customer.customerId}
                 style={{
-                  fontSize: "14px",
                   color: "black",
                   textDecoration: "none",
                   background:
@@ -36,31 +35,31 @@ function CustomersList({ customers }) {
                       ? "lightGreen"
                       : customer.state === "مخالف" && "pink",
                 }}
-                className="bg-w">
-                <Container className="d-flex p-1 border rounded m-1 align-items-center bg-w">
-                  <Col xs={1}>{index + 1}</Col>
-                  <Col xs={5} className="text-start text-nowrap">
+                className="bg-w fos-lg m-0">
+                <Container className="d-flex mt-1 border rounded p-1 align-items-center justify-content-between bg-w">
+                  {/* <Col xs={1}>{index + 1}</Col> */}
+                  <Col className="text-start text-nowrap">
                     <Container>
                       <Row>{`${customer.ownerFName} ${customer.ownerSName} ${customer.ownerTName}`}</Row>
-                      <Row className="fos-6">
+                      <Row>
                         <Container className="p-0 m-0">
                           <Row>
-                            <Col className="text-start text-nowrap opacity-75">
+                            <Col className="fos-sm text-start text-nowrap opacity-75">
                               <TbBookUpload />{" "}
-                              {bDate.toISOString().slice(0, 10)}
+                              {bDate.toISOString().slice(2, 10)}
                               {" / "}
                               <TbBookDownload />{" "}
-                              {eDate.toISOString().slice(0, 10)}
+                              {eDate.toISOString().slice(2, 10)}
                             </Col>
                           </Row>
                         </Container>
                       </Row>
                     </Container>
                   </Col>
-                  <Col className="text-start text-truncate">
+                  <Col className="text-start text-nowrap">
                     <Container>
                       <Row>{customer.carType}</Row>
-                      <Row className="fos-6 opacity-75 text-truncate">
+                      <Row className="fos-sm opacity-75 text-nowrap">
                         {customer.chaseNum}
                       </Row>
                     </Container>

@@ -1,8 +1,12 @@
 /** @format */
-.fos-6 {
-  font-size: 12px !important;
+.container {
+  padding: 0;
+  margin: 0;
 }
-.fos-5 {
+.fos-lg {
+  font-size: clamp(10px, 13px, 1rem) !important;
+}
+.fos-sm {
   font-size: 12px !important;
 }
 .w-50 {

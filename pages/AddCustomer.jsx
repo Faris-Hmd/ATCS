@@ -46,7 +46,7 @@ const AddCar = () => {
   }, [customer]);
 
   return (
-    <Container>
+    <Container className="p-0">
       <Col className="header p-3">استمارة اضافة عميل</Col>
       <Col>
         <CustomerForm

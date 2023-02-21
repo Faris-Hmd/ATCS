@@ -134,48 +134,37 @@ const Customers = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="h-100 d-flex">
+      <Container className="h-100 p-1">
         <Col lg={9}>
-          <Container className="w-100  h-100 p-0 m-0">
-            <Row className="p-0 m-0">
-              <Col>
-                <h4>سجلات العملاء</h4>
-              </Col>
-              <Col xs={12}>
-                <Form
-                  onSubmit={(e) => handleKeywordSearch(e)}
-                  className={formStyles.fillter + " w-100 shadow p-2 "}>
-                  <InputGroup className="rounded w-100 border overflow-hidden">
-                    <Button
-                      variant="outline-secondary"
-                      onClick={handleKeywordSearch}>
-                      <FaSearch />
-                    </Button>
-                    <Button variant="outline-secondary" onClick={handleShow}>
-                      <FaFilter />
-                    </Button>
-                    <Form.Control
-                      type="text"
-                      name="keyword"
-                      placeholder="ادخل الاسم أو رقم الدفتر"
-                      onChange={(e) => setKeyword(e.target.value)}
-                      className="p-2 rounded border-0"
-                    />
-                    <Button variant="outline-secondary" onClick={handlePrint}>
-                      <BsPrinter size={"22px"} />
-                    </Button>
-                  </InputGroup>
-                </Form>
-              </Col>
+          <Container>
+            <Row>
+              <Form
+                onSubmit={(e) => handleKeywordSearch(e)}
+                className={formStyles.fillter + " w-100 shadow p-2"}>
+                <InputGroup className="rounded w-100 border overflow-hidden">
+                  <Button
+                    variant="outline-secondary"
+                    onClick={handleKeywordSearch}>
+                    <FaSearch />
+                  </Button>
+                  <Button variant="outline-secondary" onClick={handleShow}>
+                    <FaFilter />
+                  </Button>
+                  <Form.Control
+                    type="text"
+                    name="keyword"
+                    placeholder="ادخل الاسم أو رقم الدفتر"
+                    onChange={(e) => setKeyword(e.target.value)}
+                    className="p-2 rounded border-0"
+                  />
+                  <Button variant="outline-secondary" onClick={handlePrint}>
+                    <BsPrinter size={"22px"} />
+                  </Button>
+                </InputGroup>
+              </Form>
             </Row>
-            <Row className="text-center h-100">
-              <Col>
-                {!loading ? (
-                  <CustomersList customers={customers} />
-                ) : (
-                  <Loading />
-                )}
-              </Col>
+            <Row>
+              {!loading ? <CustomersList customers={customers} /> : <Loading />}
             </Row>
           </Container>
         </Col>
