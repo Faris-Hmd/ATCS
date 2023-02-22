@@ -8,6 +8,7 @@ import {
   BiPlusCircle,
   BiPrinter,
   BiSync,
+  BiUser,
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
@@ -40,8 +41,10 @@ function Menu() {
             <BiListUl />
             قائمة السيارات
           </Link>
-          <Link href="/AddCustomer
-          " className={styles.opt}>
+          <Link
+            href="/AddCustomer
+          "
+            className={styles.opt}>
             <BiPlusCircle />
             اضافة سيارة
           </Link>
@@ -63,10 +66,15 @@ function Menu() {
             </Link>
           )}
           {user && (
-            <div className={styles.opt} onClick={handleSignOut}>
-              <BiLogOut />
-              تسجيل الخروج
-            </div>
+            <>
+              <div className={styles.opt} onClick={handleSignOut}>
+                <BiLogOut />
+                تسجيل الخروج
+              </div>
+              <Link href="/UserProfile" className={styles.opt}>
+                <BiUser /> الملف الشخصي
+              </Link>
+            </>
           )}
           <div className={styles.opt} onClick={() => {}}>
             {syncing ? <Spinner /> : <BiSync />}

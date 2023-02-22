@@ -43,7 +43,7 @@ function Login() {
       });
   }
   function handleGetUserData(uid) {
-    fetch(baseUrl + "/api/getUser?uid=" + uid)
+    fetch(baseUrl + "/api/user?uid=" + uid)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -58,7 +58,7 @@ function Login() {
     }
   }, [user, isLoading]);
   return (
-    <Container dir="rtl"  className="w-100">
+    <Container dir="rtl" className="w-100">
       <Row>
         <Col>
           <div className="p-3 bg-clr">تسجيل الدخول</div>
@@ -67,12 +67,11 @@ function Login() {
       <Row className="justify-content-center">
         <Col xs={10} lg={5}>
           <Form className="justify-content-center" onSubmit={handleSubmit}>
-           <div className={styles.inputGroup}>
+            <div className={styles.inputGroup}>
               <FloatingLabel
                 label="البريد الالكتروني"
                 controlId="email"
-                className="mb-2 w-100"
-              >
+                className="mb-2 w-100">
                 <Form.Control
                   type="email"
                   name="email"
@@ -84,8 +83,7 @@ function Login() {
               <FloatingLabel
                 label="كلمة المرور"
                 controlId="password"
-                className="mb-2 w-100"
-              >
+                className="mb-2 w-100">
                 <Form.Control
                   type="password"
                   name="password"
@@ -97,7 +95,7 @@ function Login() {
               <Button type="submit" className="mt-2 w-100" disabled={isLoading}>
                 {isLoading ? <Spinner /> : "تسجيل"}
               </Button>
-        </div>
+            </div>
           </Form>
         </Col>
       </Row>

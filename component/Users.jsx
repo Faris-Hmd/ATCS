@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Col, Container, Row,  Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { baseUrl } from "../pages/_app";
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const router = useRouter();
 
   useEffect(() => {
     fetch(baseUrl + "/api/getUsers")
@@ -43,8 +42,8 @@ function Users() {
             <tbody>
               {users.map((user) => {
                 return (
-                  <tr onClick={() => router.push(`/UserDetail/${user.uid}`)}>
-                    <td>{user.username}</td>
+                  <tr>
+                    <td>{user.displayName}</td>
                     <td>{user.email}</td>
                     <td>{user.userType}</td>
                   </tr>

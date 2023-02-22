@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className={styles.logo}>
         <span>A</span>TSC
       </div>
-      <div className={styles.userNav}>{user?.username}</div>
+      <div className={styles.userNav}>{user?.displayName}</div>
     </nav>
   );
 };

@@ -1,8 +1,8 @@
 /** @format */
 
 import axios from "axios";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -12,45 +12,37 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { UserContext } from "../context/userContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 
-function SignUp() {
-  const [userData, setUserData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+function UserProfile() {
+  const { user, setUser } = useContext(UserContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   function handleChage(event) {
     const { name, value } = event.target;
     if (value.split(" ").length > 1) return;
-    setUserData((prev) => {
+    setUser((prev) => {
       return { ...prev, [name]: value };
     });
   }
-  function handleSubmit(event) {
-    setIsLoading(true);
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    if (userData.password !== userData.password2) return;
-    console.log(userData);
-    createUserWithEmailAndPassword(auth, userData.email, userData.password)
-      .then((userCredential) => {
-        handleSetUserData(userCredential.user.uid);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
-  async function handleSetUserData(uid) {
+    setIsLoading(true);
+    // console.log(user);
+    await updatePassword(auth.currentUser, user.password);
+    await updateEmail(auth.currentUser, user.email);
+    await updateProfile(auth.currentUser, { displayName: user.displayName });
     axios({
       method: "post",
       url: `${baseUrl}/api/user`,
       data: {
-        uid: uid,
-        email: userData.email,
-        userType: userData.userType,
-        displayName: userData.displayName,
-        password: userData.password,
+        uid: user.uid,
+        email: user.email,
+        userType: user.userType,
+        displayName: user.displayName,
       },
     })
       .then(() => {
@@ -59,27 +51,39 @@ function SignUp() {
       .catch(setIsLoading(false));
   }
 
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    fetch(baseUrl + "/api/user?uid=" + auth.currentUser.uid)
+      .then((res) => res.json())
+      .then((data) =>
+        setUser({
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+          userType: data.userType,
+        }),
+      );
+  }, [auth.currentUser]);
+  if (!auth.currentUser) return <h3>يجب تسجيل الدخول للوصول لهذه الصفحة</h3>;
   return (
-    <Container fluid dir="rtl">
+    <Container>
       <Row>
-        <Col>
-          <div className="p-3 bg-clr">اضافة مستخدم</div>
-        </Col>
+        <div className="p-3 bg-clr">تعديل بيانات مستخدم</div>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={10} lg={5}>
+        <Col xs={11} lg={5}>
           <Form className="justify-content-center" onSubmit={handleSubmit}>
             <Form.Group className="inputGroup  mt-5 p-1">
               <FloatingLabel
                 label="اسم المستخدم"
-                controlId="displayName"
+                controlId="username"
                 className="mb-2">
                 <Form.Control
                   type="text"
                   name="displayName"
                   placeholder="اسم المستخدم"
                   onChange={handleChage}
-                  value={userData.displayName}
+                  value={user.displayName}
                 />
               </FloatingLabel>
               <FloatingLabel
@@ -91,7 +95,7 @@ function SignUp() {
                   name="email"
                   placeholder="البريد الالكتروني"
                   onChange={handleChage}
-                  value={userData.email}
+                  value={user.email}
                 />
               </FloatingLabel>
               <FloatingLabel
@@ -103,7 +107,7 @@ function SignUp() {
                   name="password"
                   placeholder="البريد الالكتروني"
                   onChange={handleChage}
-                  value={userData.password}
+                  value={user?.password}
                 />
               </FloatingLabel>
               <FloatingLabel
@@ -115,14 +119,16 @@ function SignUp() {
                   name="password2"
                   placeholder="تاكيد كلمة المرور"
                   onChange={handleChage}
-                  value={userData.password2}
+                  value={user?.password2}
                 />
               </FloatingLabel>
               <FloatingLabel label="نوع المستخدم" controlId="userType">
                 <Form.Select
+                  disabled
                   name="userType"
+                  placeholder="البريد الالكتروني"
                   onChange={handleChage}
-                  value={userData.userType}>
+                  value={user.userType}>
                   <option value="admin">مشرف</option>
                   <option value="swakinUser">مكتب سواكن</option>
                   <option value="ksaUser">مكتب السعودية</option>
@@ -139,4 +145,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default UserProfile;
