@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const toDateBySec = new Date(toDate);
 
   let querySnapShot;
-  if (!keyword) {
+  if (keyword === "null") {
     console.log(searchParams);
     if (state !== "null") {
       querySnapShot = await getDocs(
@@ -55,12 +55,12 @@ export default async function handler(req, res) {
     const bookDate = new Date(customer.data().bookDateBySec);
     const enteringDate = new Date(customer.data().enteringDateBySec);
     // if (customers)
-      return {
-        ...customer.data(),
-        customerId: customer.id,
-        bookDate: bookDate.toISOString().slice(0, 10),
-        enteringDate: enteringDate.toISOString().slice(0, 10),
-      };
+    return {
+      ...customer.data(),
+      customerId: customer.id,
+      bookDate: bookDate.toISOString().slice(0, 10),
+      enteringDate: enteringDate.toISOString().slice(0, 10),
+    };
   });
   // console.log(customers);
   res.status(200).json(customers);

@@ -18,6 +18,7 @@ import { CustomerContext } from "../context/customersContext";
 import { BsPrinter } from "react-icons/bs";
 import { useReactToPrint } from "react-to-print";
 import CustsReportToPrint from "../component/CustomersReportToPrint";
+import { useQuery } from "react-query";
 
 const Customers = () => {
   const reportRef = useRef();
@@ -27,49 +28,41 @@ const Customers = () => {
   const [endDate, setEndDate] = useState("2023-01-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
   const [state, setState] = useState("null");
-  const [keyword, setKeyword] = useState();
+  const [keyword, setKeyword] = useState("null");
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
-  const [loading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
-  const getData = () => {
-    setIsLoading(true);
-    fetch(
-      `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCustomers(data);
-        setIsLoading(false);
-      });
-  };
+  const [isEnable, setIsEnable] = useState(false);
+
+  const { data, isloading, error } = useQuery(
+    "customers",
+    async () =>
+      await fetch(
+        `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`,
+      ).then((res) => res.json()),
+    { enabled: isEnable },
+  );
+
   const handleFillterdSearch = (e) => {
     e.preventDefault();
-    getData();
-  };
-
-  const handleKeywordSearch = (e) => {
-    e.preventDefault();
-    fetch(`${baseUrl}/api/getCustomers?keyword=${keyword}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCustomers(data);
-        setIsLoading(false);
-      });
+    setIsEnable(true);
   };
 
   const handlePrint = useReactToPrint({
     content: () => reportRef.current,
   });
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   useEffect(() => {
-    getData();
-  }, []);
+    if (data) {
+      setCustomers(data);
+      setIsEnable(false);
+    } else {
+      setIsEnable(true);
+    }
+  }, [data]);
+
   return (
     <>
-      <Modal show={show} onHide={handleClose} keyboard={false}>
+      <Modal show={show} onHide={() => setShow(false)} keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>قائمة الفرز</Modal.Title>
         </Modal.Header>
@@ -126,7 +119,7 @@ const Customers = () => {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShow(false)}>
             إغلاق
           </Button>
           <Button variant="primary" onClick={handleFillterdSearch}>
@@ -139,15 +132,17 @@ const Customers = () => {
           <Container className="p-1">
             <Row>
               <Form
-                onSubmit={(e) => handleKeywordSearch(e)}
-                className={formStyles.fillter + " w-100 shadow p-2"}>
-                <InputGroup className="rounded w-100 border overflow-hidden">
+                onSubmit={handleFillterdSearch}
+                className={formStyles.fillter + " w-100 shadow p-2 bg-clr"}>
+                <InputGroup className="rounded w-100 border overflow-hidden ">
                   <Button
                     variant="outline-secondary"
-                    onClick={handleKeywordSearch}>
+                    onClick={handleFillterdSearch}>
                     <FaSearch />
                   </Button>
-                  <Button variant="outline-secondary" onClick={handleShow}>
+                  <Button
+                    variant="outline-secondary"
+                    onClick={() => setShow(true)}>
                     <FaFilter />
                   </Button>
                   <Form.Control
@@ -164,7 +159,11 @@ const Customers = () => {
               </Form>
             </Row>
             <Row className="h-100">
-              {!loading ? <CustomersList customers={customers} /> : <Loading />}
+              {!isloading ? (
+                <CustomersList customers={customers} />
+              ) : (
+                <Loading />
+              )}
             </Row>
           </Container>
         </Col>

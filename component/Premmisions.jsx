@@ -62,7 +62,7 @@ function Premessions() {
   }, [premessions]);
 
   return (
-    <Container className="bg-w p-2 shadow rounded">
+    <Container className="bg-w p-2 shadow rounded h-600">
       <Tab.Container defaultActiveKey="#1">
         <Row>
           <Col lg={5}>

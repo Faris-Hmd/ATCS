@@ -14,7 +14,11 @@ function Settings() {
             <Users />
           </Tab>
           <Tab title="الصلاحيات" eventKey={2}>
-            <Premessions />
+            <Container className="mt-3 d-flex justify-content-center align-content-center">
+              <Col xs={12} lg={9}>
+                <Premessions />
+              </Col>
+            </Container>
           </Tab>
           <Tab title="الرسوم" eventKey={3}>
             <Row>
