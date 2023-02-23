@@ -3,11 +3,17 @@
   padding: 0;
   margin: 0;
 }
+.h-100 {
+  min-height: 70vh !important;
+}
 .fc-w {
   color: #eee !important;
 }
 .fos-lg {
   font-size: clamp(10px, 13px, 1rem) !important;
+}
+.fos-m {
+  font-size: 14px !important;
 }
 .fos-sm {
   font-size: 12px !important;

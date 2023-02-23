@@ -9,7 +9,7 @@ const CustsReportToPrint = React.forwardRef(
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className="" ref={ref}>
+      <Container className=" fos-m w-100" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
             {(state === "لم يغادر" || state === "null") &&
@@ -32,7 +32,7 @@ const CustsReportToPrint = React.forwardRef(
               eDate.getDate()}
           </div>
         </div>
-        <Table responsive={"sm"} striped>
+        <Table striped bordered>
           <thead>
             <tr className="bg-b">
               <th>#</th>

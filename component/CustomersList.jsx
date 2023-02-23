@@ -36,7 +36,7 @@ function CustomersList({ customers }) {
                       : customer.state === "مخالف" && "pink",
                 }}
                 className="bg-w fos-lg m-0">
-                <Container className="d-flex mt-1 border rounded p-1 align-items-center justify-content-between bg-w">
+                <Container className="d-flex mt-1 border rounded p-2 align-items-center justify-content-between bg-w">
                   {/* <Col xs={1}>{index + 1}</Col> */}
                   <Col className="text-start text-nowrap">
                     <Container>

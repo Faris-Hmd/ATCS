@@ -134,9 +134,9 @@ const Customers = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="h-100 p-1">
+      <Container className="p-3">
         <Col lg={9}>
-          <Container>
+          <Container className="p-1">
             <Row>
               <Form
                 onSubmit={(e) => handleKeywordSearch(e)}
@@ -163,7 +163,7 @@ const Customers = () => {
                 </InputGroup>
               </Form>
             </Row>
-            <Row>
+            <Row className="h-100">
               {!loading ? <CustomersList customers={customers} /> : <Loading />}
             </Row>
           </Container>

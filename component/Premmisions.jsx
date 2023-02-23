@@ -1,9 +1,8 @@
 import { Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase";
 import { baseUrl } from "../pages/_app";
 import Loading from "./Loading";
+import axios from "axios";
 
 function Premessions() {
   const [premessions, setPremessions] = useState();
@@ -22,7 +21,7 @@ function Premessions() {
 
   function getPremissions() {
     setUserChangeLoading(true);
-    fetch(baseUrl + "/api/getPrem?userType=" + userType)
+    fetch(baseUrl + "/api/Premm?userType=" + userType)
       .then((res) => res.json())
       .then((data) => {
         setUserType(data.userType);
@@ -33,8 +32,12 @@ function Premessions() {
   }
 
   async function handlePremUpdate() {
-    await updateDoc(doc(db, "userType", userType), {
-      premessions: premessions,
+    axios({
+      method: "PATCH",
+      url: `${baseUrl}/api/Premm?userType=` + userType,
+      data: {
+        premessions: premessions,
+      },
     });
   }
 
