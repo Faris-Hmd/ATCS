@@ -8,10 +8,13 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
 
   const setUserData = (user) => {
+    // console.log(user);
     setUser({
-      id: user.uid,
-      name: user.displayName,
+      uid: user.uid,
+      displayName: user.displayName,
       email: user.email,
+      password: user.password,
+      userType: user.userType,
     });
   };
 
@@ -40,8 +43,7 @@ export const UserProvider = (props) => {
         user,
         setUser,
         handleSignOut,
-      }}
-    >
+      }}>
       {props.children}
     </UserContext.Provider>
   );
