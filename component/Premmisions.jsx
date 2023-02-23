@@ -1,4 +1,4 @@
-import { Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
+import { Col, Container, Form, ListGroup, Row, Spinner, Tab } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
@@ -57,100 +57,100 @@ function Premessions() {
   //   useEffect(() => console.log(premessions), [premessions]);
 
   return (
-    <Container>
-      <Tab.Container defaultActiveKey="#1">
-        <Row>
-          <Col xs={4}>
-            <ListGroup>
-              <ListGroup.Item
-                action
-                href="#1"
-                onClick={() => setUserType("admin")}>
-                مشرف
-              </ListGroup.Item>
-              <ListGroup.Item
-                action
-                href="#2"
-                onClick={() => setUserType("swakinUser")}>
-                مكتب سواكن
-              </ListGroup.Item>
-              <ListGroup.Item
-                action
-                href="#3"
-                onClick={() => setUserType("ksaUser")}>
-                مكتب السعودية
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col xs={8}>
-            {userChangeLoading ? (
-              <Tab.Content>
-                {premessionsList.map((item, index) => {
+    // <Container>
+    //   <Tab.Container defaultActiveKey="#1">
+    //     <Row>
+    //       <Col xs={4}>
+    //         <ListGroup>
+    //           <ListGroup.Item
+    //             action
+    //             href="#1"
+    //             onClick={() => setUserType("admin")}>
+    //             مشرف
+    //           </ListGroup.Item>
+    //           <ListGroup.Item
+    //             action
+    //             href="#2"
+    //             onClick={() => setUserType("swakinUser")}>
+    //             مكتب سواكن
+    //           </ListGroup.Item>
+    //           <ListGroup.Item
+    //             action
+    //             href="#3"
+    //             onClick={() => setUserType("ksaUser")}>
+    //             مكتب السعودية
+    //           </ListGroup.Item>
+    //         </ListGroup>
+    //       </Col>
+    //       <Col xs={8}>
+    //         {userChangeLoading ? (
+    //           <Tab.Content>
+    //             {premessionsList.map((item, index) => {
+    //               return (
+    //                 <Tab.Pane eventKey={"#" + index + 1} key={index}>
+    //                   <div
+    //                     key={item.name}
+    //                     className={`mt-2 w-100 ${
+    //                       premessions?.includes(item.route)
+    //                         ? "checkBoxChecked"
+    //                         : "checkBox"
+    //                     }`}
+    //                     onClick={() => handlePremChange(item.route)}>
+    //                     {item.name}
+    //                   </div>
+    //                 </Tab.Pane>
+    //               );
+    //             })}
+    //           </Tab.Content>
+    //         ) : (
+    //           <Loading />
+    //         )}
+    //       </Col>
+    //     </Row>
+    //   </Tab.Container>
+    // <Row className="justify-content-center">
+    //       <Col xs={11} lg={6}>
+    <Form>
+      <Container>
+        <Row className="justify-content-center">
+          <Col className="justify-content-center">
+            {!userChangeLoading ? (
+              <div className={"p-1 " + styles.inputGroup}>
+                <FloatingLabel label="نوع المستخدم" className={"w-100"}>
+                  <Form.Select
+                    placeholder="hg"
+                    onChange={(e) => setUserType(e.target.value)}
+                    value={userType}>
+                    <option value="admin">مشرف</option>
+                    <option value="swakinUser">مكتب سواكن</option>
+                    <option value="ksaUser">مكتب السعودية</option>
+                  </Form.Select>
+                </FloatingLabel>
+                {premessionsList.map((item) => {
                   return (
-                    <Tab.Pane eventKey={"#" + index + 1} key={index}>
-                      <div
-                        key={item.name}
-                        className={`mt-2 w-100 ${
-                          premessions?.includes(item.route)
-                            ? "checkBoxChecked"
-                            : "checkBox"
-                        }`}
-                        onClick={() => handlePremChange(item.route)}>
-                        {item.name}
-                      </div>
-                    </Tab.Pane>
+                    <div
+                      key={item.name}
+                      className={`mt-2 w-100 ${
+                        premessions?.includes(item.route)
+                          ? "checkBoxChecked"
+                          : "checkBox"
+                      }`}
+                      onClick={() => handlePremChange(item.route)}>
+                      {item.name}
+                    </div>
                   );
                 })}
-              </Tab.Content>
+              </div>
             ) : (
-              <Loading />
+              <Spinner />
             )}
           </Col>
         </Row>
-      </Tab.Container>
-      {/* <Row className="justify-content-center">
-        <Col xs={11} lg={6}>
-          <Form>
-            <Container>
-              <Row className="justify-content-center">
-                <Col className="justify-content-center">
-                  {!userChangeLoading ? (
-                    <div className={"p-1 " + styles.inputGroup}>
-                      <FloatingLabel label="نوع المستخدم" className={"w-100"}>
-                        <Form.Select
-                          placeholder="hg"
-                          onChange={(e) => setUserType(e.target.value)}
-                          value={userType}>
-                          <option value="admin">مشرف</option>
-                          <option value="swakinUser">مكتب سواكن</option>
-                          <option value="ksaUser">مكتب السعودية</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                      {premessionsList.map((item) => {
-                        return (
-                          <div
-                            key={item.name}
-                            className={`mt-2 w-100 ${
-                              premessions?.includes(item.route)
-                                ? "checkBoxChecked"
-                                : "checkBox"
-                            }`}
-                            onClick={() => handlePremChange(item.route)}>
-                            {item.name}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <Spinner />
-                  )}
-                </Col>
-              </Row>
-            </Container>
-          </Form>
-        </Col>
-      </Row> */}
-    </Container>
+      </Container>
+    </Form>
+    //     </Col>
+    //   </Row>
+    // </Container>
   );
 }
 
