@@ -28,7 +28,7 @@ a {
 }
 
 :root {
-  --theme-clr: royalblue;
+  --theme-clr: rgb(0, 75, 172);
   --sec-clr: #fdfdfd;
   --prime-clr: #f1f1f1;
   --font-clr: #333;
@@ -38,7 +38,7 @@ a {
   --hover-clr: #dedede;
 }
 .dark {
-  --theme-clr: royalblue;
+  --theme-clr: rgb(101, 128, 208);
   --prime-clr: #121212;
   --sec-clr: #222;
   --font-clr: #ddd;

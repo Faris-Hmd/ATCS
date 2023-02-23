@@ -107,10 +107,6 @@ const CarDetail = () => {
     }
   }, [customerId, customers]);
 
-  // useEffect(() => {
-  //   console.log(customer);
-  // }, [customerId]);
-
   if (isLoading) return <Loading />;
   if (customer)
     return (
@@ -206,10 +202,7 @@ const CarDetail = () => {
           </Col>
           <Col>
             <Tabs className="bg-clr w-100">
-              <Tab
-                eventKey={"الاجرائات"}
-                title={"الاجرائات"}
-                tabClassName={"m-1 mb-0"}>
+              <Tab eventKey={"الاجرائات"} title={"الاجرائات"}>
                 <Container>
                   <Row className="justify-content-center">
                     <Col xs={"auto"} lg={6}>
@@ -222,10 +215,7 @@ const CarDetail = () => {
                   </Row>
                 </Container>
               </Tab>
-              <Tab
-                title="التفاصيل"
-                eventKey="التفاصيل"
-                tabClassName={"m-1 mb-0"}>
+              <Tab title="التفاصيل" eventKey="التفاصيل">
                 <Container>
                   <Row className="justify-content-center">
                     <Col>
