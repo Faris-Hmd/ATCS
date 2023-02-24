@@ -11,7 +11,7 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import { UserContext } from "../context/userContext";
+import { AuthContext } from "../context/authContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 import Loading from "../component/Loading";
@@ -20,7 +20,7 @@ function Login() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(AuthContext);
 
   function handleChage(event) {
     const { name, value } = event.target;
@@ -48,6 +48,7 @@ function Login() {
       .then((res) => res.json())
       .then((data) => {
         setUser({
+          premessions: data.premessions,
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
@@ -57,6 +58,7 @@ function Login() {
         sessionStorage.setItem(
           "user",
           JSON.stringify({
+            premessions: data.premessions,
             email: user.email,
             uid: user.uid,
             displayName: user.displayName,

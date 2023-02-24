@@ -1,3 +1,5 @@
+/** @format */
+
 import { Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../pages/_app";
@@ -14,9 +16,9 @@ function Premessions() {
     { route: "Receipt", name: "استخراج ايصال" },
     { route: "Settings", name: "الاعدادات" },
     { route: "SignUp", name: "اضافة مستخدم" },
-    { route: "Cars", name: "قائمة السيارات" },
-    { route: "AddCar", name: "اضافة سيارة" },
-    { route: "CarDetail", name: "تفاصيل العملاء" },
+    { route: "Customers", name: "قائمة السيارات" },
+    { route: "AddCustomer", name: "اضافة سيارة" },
+    { route: "CustomersDetails", name: "تفاصيل العملاء" },
   ];
 
   function getPremissions() {
@@ -71,19 +73,22 @@ function Premessions() {
                 action
                 href="#1"
                 // className={`${hre && "fc-w"}`}
-                onClick={() => setUserType("admin")}>
+                onClick={() => setUserType("admin")}
+              >
                 مشرف
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#2"
-                onClick={() => setUserType("swakinUser")}>
+                onClick={() => setUserType("swakinUser")}
+              >
                 مكتب سواكن
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#3"
-                onClick={() => setUserType("ksaUser")}>
+                onClick={() => setUserType("ksaUser")}
+              >
                 مكتب السعودية
               </ListGroup.Item>
             </ListGroup>
@@ -100,7 +105,8 @@ function Premessions() {
                             ? "checkBoxChecked"
                             : "checkBox"
                         }`}
-                        onClick={() => handlePremChange(item.route)}>
+                        onClick={() => handlePremChange(item.route)}
+                      >
                         {item.name}
                       </div>
                     </div>

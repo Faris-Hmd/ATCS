@@ -177,7 +177,7 @@ const CarDetail = () => {
                 variant="light"
                 onClick={() => setIsEditing((prev) => !prev)}>
                 <BsPencil size={"25px"} />
-              </Button>{" "}
+              </Button>
               {!isEditing && (
                 <Button onClick={handleShow} variant="light">
                   <BsPrinter size={"25px"} />

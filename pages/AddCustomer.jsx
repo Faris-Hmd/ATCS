@@ -1,13 +1,16 @@
 /** @format */
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
 import CustomerForm from "../component/CustomerForm";
+import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
 
 const AddCar = () => {
   const router = useRouter();
+  const { user, hasAccess } = useContext(AuthContext);
+
   const [customer, setCustomer] = useState({
     bookType: "عادي",
     dest: "السعودية",
@@ -42,21 +45,24 @@ const AddCar = () => {
   useEffect(() => {
     console.log(customer);
   }, [customer]);
+  if (!(user && hasAccess("AddCustomer")))
+    return <h3>لا تملك صلاحية الوصول لهذه الصفحة</h3>;
 
-  return (
-    <Container className="p-0">
-      <Col className="header p-3">استمارة اضافة عميل</Col>
-      <Col>
-        <CustomerForm
-          customer={customer}
-          handleChange={handleChange}
-          isEditing={true}
-          isForm={true}
-          handleSubmit={handleSubmit}
-          isLoading={isLoading}
-        />
-      </Col>
-    </Container>
-  );
+  if (user && hasAccess("AddCustomer"))
+    return (
+      <Container className="p-0">
+        <Col className="header p-3">استمارة اضافة عميل</Col>
+        <Col>
+          <CustomerForm
+            customer={customer}
+            handleChange={handleChange}
+            isEditing={true}
+            isForm={true}
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
+        </Col>
+      </Container>
+    );
 };
 export default AddCar;

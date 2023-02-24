@@ -17,7 +17,6 @@ function CustomersList({ customers }) {
             // var dayDiff = diff / (1000 * 60 * 60 * 24);
             var eDate = new Date(customer.enteringDateBySec);
             var bDate = new Date(customer.bookDateBySec);
-
             return (
               <Link
                 key={index}
@@ -41,10 +40,10 @@ function CustomersList({ customers }) {
                         <Container className="p-0 m-0">
                           <Row>
                             <Col className="fos-sm text-start text-nowrap opacity-75">
-                              <TbBookUpload />{" "}
+                              <TbBookUpload />
                               {bDate.toISOString().slice(2, 10)}
                               {" / "}
-                              <TbBookDownload />{" "}
+                              <TbBookDownload />
                               {eDate.toISOString().slice(2, 10)}
                             </Col>
                           </Row>
@@ -56,7 +55,7 @@ function CustomersList({ customers }) {
                     <Container>
                       <Row>{customer.carType}</Row>
                       <Row className="fos-sm opacity-75 text-nowrap">
-                        {customer.chaseNum}
+                        {customer.bookNum}
                       </Row>
                     </Container>
                   </Col>

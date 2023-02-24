@@ -2,14 +2,20 @@
 /** @format */
 import { createContext, useEffect, useState } from "react";
 
-export const UserContext = createContext();
+export const AuthContext = createContext();
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
 
+  function hasAccess(route) {
+    console.log(user);
+    if (user.premessions.includes(route)) return true;
+    else return false;
+  }
+
   const setUserData = (user) => {
-    // console.log(user);
     setUser({
+      premessions: user.premessions,
       uid: user.uid,
       displayName: user.displayName,
       email: user.email,
@@ -38,13 +44,15 @@ export const UserProvider = (props) => {
     }
   }, []);
   return (
-    <UserContext.Provider
+    <AuthContext.Provider
       value={{
         user,
         setUser,
         handleSignOut,
-      }}>
+        hasAccess,
+      }}
+    >
       {props.children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   );
 };

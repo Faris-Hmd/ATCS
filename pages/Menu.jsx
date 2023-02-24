@@ -12,13 +12,13 @@ import {
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
-import { UserContext } from "../context/userContext";
+import { AuthContext } from "../context/authContext";
 import { useContext, useState } from "react";
 import { baseUrl } from "./_app";
 import { Spinner } from "react-bootstrap";
 
 function Menu() {
-  const { user, handleSignOut } = useContext(UserContext);
+  const { user, handleSignOut } = useContext(AuthContext);
   const [syncing, setIsSyncing] = useState(false);
 
   function dataSync() {
@@ -39,7 +39,7 @@ function Menu() {
           </Link>
           <Link href="/Customers" className={styles.opt}>
             <BiListUl />
-            قائمة السيارات
+            قائمة العملاء
           </Link>
           <Link
             href="/AddCustomer
@@ -54,9 +54,6 @@ function Menu() {
           </Link>
           <Link href="/Receipt" className={styles.opt}>
             <BsReceipt /> استخراج ايصال
-          </Link>
-          <Link href="/Reports" className={styles.opt}>
-            <BiPrinter /> استخراج تقارير
           </Link>
         </div>
         <div className={styles.optCon}>

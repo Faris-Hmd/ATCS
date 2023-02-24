@@ -15,7 +15,9 @@ export default async function handler(req, res) {
         const uid = searchParams.get("uid");
         const querySnapShot = await getDoc(doc(db, "users", uid));
         const user = querySnapShot.data();
-        res.status(200).json(user);
+        const querySnapSho = await getDoc(doc(db, "userType", user.userType));
+        const userType = querySnapSho.data();
+        res.status(200).json({ ...user, premessions: userType.premessions });
       }
       break;
     case "POST":

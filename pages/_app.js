@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import "../styles/util.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.rtl.min.css";
-import { UserProvider } from "../context/userContext";
+import { UserProvider } from "../context/authContext";
 import { CustomerProvider } from "../context/customersContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 const internetUrl = "https://atcs-demo.netlify.app";

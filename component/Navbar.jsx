@@ -1,9 +1,9 @@
 /** @format */ import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { AuthContext } from "../context/authContext";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
