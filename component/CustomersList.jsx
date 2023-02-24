@@ -1,20 +1,15 @@
+/** @format */
+
 import Link from "next/link";
-// import { useRouter } from "next/router";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { TbBookDownload, TbBookUpload } from "react-icons/tb";
 import Loading from "./Loading";
 
 function CustomersList({ customers }) {
-  // const currentDate = new Date();
-  // const router = useRouter();
-
-  // const handleNav = (customerId) => {
-  //   router.push("CustomerDetails/" + customerId);
-  // };
   if (!customers) return <Loading />;
   return (
-    <Container className="p-0 m-0">
+    <Container className="p-1 m-0">
       <Row>
         <Col>
           {customers.map((customer, index) => {
@@ -35,7 +30,8 @@ function CustomersList({ customers }) {
                       ? "lightGreen"
                       : customer.state === "مخالف" && "pink",
                 }}
-                className="bg-w fos-lg m-0">
+                className="bg-w fos-lg m-0"
+              >
                 <Container className="d-flex mt-1 border rounded p-2 align-items-center justify-content-between bg-w">
                   {/* <Col xs={1}>{index + 1}</Col> */}
                   <Col className="text-start text-nowrap">

@@ -1,7 +1,6 @@
 /** @format */
 import React from "react";
 import { Container, Table } from "react-bootstrap";
-import styles from "../styles/List.module.css";
 import reportStyles from "../styles/report.module.css";
 
 const CustsReportToPrint = React.forwardRef(
@@ -50,7 +49,7 @@ const CustsReportToPrint = React.forwardRef(
               var eDate = new Date(customer.enteringDateBySec);
               var bDate = new Date(customer.bookDateBySec);
               return (
-                <tr className={styles.tableRow} key={index}>
+                <tr key={index}>
                   <td>{1 + index}</td>
                   <td className="text-nowrap">
                     {customer.ownerFName + "  "}
@@ -77,6 +76,6 @@ const CustsReportToPrint = React.forwardRef(
         </Table>
       </Container>
     );
-  },
+  }
 );
 export default CustsReportToPrint;

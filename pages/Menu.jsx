@@ -44,7 +44,8 @@ function Menu() {
           <Link
             href="/AddCustomer
           "
-            className={styles.opt}>
+            className={styles.opt}
+          >
             <BiPlusCircle />
             اضافة سيارة
           </Link>

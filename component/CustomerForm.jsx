@@ -17,11 +17,13 @@ function CustomerForm({
       placeholder: "الاسم الاول",
       class: "w-50",
       type: "text",
+      isRequired: true,
     },
     {
       name: "ownerSName",
       placeholder: "الاسم الثاني",
       class: "w-50",
+      isRequired: true,
       type: "text",
     },
     {
@@ -29,18 +31,21 @@ function CustomerForm({
       placeholder: "الاسم الثالث",
       class: "w-50",
       type: "text",
+      isRequired: true,
     },
     {
       name: "ownerFoName",
       placeholder: "الاسم الرابع",
       class: "w-50",
       type: "text",
+      isRequired: true,
     },
     {
       name: "passport",
       placeholder: "رقم الجواز",
       class: "w-100",
       type: "text",
+      isRequired: true,
     },
     { name: "address", placeholder: "العنوان", class: "w-100", type: "text" },
     {
@@ -48,6 +53,7 @@ function CustomerForm({
       placeholder: " رقم الهاتف الاول",
       class: "w-50",
       type: "text",
+      isRequired: true,
     },
     {
       name: "phone2",
@@ -62,36 +68,52 @@ function CustomerForm({
       placeholder: "رقم الهيكل",
       class: "w-100",
       type: "text",
+      isRequired: true,
     },
     {
       name: "plateNum",
       placeholder: "رقم اللوحة",
       class: "w-100",
       type: "text",
+      isRequired: true,
     },
     {
       name: "carType",
       placeholder: "ماركة المركبة",
       class: "w-100",
       type: "text",
+      isRequired: true,
     },
     {
       name: "carModel",
       placeholder: "موديل المركبة",
       class: "w-100",
       type: "text",
+      isRequired: true,
     },
   ];
   const bookDetail = [
-    { name: "bookNum", placeholder: "رقم الدفتر", class: "w-50", type: "text" },
+    {
+      name: "bookNum",
+      placeholder: "رقم الدفتر",
+      class: "w-50",
+      type: "text",
+      isRequired: true,
+    },
     {
       name: "bookType",
       placeholder: "نوع الدفتر",
       type: "select",
       class: "w-50",
       opt: [{ value: "عادي" }, { value: "سياحي" }],
+      isRequired: true,
     },
-    { name: "bookDate", type: "date", class: "w-100" },
+    {
+      name: "bookDate",
+      type: "date",
+      class: "w-100",
+      isRequired: true,
+    },
   ];
   const enteringDetail = [
     {
@@ -100,12 +122,18 @@ function CustomerForm({
       placeholder: "جهة الوصول",
       type: "select",
       opt: [{ value: "السعودية" }, { value: "مصر" }],
+      isRequired: true,
     },
-    { name: "enteringDate", type: "date", class: "w-100" },
+    {
+      name: "enteringDate",
+      type: "date",
+      class: "w-100",
+      isRequired: false,
+    },
   ];
 
   return (
-    <Form className="pb-3">
+    <Form className="pb-3" onSubmit={handleSubmit}>
       <Container className="p-1">
         <Row>
           <Col xs={12} lg={4}>
@@ -147,10 +175,7 @@ function CustomerForm({
         {isForm && (
           <Row className="d-flex justify-content-center">
             <Col xs={12} lg={4}>
-              <Button
-                className="w-100 p-2"
-                onClick={handleSubmit}
-                disabled={isLoading}>
+              <Button className="w-100 p-2" type="submit" disabled={isLoading}>
                 {isLoading ? <Spinner /> : "اضافة"}
               </Button>
             </Col>

@@ -1,5 +1,6 @@
+/** @format */
+
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
@@ -22,13 +23,15 @@ function Users() {
             striped
             responsive={"sm"}
             hover
-            className="rounded mt-5 overflow-hidden shadow-sm p-2">
+            className="rounded mt-5 overflow-hidden shadow-sm p-2"
+          >
             <thead className="bg-clr">
               <tr>
                 <th colSpan={3} className="p-3">
                   <Link
                     href="/SignUp"
-                    className="rounded bg-w p-2 text-decoration-none justify-content-between align-content-center">
+                    className="rounded bg-w p-2 text-decoration-none justify-content-between align-content-center"
+                  >
                     اضافة <FaPlus />
                   </Link>
                 </th>

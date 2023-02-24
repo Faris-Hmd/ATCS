@@ -26,8 +26,8 @@ export default async function handler(req, res) {
           where(searchBy, "<=", toDateBySec.getTime()),
           where("repeatEntry", "==", repeatEntry === "false" ? false : true),
           where("state", "==", state),
-          orderBy(searchBy),
-        ),
+          orderBy(searchBy)
+        )
       );
     } else {
       querySnapShot = await getDocs(
@@ -36,30 +36,29 @@ export default async function handler(req, res) {
           where(searchBy, ">=", fromDateBySec.getTime()),
           where(searchBy, "<=", toDateBySec.getTime()),
           where("repeatEntry", "==", repeatEntry === "false" ? false : true),
-          orderBy(searchBy),
-        ),
+          orderBy(searchBy)
+        )
       );
     }
   } else {
-    // console.log(keyword);
-
+    console.log(keyword);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
-        where("keywords", "array-contains", keyword),
-      ),
+        where("keywords", "array-contains", keyword)
+      )
     );
   }
 
   const customers = querySnapShot.docs.map((customer) => {
     const bookDate = new Date(customer.data().bookDateBySec);
     const enteringDate = new Date(customer.data().enteringDateBySec);
-    // if (customers)
+
     return {
       ...customer.data(),
       customerId: customer.id,
       bookDate: bookDate.toISOString().slice(0, 10),
-      enteringDate: enteringDate.toISOString().slice(0, 10),
+      enteringDate: enteringDate ? enteringDate.toISOString().slice(0, 10) : 0,
     };
   });
   // console.log(customers);

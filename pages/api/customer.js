@@ -38,17 +38,19 @@ export default async function handler(req, res) {
         // console.log(customer);
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
-
         // console.log({
         //   ...customer,
+        //   enteringDate: customer.enteringDate === 0 ? 0 : enteringDate,
+        //   sixMonthEx: false,
+        //   threeMonthEx: false,
+        //   leftEx: false,
         //   enteringDateBySec: enteringDate.getTime(),
         //   bookDateBySec: bookDate.getTime(),
-        //   bookNumNo: parseInt(customer.bookNum.slice(4)),
-        //   reapetEntry: false,
+        //   bookNumNo: customer.bookNum.slice(4),
         //   state: "لم يغادر",
         //   keywords: [
         //     ...new Set([
-        //       parseInt(customer.bookNum.slice(4)),
+        //       customer.bookNum.slice(4),
         //       customer.ownerSName,
         //       customer.ownerFName,
         //       customer.ownerTName,
@@ -59,17 +61,19 @@ export default async function handler(req, res) {
         //     ]),
         //   ],
         // });
-
         await addDoc(collection(db, "customers"), {
           ...customer,
+          enteringDate: customer.enteringDate === 0 ? 0 : enteringDate,
+          sixMonthEx: false,
+          threeMonthEx: false,
+          leftEx: false,
           enteringDateBySec: enteringDate.getTime(),
           bookDateBySec: bookDate.getTime(),
-          bookNumNo: parseInt(customer.bookNum.slice(4)),
+          bookNumNo: customer.bookNum.slice(4),
           state: "لم يغادر",
-          reapetEntry: false,
           keywords: [
             ...new Set([
-              parseInt(customer.bookNum.slice(4)),
+              customer.bookNum.slice(4),
               customer.ownerSName,
               customer.ownerFName,
               customer.ownerTName,
@@ -86,9 +90,27 @@ export default async function handler(req, res) {
     case "PATCH":
       {
         const customer = req.body;
-        console.log(customer);
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
+        // console.log({
+        //   ...customer,
+        //   enteringDateBySec: enteringDate.getTime(),
+        //   bookDateBySec: bookDate.getTime(),
+        //   bookNumNo: parseInt(customer.bookNum.slice(4)),
+        //   keywords: [
+        //     ...new Set([
+        //       customer.bookNum.slice(4),
+        //       customer.ownerSName,
+        //       customer.ownerFName,
+        //       customer.ownerTName,
+        //       customer.ownerFoName,
+        //       customer.bookNum.trim(),
+        //       customer.bookType !== undefined ? customer.bookType : "عادي",
+        //       customer.state,
+        //     ]),
+        //   ],
+        // });
+
         await updateDoc(doc(db, "customers", customer.customerId), {
           ...customer,
           enteringDateBySec: enteringDate.getTime(),
@@ -96,7 +118,7 @@ export default async function handler(req, res) {
           bookNumNo: parseInt(customer.bookNum.slice(4)),
           keywords: [
             ...new Set([
-              parseInt(customer.bookNum.slice(4)),
+              customer.bookNum.slice(4),
               customer.ownerSName,
               customer.ownerFName,
               customer.ownerTName,

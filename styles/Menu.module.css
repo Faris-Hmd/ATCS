@@ -10,6 +10,7 @@
   min-height: 100%;
   width: min(100%, 700px);
   margin: auto;
+  /* background-color: var(--sec-clr); */
 }
 .optCon {
   width: 98%;

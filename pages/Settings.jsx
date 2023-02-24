@@ -7,7 +7,7 @@ import Users from "../component/Users";
 function Settings() {
   return (
     <Container className="p-0 m-0">
-      <Col className="header">الاعدادات</Col>
+      <Col className="header p-3">الاعدادات</Col>
       <Col>
         <Tabs className="bg-clr w-100">
           <Tab title="المستخدمين" eventKey={1}>

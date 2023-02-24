@@ -62,7 +62,7 @@ function Login() {
             displayName: user.displayName,
             userType: data.userType,
             password: userData.password,
-          }),
+          })
         );
         setIsLoading(false);
         router.push("/");
@@ -72,17 +72,19 @@ function Login() {
   return (
     <Container className="h-100">
       <Row>
-        <div className="p-3 bg-clr">تسجيل الدخول</div>
+        <Col className="p-3 header">تسجيل الدخول</Col>
       </Row>
       <Row className="justify-content-center align-content-center h-75">
         <Col xs={10} lg={5}>
           <Form
             className="w-100 bg-w rounded shadow p-2"
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+          >
             <FloatingLabel
               label="البريد الالكتروني"
               controlId="email"
-              className="mb-2 w-100">
+              className="mb-2 w-100"
+            >
               <Form.Control
                 type="email"
                 name="email"
@@ -94,7 +96,8 @@ function Login() {
             <FloatingLabel
               label="كلمة المرور"
               controlId="password"
-              className="mb-2 w-100">
+              className="mb-2 w-100"
+            >
               <Form.Control
                 type="password"
                 name="password"

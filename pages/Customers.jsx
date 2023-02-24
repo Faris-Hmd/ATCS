@@ -24,8 +24,8 @@ const Customers = () => {
   const reportRef = useRef();
 
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2022-12-20");
-  const [endDate, setEndDate] = useState("2023-01-31");
+  const [startDate, setStartDate] = useState("2022-12-25");
+  const [endDate, setEndDate] = useState("2022-12-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
   const [state, setState] = useState("null");
   const [keyword, setKeyword] = useState("null");
@@ -37,9 +37,9 @@ const Customers = () => {
     "customers",
     async () =>
       await fetch(
-        `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`,
+        `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`
       ).then((res) => res.json()),
-    { enabled: isEnable },
+    { enabled: isEnable }
   );
 
   const handleFillterdSearch = (e) => {
@@ -77,14 +77,16 @@ const Customers = () => {
           <Form.Label>الدخول المتكرر</Form.Label>
           <Form.Select
             value={repeatEntry}
-            onChange={(e) => setRepeatEntry(e.target.value)}>
+            onChange={(e) => setRepeatEntry(e.target.value)}
+          >
             <option value={true}>عرض</option>
             <option value={false}>اخفاء</option>
           </Form.Select>
           <Form.Label>الحصر حسب </Form.Label>
           <Form.Select
             value={searchBy}
-            onChange={(e) => setSearchBy(e.target.value)}>
+            onChange={(e) => setSearchBy(e.target.value)}
+          >
             <option value="enteringDateBySec">تاريخ الدخول</option>
             <option value="bookDateBySec">تاريخ الدفتر</option>
           </Form.Select>
@@ -127,46 +129,57 @@ const Customers = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="p-3">
-        <Col lg={9}>
-          <Container className="p-1">
-            <Row>
-              <Form
-                onSubmit={handleFillterdSearch}
-                className={formStyles.fillter + " w-100 shadow p-2 bg-clr"}>
-                <InputGroup className="rounded w-100 border overflow-hidden ">
-                  <Button
-                    variant="outline-secondary"
-                    onClick={handleFillterdSearch}>
-                    <FaSearch />
-                  </Button>
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => setShow(true)}>
-                    <FaFilter />
-                  </Button>
-                  <Form.Control
-                    type="text"
-                    name="keyword"
-                    placeholder="ادخل الاسم أو رقم الدفتر"
-                    onChange={(e) => setKeyword(e.target.value)}
-                    className="p-2 rounded border-0"
-                  />
-                  <Button variant="outline-secondary" onClick={handlePrint}>
-                    <BsPrinter size={"22px"} />
-                  </Button>
-                </InputGroup>
-              </Form>
-            </Row>
-            <Row className="h-100">
-              {!isloading ? (
-                <CustomersList customers={customers} />
-              ) : (
-                <Loading />
-              )}
-            </Row>
-          </Container>
-        </Col>
+      <Container>
+        <Row>
+          <Col className="header p-3">سجلات العملاء</Col>
+        </Row>
+        <Row>
+          <Col lg={12}>
+            <Container className="p-0 m-0">
+              <Row>
+                <Form
+                  onSubmit={handleFillterdSearch}
+                  className={
+                    formStyles.fillter + " w-100 shadow p-2 rounded-bottom bg-clr "
+                  }
+                >
+                  <InputGroup className="w-100 border overflow-hidden rounded">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={handleFillterdSearch}
+                    >
+                      <FaSearch />
+                    </Button>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setShow(true)}
+                    >
+                      <FaFilter />
+                    </Button>
+                    <Form.Control
+                      type="text"
+                      name="keyword"
+                      placeholder="ادخل الاسم أو رقم الدفتر"
+                      onChange={(e) => setKeyword(e.target.value)}
+                      className="p-2 rounded border-0"
+                    />
+                    <Button variant="outline-secondary" onClick={handlePrint}>
+                      <BsPrinter size={"22px"} />
+                    </Button>
+                  </InputGroup>
+                </Form>
+              </Row>
+              <Row className="h-100">
+                {!isloading ? (
+                  <CustomersList customers={customers} />
+                ) : (
+                  <Loading />
+                )}
+              </Row>
+            </Container>
+          </Col>
+        </Row>
+
         {/* <Col lg={3} className="bg-b">
           f
         </Col> */}

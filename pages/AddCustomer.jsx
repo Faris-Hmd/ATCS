@@ -11,12 +11,12 @@ const AddCar = () => {
   const [customer, setCustomer] = useState({
     bookType: "عادي",
     dest: "السعودية",
+    enteringDate: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setCustomer((prev) => {
       return { ...prev, [name]: value };
     });
@@ -35,9 +35,7 @@ const AddCar = () => {
     })
       .then(() => {
         setIsLoading(false);
-        // router.push("/CustomerDetails/" + customer.bookNum.trim());
-
-        // setCar({});
+        router.push("/");
       })
       .catch((e) => setIsLoading(false));
   };

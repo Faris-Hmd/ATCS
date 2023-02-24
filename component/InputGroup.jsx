@@ -15,7 +15,8 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               controlId={feild.name}
               label={feild.placeholder}
               className={(feild.class && feild.class) + " mb-2"}
-              key={index}>
+              key={index}
+            >
               <Form.Select
                 disabled={!isEditing}
                 placeholder={feild.placeholder}
@@ -23,8 +24,9 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
                   customer?.[feild.name] === null ? "" : customer?.[feild.name]
                 }
                 onChange={handleChange}
-                required
-                name={feild.name}>
+                required={feild.isRequired}
+                name={feild.name}
+              >
                 {feild.opt.map((option, index) => (
                   <option key={index} value={option.value}>
                     {option.value}
@@ -39,7 +41,8 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               controlId={feild.name}
               label={feild.placeholder}
               className={(feild.class && feild.class) + " mb-2"}
-              key={index}>
+              key={index}
+            >
               <Form.Control
                 name={feild.name}
                 readOnly={!isEditing}
@@ -55,7 +58,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
                   customer?.[feild.name] === null ? "" : customer?.[feild.name]
                 }
                 onChange={handleChange}
-                required
+                required={feild.isRequired}
               />
             </FloatingLabel>
           );

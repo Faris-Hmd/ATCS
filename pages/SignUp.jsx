@@ -60,20 +60,19 @@ function SignUp() {
   }
 
   return (
-    <Container fluid dir="rtl">
+    <Container className="h-100">
       <Row>
-        <Col>
-          <div className="p-3 bg-clr">اضافة مستخدم</div>
-        </Col>
+        <Col className="p-3 header">اضافة مستخدم</Col>
       </Row>
-      <Row className="justify-content-center">
+      <Row className="full">
         <Col xs={10} lg={5}>
-          <Form className="justify-content-center" onSubmit={handleSubmit}>
-            <Form.Group className="inputGroup  mt-5 p-1">
+          <Form className="bg-w shadow rounded p-2" onSubmit={handleSubmit}>
+            <Form.Group>
               <FloatingLabel
                 label="اسم المستخدم"
                 controlId="displayName"
-                className="mb-2">
+                className="mb-2"
+              >
                 <Form.Control
                   type="text"
                   name="displayName"
@@ -85,7 +84,8 @@ function SignUp() {
               <FloatingLabel
                 label="البريد الالكتروني"
                 controlId="email"
-                className="mb-2">
+                className="mb-2"
+              >
                 <Form.Control
                   type="email"
                   name="email"
@@ -97,7 +97,8 @@ function SignUp() {
               <FloatingLabel
                 label="كلمة المرور"
                 controlId="password"
-                className="mb-2">
+                className="mb-2"
+              >
                 <Form.Control
                   type="password"
                   name="password"
@@ -109,7 +110,8 @@ function SignUp() {
               <FloatingLabel
                 label="تاكيد كلمة المرور"
                 controlId="password2"
-                className="mb-2">
+                className="mb-2"
+              >
                 <Form.Control
                   type="password"
                   name="password2"
@@ -122,13 +124,14 @@ function SignUp() {
                 <Form.Select
                   name="userType"
                   onChange={handleChage}
-                  value={userData.userType}>
+                  value={userData.userType}
+                >
                   <option value="admin">مشرف</option>
                   <option value="swakinUser">مكتب سواكن</option>
                   <option value="ksaUser">مكتب السعودية</option>
                 </Form.Select>
               </FloatingLabel>
-              <Button type="submit" className="mt-2 w-100" disabled={isLoading}>
+              <Button type="submit" className="mt-3 w-100" disabled={isLoading}>
                 {isLoading ? <Spinner /> : "حفظ"}
               </Button>
             </Form.Group>

@@ -13,7 +13,6 @@ export let baseUrl = internetUrl;
 
 if (process && process.env.NODE_ENV === "development") {
   baseUrl = localurl;
-  console.log(baseUrl);
 }
 
 const queryClient = new QueryClient();
