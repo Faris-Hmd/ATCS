@@ -6,16 +6,16 @@ import {
   BiLogIn,
   BiLogOut,
   BiPlusCircle,
-  BiPrinter,
   BiSync,
   BiUser,
+  BiUserCircle,
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
 import { AuthContext } from "../context/authContext";
 import { useContext, useState } from "react";
 import { baseUrl } from "./_app";
-import { Spinner } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 
 function Menu() {
   const { user, handleSignOut } = useContext(AuthContext);
@@ -32,6 +32,25 @@ function Menu() {
   return (
     <IconContext.Provider value={{ className: styles.menuIcons }}>
       <div className={styles.menu}>
+        <Link
+          href="/UserProfile"
+          className="bg-w flex text-center shadow-sm rounded-bottom overflow-hidden w-100"
+        >
+          <Container>
+            <Col>
+              <BiUserCircle size={"70px"} />
+            </Col>
+
+            <Row className="text-nowrap">
+              <Col className="flex-r ">Admin</Col>
+              <Col className="flex-r">
+                faris Hamad
+                <BiUser />
+              </Col>
+            </Row>
+          </Container>
+        </Link>
+
         <div className={styles.optCon}>
           <Link href="/" className={styles.opt}>
             <BsHouseDoor />
@@ -69,9 +88,6 @@ function Menu() {
                 <BiLogOut />
                 تسجيل الخروج
               </div>
-              <Link href="/UserProfile" className={styles.opt}>
-                <BiUser /> الملف الشخصي
-              </Link>
             </>
           )}
           <div className={styles.opt} onClick={() => {}}>

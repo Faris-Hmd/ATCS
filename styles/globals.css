@@ -24,6 +24,7 @@ a {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: 600;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
 }
 
 :root {
@@ -59,10 +60,9 @@ a {
 /** -------- GRID CONFIGRETION -----*/
 
 /** -------- MOBILE VIEW -----*/
-.container {
-  direction: rtl;
-}
+
 .App {
+  direction: rtl;
   position: fixed;
   top: 0;
   left: 0;
@@ -83,7 +83,6 @@ a {
   overflow-x: hidden;
   grid-area: main;
   scrollbar-width: thin;
-  scrollbar-width: none;
   scroll-behavior: smooth;
 }
 
@@ -108,13 +107,11 @@ a {
   .leftSide {
     display: block;
   }
-  .modalOverLay {
-    align-items: center;
-  }
+
   .App {
-    grid-template-columns: 7.5fr 2.5fr;
-    grid-template-rows: 0.5fr 9.5fr;
-    grid-template-areas: "nav nav" " main leftSide";
+    grid-template-columns:2fr 8fr;
+    grid-template-rows:0.5fr 9.5fr;
+    grid-template-areas: "nav nav" "leftSide main";
     column-gap: 2px;
     scrollbar-width: thin;
   }
@@ -127,11 +124,11 @@ a {
     display: block;
   }
   .App {
-    grid-template-columns: 8fr 2fr;
-    grid-template-rows: 0.8fr 9.2fr;
+    grid-template-columns:2fr 8fr;
+    grid-template-rows:0.9fr 9.1fr;
     grid-template-areas:
       "nav nav "
-      "main leftSide";
+      "leftSide main";
   }
 }
 

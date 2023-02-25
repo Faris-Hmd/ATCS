@@ -12,12 +12,12 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import { UserContext } from "../context/userContext";
+import { AuthContext } from "../context/authContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 
 function UserProfile() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   function handleChage(event) {
@@ -59,18 +59,19 @@ function UserProfile() {
   if (!user) return <h3>يجب عليك تسجيل الدخول للوصول لهذه الصفحة</h3>;
   if (user)
     return (
-      <Container>
+      <Container className="h-100">
         <Row>
           <div className="p-3 bg-clr">تعديل بيانات مستخدم</div>
         </Row>
-        <Row className="justify-content-center">
+        <Row className="full">
           <Col xs={11} lg={5}>
-            <Form className="justify-content-center" onSubmit={handleSubmit}>
-              <Form.Group className="inputGroup  mt-5 p-2 rounded shadow bg-w">
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="inputGroup   p-2 rounded shadow bg-w">
                 <FloatingLabel
                   label="اسم المستخدم"
                   controlId="username"
-                  className="mb-2">
+                  className="mb-2"
+                >
                   <Form.Control
                     type="text"
                     name="displayName"
@@ -82,7 +83,8 @@ function UserProfile() {
                 <FloatingLabel
                   label="البريد الالكتروني"
                   controlId="email"
-                  className="mb-2">
+                  className="mb-2"
+                >
                   <Form.Control
                     type="email"
                     name="email"
@@ -94,7 +96,8 @@ function UserProfile() {
                 <FloatingLabel
                   label="كلمة المرور"
                   controlId="password"
-                  className="mb-2">
+                  className="mb-2"
+                >
                   <Form.Control
                     type="text"
                     name="password"
@@ -106,7 +109,8 @@ function UserProfile() {
                 <FloatingLabel
                   label="تاكيد كلمة المرور"
                   controlId="password2"
-                  className="mb-2">
+                  className="mb-2"
+                >
                   <Form.Control
                     type="text"
                     name="password2"
@@ -121,7 +125,8 @@ function UserProfile() {
                     name="userType"
                     placeholder="البريد الالكتروني"
                     onChange={handleChage}
-                    value={userData.userType}>
+                    value={userData.userType}
+                  >
                     <option value="admin">مشرف</option>
                     <option value="swakinUser">مكتب سواكن</option>
                     <option value="ksaUser">مكتب السعودية</option>
@@ -130,7 +135,8 @@ function UserProfile() {
                 <Button
                   type="submit"
                   className="mt-2 w-100"
-                  disabled={isLoading}>
+                  disabled={isLoading}
+                >
                   {isLoading ? <Spinner /> : "حفظ"}
                 </Button>
               </Form.Group>

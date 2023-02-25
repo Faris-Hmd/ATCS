@@ -2,7 +2,20 @@
 a:hover {
   color: #444 !important;
 }
-
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flex-r {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rtl {
+  direction: rtl;
+}
 .full {
   min-height: 90%;
   display: flex;

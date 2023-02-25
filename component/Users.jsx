@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Table } from "react-bootstrap";
+import { BiUserPlus } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
 import { baseUrl } from "../pages/_app";
 
@@ -21,19 +22,18 @@ function Users() {
         <Col xs={12} lg={8}>
           <Table
             striped
-            responsive={"sm"}
             hover
-            className="rounded mt-5 overflow-hidden shadow-sm p-2"
+            className="rounded mt-5 overflow-hidden shadow p-2 fos-m"
           >
-            <thead className="bg-clr">
+            <thead className="bg-w">
               <tr>
                 <th colSpan={3} className="p-3">
                   <Link
                     href="/SignUp"
-                    className="rounded bg-w p-2 text-decoration-none justify-content-between align-content-center"
+                    className="rounded shadow bg-clr p-2 text-decoration-none justify-content-between align-content-center"
                   >
-                    اضافة <FaPlus />
-                  </Link>
+                    <BiUserPlus size={"25px"} /> اضافة
+                </Link>
                 </th>
               </tr>
               <tr>

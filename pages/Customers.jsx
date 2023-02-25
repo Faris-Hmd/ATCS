@@ -26,7 +26,7 @@ const Customers = () => {
 
   const { user, hasAccess } = useContext(AuthContext);
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2022-12-25");
+  const [startDate, setStartDate] = useState("2022-12-28");
   const [endDate, setEndDate] = useState("2022-12-31");
   const [repeatEntry, setRepeatEntry] = useState(false);
   const [state, setState] = useState("null");

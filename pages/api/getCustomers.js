@@ -18,30 +18,53 @@ export default async function handler(req, res) {
   let querySnapShot;
   if (keyword === "null") {
     console.log(searchParams);
-    if (state !== "null") {
+    if (state === "null") {
+      //عرض جميع البيانات
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
           where(searchBy, ">=", fromDateBySec.getTime()),
           where(searchBy, "<=", toDateBySec.getTime()),
-          where("repeatEntry", "==", repeatEntry === "false" ? false : true),
+          orderBy(searchBy)
+        )
+      );
+    } else if (state !== "null") {
+      //عرض البيانات حسب الحالة و نضمين الدخول المتكرر
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
           where("state", "==", state),
           orderBy(searchBy)
         )
       );
-    } else {
+    } else if (repeatEntry === "true") {
+      //عرض الدخول المتكرر فقط
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
           where(searchBy, ">=", fromDateBySec.getTime()),
           where(searchBy, "<=", toDateBySec.getTime()),
-          where("repeatEntry", "==", repeatEntry === "false" ? false : true),
+          where("repeatEntry", "==", true),
+          orderBy(searchBy)
+        )
+      );
+    } else if (state !== "null" && repeatEntry === "false") {
+      //اخفاء الدخول المتكرر و عرض العملاء حسب الحالة
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
+          where("state", "==", state),
+          where("repeatEntry", "==", false),
           orderBy(searchBy)
         )
       );
     }
   } else {
-    console.log(keyword);
+    // console.log(keyword);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),

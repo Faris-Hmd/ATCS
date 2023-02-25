@@ -1,4 +1,5 @@
-/** @format */ import { useContext } from "react";
+/** @format */ import Link from "next/link";
+import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import styles from "../styles/Navbar.module.css";
 
@@ -9,7 +10,10 @@ const Navbar = () => {
       <div className={styles.logo}>
         <span>A</span>TSC
       </div>
-      <div className={styles.userNav}>{user?.displayName}</div>
+
+      <Link href="UserProfile" className="bg-clr rounded p-1 me-1 shadow-sm ">
+        {user?.displayName}
+      </Link>
     </nav>
   );
 };

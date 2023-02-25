@@ -1,5 +1,5 @@
 /** @format */
-/** @format */
+
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -43,6 +43,7 @@ export const UserProvider = (props) => {
       setUserData(JSON.parse(u));
     }
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
