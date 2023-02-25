@@ -24,21 +24,27 @@ export default async function handler(req, res) {
           )
         );
 
-        const arr1 = querySnapShot.docs.find(
+        const customer = querySnapShot.docs.find(
           (cust) => cust.data().enteringDateBySec === 0
         );
 
-        if (arr1) {
+        if (customer) {
+          const bookDate = new Date(customer.data().bookDateBySec);
           res.status(200).json({
-            ...arr1.data(),
+            ...customer.data(),
             repeatEntry: false,
             customerId: querySnapShot.docs.at(0).id,
+            bookDate: bookDate.toISOString().slice(0, 10),
           });
         } else {
+          const bookDate = new Date(
+            querySnapShot.docs.at(0).data().bookDateBySec
+          );
           res.status(200).json({
             ...querySnapShot.docs.at(0).data(),
             repeatEntry: true,
             customerId: querySnapShot.docs.at(0).id,
+            bookDate: bookDate.toISOString().slice(0, 10),
           });
         }
       }

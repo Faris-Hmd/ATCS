@@ -59,7 +59,7 @@ function CustomersList({ customers }) {
                       </Row>
                     </Container>
                   </Col>
-                  <Col xs={2}>{customer.bookNumNo}</Col>
+                  <Col xs={1}>{customer.repeatEntry ? "متكرر" : "جديد"}</Col>
                   {/* <Col>{Math.floor(dayDiff)}</Col> */}
                 </Container>
               </Link>

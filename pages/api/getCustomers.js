@@ -18,29 +18,21 @@ export default async function handler(req, res) {
   let querySnapShot;
   if (keyword === "null") {
     console.log(searchParams);
-    if (state === "null") {
-      //عرض جميع البيانات
+    if (state === "null" && repeatEntry === "false") {
+      // عرض جميع العملاء و اخفاء الدخول المتكرر
+      console.log("عرض جميع العملاء و اخفاء الدخول المتكرر");
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
           where(searchBy, ">=", fromDateBySec.getTime()),
           where(searchBy, "<=", toDateBySec.getTime()),
+          where("repeatEntry", "==", false),
           orderBy(searchBy)
         )
       );
-    } else if (state !== "null") {
-      //عرض البيانات حسب الحالة و نضمين الدخول المتكرر
-      querySnapShot = await getDocs(
-        query(
-          collection(db, "customers"),
-          where(searchBy, ">=", fromDateBySec.getTime()),
-          where(searchBy, "<=", toDateBySec.getTime()),
-          where("state", "==", state),
-          orderBy(searchBy)
-        )
-      );
-    } else if (repeatEntry === "true") {
+    } else if (repeatEntry === "true" && state === "repeatEntry") {
       //عرض الدخول المتكرر فقط
+      console.log("عرض الدخول المتكرر فقط");
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
@@ -50,8 +42,32 @@ export default async function handler(req, res) {
           orderBy(searchBy)
         )
       );
+    } else if (state !== "null" && repeatEntry === "true") {
+      //عرض البيانات حسب الحالة و نضمين الدخول المتكرر
+      console.log("عرض البيانات حسب الحالة و نضمين الدخول المتكرر");
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
+          where("state", "==", state),
+          orderBy(searchBy)
+        )
+      );
+    } else if (state === "null") {
+      //عرض جميع البيانات و نضمين الدخول المتكرر
+      console.log("عرض جميع البيانات و نضمين الدخول المتكرر");
+      querySnapShot = await getDocs(
+        query(
+          collection(db, "customers"),
+          where(searchBy, ">=", fromDateBySec.getTime()),
+          where(searchBy, "<=", toDateBySec.getTime()),
+          orderBy(searchBy)
+        )
+      );
     } else if (state !== "null" && repeatEntry === "false") {
       //اخفاء الدخول المتكرر و عرض العملاء حسب الحالة
+      console.log("اخفاء الدخول المتكرر و عرض العملاء حسب الحالة");
       querySnapShot = await getDocs(
         query(
           collection(db, "customers"),
@@ -64,7 +80,7 @@ export default async function handler(req, res) {
       );
     }
   } else {
-    // console.log(keyword);
+    console.log(keyword);
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
@@ -84,6 +100,6 @@ export default async function handler(req, res) {
       enteringDate: enteringDate ? enteringDate.toISOString().slice(0, 10) : 0,
     };
   });
-  // console.log(customers);
+  console.log(customers);
   res.status(200).json(customers);
 }

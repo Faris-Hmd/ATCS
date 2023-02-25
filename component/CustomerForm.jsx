@@ -96,8 +96,16 @@ function CustomerForm({
     {
       name: "bookNum",
       placeholder: "رقم الدفتر",
-      class: "w-50",
+      class: "w-100",
       type: "text",
+      isRequired: true,
+    },
+
+    {
+      placeholder: "تاريخ الدفتر",
+      name: "bookDate",
+      type: "date",
+      class: "w-50",
       isRequired: true,
     },
     {
@@ -106,12 +114,6 @@ function CustomerForm({
       type: "select",
       class: "w-50",
       opt: [{ value: "عادي" }, { value: "سياحي" }],
-      isRequired: true,
-    },
-    {
-      name: "bookDate",
-      type: "date",
-      class: "w-100",
       isRequired: true,
     },
   ];
@@ -125,9 +127,17 @@ function CustomerForm({
       isRequired: true,
     },
     {
+      placeholder: "تاريخ الدخول",
       name: "enteringDate",
       type: "date",
-      class: "w-100",
+      class: "w-50",
+      isRequired: false,
+    },
+    {
+      placeholder: "نوع الدخول",
+      name: "repeatEntry",
+      type: "text",
+      class: "w-50",
       isRequired: false,
     },
   ];

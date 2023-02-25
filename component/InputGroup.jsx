@@ -35,7 +35,32 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               </Form.Select>
             </FloatingLabel>
           );
-        else {
+        else if (feild.name === "repeatEntry") {
+          return (
+            <FloatingLabel
+              controlId={feild.name}
+              label={feild.placeholder}
+              className={(feild.class && feild.class) + " mb-2"}
+              key={index}
+            >
+              <Form.Control
+                name={feild.name}
+                readOnly={!isEditing}
+                placeholder={feild.placeholder}
+                type={feild.type}
+                min={feild.type === "date" ? "2021-07-01" : 0}
+                max={
+                  feild.type === "date"
+                    ? currentDate.toISOString().slice(0, 10)
+                    : 100
+                }
+                value={customer?.[feild.name] ? "متكرر" : "جديد"}
+                onChange={handleChange}
+                required={feild.isRequired}
+              />
+            </FloatingLabel>
+          );
+        } else {
           return (
             <FloatingLabel
               controlId={feild.name}

@@ -46,12 +46,13 @@ function Receipt() {
   }
 
   useEffect(() => {
-    if (bookNum.length >= 5) {
+    if (bookNum.length === 6) {
       fetch(`${baseUrl}/api/receipt?bookNum=${bookNum}`)
         .then((res) => res.json())
         .then((data) => {
           setCustomer(data);
-        });
+        })
+        .catch((e) => alert(e));
     }
   }, [bookNum]);
   if (!(user && hasAccess("Receipt")))
