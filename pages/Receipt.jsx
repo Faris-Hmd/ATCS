@@ -9,19 +9,21 @@ import {
   FloatingLabel,
   Form,
   Row,
+  Spinner,
 } from "react-bootstrap";
 import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
 
 function Receipt() {
   const { user, hasAccess } = useContext(AuthContext);
-
   const [customer, setCustomer] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [bookNum, setBookNum] = useState("");
   const [enteringDate, setEnteringDate] = useState("2023-02-24");
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
     if (customer.repeatEntry === true) {
       axios({
         method: "post",
@@ -30,9 +32,12 @@ function Receipt() {
           ...customer,
           enteringDate,
         },
-      });
-      // .then(setIsLoading(false))
-      // .catch(setIsLoading(false));
+      })
+        .then(() => {
+          setIsLoading(false);
+          setCustomer({});
+        })
+        .catch(setIsLoading(false));
     } else {
       axios({
         method: "patch",
@@ -84,7 +89,6 @@ function Receipt() {
                     }}
                   />
                 </FloatingLabel>
-
                 <FloatingLabel
                   label="اسم المالك"
                   controlId="ownerName"
@@ -163,6 +167,23 @@ function Receipt() {
                   />
                 </FloatingLabel>
                 <FloatingLabel
+                  label="تاريخ الدفتر"
+                  controlId="enteringDate"
+                  className="mb-2"
+                >
+                  <Form.Control
+                    disabled
+                    type="date"
+                    name="bookNum"
+                    placeholder="تاريخ الدفتر"
+                    value={customer.bookDate}
+                    onChange={(e) => {
+                      setEnteringDate(e.target.value);
+                    }}
+                    required
+                  />
+                </FloatingLabel>
+                <FloatingLabel
                   label="تاريخ الدخول"
                   controlId="enteringDate"
                   className="mb-2"
@@ -178,12 +199,11 @@ function Receipt() {
                     required
                   />
                 </FloatingLabel>
-                <Button
-                  type="submit"
-                  disabled={customer.ownerFName ? false : true}
-                >
-                  استخراج
-                </Button>
+                {customer && (
+                  <Button type="submit" disabled={isLoading}>
+                    {isLoading ? <Spinner /> : "استخراج"}
+                  </Button>
+                )}
               </Form>
             </Col>
           </Container>
