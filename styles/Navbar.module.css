@@ -13,14 +13,14 @@
 
 .nav .logo {
 
-  padding: 7px;
+  padding: 10px;
   margin-right: 0.5em;
-  font-size: 1.3rem;
   font-weight: 600;
   color: var(--font-clr);
 }
 .nav .logo span {
-  color: var(--theme-clr);
+  /* color: var(--theme-clr); */
+  
 }
 .theme {
   padding: 0.6em;

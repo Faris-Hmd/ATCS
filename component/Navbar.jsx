@@ -8,10 +8,14 @@ const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
-        <span>A</span>TSC
+        {/* <span>A</span>TSC */}
+        <img width={"80px"} src="/icons/atcs-icon.png" alt="atcs" />
+        <span className="p-2">نادي السيارات و الرحلات السوداني</span>
       </div>
 
-      <Link href="UserProfile" className="bg-clr rounded p-1 me-1 shadow-sm ">
+      <Link
+        href="UserProfile"
+        className="bg-clr fos-sm rounded p-1 me-1 shadow-sm ">
         {user?.displayName}
       </Link>
     </nav>

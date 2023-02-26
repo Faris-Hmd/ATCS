@@ -65,21 +65,20 @@ function Receipt() {
 
   if (user && hasAccess("Receipt"))
     return (
-      <Container className="h-100">
+      <Container className="h-100 ">
         <Row>
           <Col xs={12} className="p-3 header">
             استخراج إيصال دخول
           </Col>
         </Row>
         <Row className="full">
-          <Container>
+          <Container className="full">
             <Col xs={12} lg={6}>
               <Form className="p-2 bg-w shadow rounded" onSubmit={handleSubmit}>
                 <FloatingLabel
                   label="رقم الدفتر"
                   controlId="bookNum"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     type="text"
                     name="bookNum"
@@ -92,8 +91,7 @@ function Receipt() {
                 <FloatingLabel
                   label="اسم المالك"
                   controlId="ownerName"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     disabled
                     type="text"
@@ -110,37 +108,38 @@ function Receipt() {
                     }
                   />
                 </FloatingLabel>
-                <FloatingLabel
-                  label="نوع المركبة"
-                  controlId="ownerName"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="text"
-                    name="ownerName"
-                    placeholder="نوع المركبة"
-                    value={customer?.carType ? customer?.carType : ""}
-                  />
-                </FloatingLabel>
-                <FloatingLabel
-                  label="موديل المركبة"
-                  controlId="ownerName"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="text"
-                    name="ownerName"
-                    placeholder="نوع المركبة"
-                    value={customer?.carModel ? customer?.carModel : ""}
-                  />
-                </FloatingLabel>
+                <div className="flex-r justify-content-between">
+                  {" "}
+                  <FloatingLabel
+                    label="نوع المركبة"
+                    controlId="ownerName"
+                    className="mb-2 w-50">
+                    <Form.Control
+                      disabled
+                      type="text"
+                      name="ownerName"
+                      placeholder="نوع المركبة"
+                      value={customer?.carType ? customer?.carType : ""}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="موديل المركبة"
+                    controlId="ownerName"
+                    className="mb-2 w-50">
+                    <Form.Control
+                      disabled
+                      type="text"
+                      name="ownerName"
+                      placeholder="نوع المركبة"
+                      value={customer?.carModel ? customer?.carModel : ""}
+                    />{" "}
+                  </FloatingLabel>
+                </div>
+
                 <FloatingLabel
                   label="رقم الهيكل"
                   controlId="ownerName"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     disabled
                     type="text"
@@ -152,8 +151,7 @@ function Receipt() {
                 <FloatingLabel
                   label="نوع الدخول"
                   controlId="repeatEntery"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     disabled
                     type="text"
@@ -166,39 +164,41 @@ function Receipt() {
                     }
                   />
                 </FloatingLabel>
-                <FloatingLabel
-                  label="تاريخ الدفتر"
-                  controlId="enteringDate"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="date"
-                    name="bookNum"
-                    placeholder="تاريخ الدفتر"
-                    value={customer.bookDate}
-                    onChange={(e) => {
-                      setEnteringDate(e.target.value);
-                    }}
-                    required
-                  />
-                </FloatingLabel>
-                <FloatingLabel
-                  label="تاريخ الدخول"
-                  controlId="enteringDate"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    type="date"
-                    name="bookNum"
-                    placeholder="تاريخ الدخول"
-                    value={enteringDate}
-                    onChange={(e) => {
-                      setEnteringDate(e.target.value);
-                    }}
-                    required
-                  />
-                </FloatingLabel>
+
+                <div className="flex-r justify-content-between">
+                  <FloatingLabel
+                    label="تاريخ الدفتر"
+                    controlId="enteringDate"
+                    className="mb-2 w-50">
+                    <Form.Control
+                      disabled
+                      type="date"
+                      name="bookNum"
+                      placeholder="تاريخ الدفتر"
+                      value={customer.bookDate}
+                      onChange={(e) => {
+                        setEnteringDate(e.target.value);
+                      }}
+                      required
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="تاريخ الدخول"
+                    controlId="enteringDate"
+                    className="mb-2 w-50">
+                    <Form.Control
+                      type="date"
+                      name="bookNum"
+                      placeholder="تاريخ الدخول"
+                      value={enteringDate}
+                      onChange={(e) => {
+                        setEnteringDate(e.target.value);
+                      }}
+                      required
+                    />
+                  </FloatingLabel>
+                </div>
+
                 {customer && (
                   <Button type="submit" disabled={isLoading}>
                     {isLoading ? <Spinner /> : "استخراج"}

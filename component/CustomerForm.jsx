@@ -144,7 +144,7 @@ function CustomerForm({
 
   return (
     <Form className="pb-3" onSubmit={handleSubmit}>
-      <Container className="p-1">
+      <Container className="p-2">
         <Row>
           <Col xs={12} lg={4}>
             <InputGroup

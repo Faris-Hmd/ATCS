@@ -127,6 +127,7 @@ function SignUp() {
                   value={userData.userType}
                 >
                   <option value="admin">مشرف</option>
+                  <option value="khUser">مكتب الخرطوم</option>
                   <option value="swakinUser">مكتب سواكن</option>
                   <option value="ksaUser">مكتب السعودية</option>
                 </Form.Select>

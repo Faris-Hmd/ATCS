@@ -64,29 +64,31 @@ function Login() {
             displayName: user.displayName,
             userType: data.userType,
             password: userData.password,
-          })
+          }),
         );
         setIsLoading(false);
         router.push("/");
-      });
+      })
+      .catch(setIsLoading(false));
   }
 
   return (
     <Container className="h-100">
       <Row>
-        <Col className="p-3 header">تسجيل الدخول</Col>
+        <Col className="p-3 header">تسجيل الدخول لنظام نادي السيارات</Col>
       </Row>
       <Row className="justify-content-center align-content-center h-75">
-        <Col xs={10} lg={5}>
+        <Col xs={11} lg={4}>
           <Form
-            className="w-100 bg-w rounded shadow p-2"
-            onSubmit={handleSubmit}
-          >
+            className="w-100 bg-w rounded shadow-lg border p-2"
+            onSubmit={handleSubmit}>
+            <div className="flex pb-3">
+              <img src="/icons/atcs-icon.png" alt="" width={"120px"} />
+            </div>
             <FloatingLabel
               label="البريد الالكتروني"
               controlId="email"
-              className="mb-2 w-100"
-            >
+              className="mb-2 w-100">
               <Form.Control
                 type="email"
                 name="email"
@@ -98,8 +100,7 @@ function Login() {
             <FloatingLabel
               label="كلمة المرور"
               controlId="password"
-              className="mb-2 w-100"
-            >
+              className="mb-2 w-100">
               <Form.Control
                 type="password"
                 name="password"

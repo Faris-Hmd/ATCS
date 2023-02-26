@@ -23,17 +23,15 @@ function Users() {
           <Table
             striped
             hover
-            className="rounded mt-5 overflow-hidden shadow p-2 fos-m"
-          >
+            className="rounded mt-5 overflow-hidden shadow p-2 fos-m">
             <thead className="bg-w">
               <tr>
                 <th colSpan={3} className="p-3">
                   <Link
                     href="/SignUp"
-                    className="rounded shadow bg-clr p-2 text-decoration-none justify-content-between align-content-center"
-                  >
-                    <BiUserPlus size={"25px"} /> اضافة
-                </Link>
+                    className="rounded shadow bg-clr p-2 text-decoration-none justify-content-between align-content-center">
+                    اضافة <BiUserPlus size={"25px"} />
+                  </Link>
                 </th>
               </tr>
               <tr>

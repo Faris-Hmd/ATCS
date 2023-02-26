@@ -12,13 +12,13 @@ function Premessions() {
   const [userType, setUserType] = useState("admin");
 
   const premessionsList = [
-    { route: "Home", name: "القائمة" },
+    { route: "Home", name: "الرئيسة" },
+    { route: "Customers", name: "قائمة العملاء" },
+    { route: "CustomersDetails", name: "تفاصيل العملاء" },
+    { route: "AddCustomer", name: "اضافة عميل" },
     { route: "Receipt", name: "استخراج ايصال" },
     { route: "Settings", name: "الاعدادات" },
     { route: "SignUp", name: "اضافة مستخدم" },
-    { route: "Customers", name: "قائمة السيارات" },
-    { route: "AddCustomer", name: "اضافة سيارة" },
-    { route: "CustomersDetails", name: "تفاصيل العملاء" },
   ];
 
   function getPremissions() {
@@ -73,22 +73,26 @@ function Premessions() {
                 action
                 href="#1"
                 // className={`${hre && "fc-w"}`}
-                onClick={() => setUserType("admin")}
-              >
+                onClick={() => setUserType("admin")}>
                 مشرف
               </ListGroup.Item>
               <ListGroup.Item
                 action
+                href="#4"
+                // className={`${hre && "fc-w"}`}
+                onClick={() => setUserType("khUser")}>
+                مكتب الخرطوم
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
                 href="#2"
-                onClick={() => setUserType("swakinUser")}
-              >
+                onClick={() => setUserType("swakinUser")}>
                 مكتب سواكن
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#3"
-                onClick={() => setUserType("ksaUser")}
-              >
+                onClick={() => setUserType("ksaUser")}>
                 مكتب السعودية
               </ListGroup.Item>
             </ListGroup>
@@ -105,8 +109,7 @@ function Premessions() {
                             ? "checkBoxChecked"
                             : "checkBox"
                         }`}
-                        onClick={() => handlePremChange(item.route)}
-                      >
+                        onClick={() => handlePremChange(item.route)}>
                         {item.name}
                       </div>
                     </div>

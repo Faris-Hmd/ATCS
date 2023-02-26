@@ -8,7 +8,7 @@ const CustsReportToPrint = React.forwardRef(
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className=" fos-m w-100" ref={ref}>
+      <Container className="ltr fos-m w-100" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
             {(state === "لم يغادر" || state === "null") &&
@@ -34,14 +34,14 @@ const CustsReportToPrint = React.forwardRef(
         <Table striped bordered>
           <thead>
             <tr className="bg-b">
-              <th>#</th>
-              <th>اسم العميل</th>
-              <th>نوع السيارة</th>
-              <th>رقم الشاسيه</th>
-              <th>رقم الدفتر</th>
-              <th>الدفتر</th>
-              <th>الدخول</th>
               <th>الهاتف</th>
+              <th>الدخول</th>
+              <th>رقم الشاسيه</th>
+              <th>نوع السيارة</th>
+              <th>الدفتر</th>
+              <th>اسم العميل</th>
+              <th>رقم الدفتر</th>
+              <th>#</th>
             </tr>
           </thead>
           <tbody>
@@ -50,25 +50,25 @@ const CustsReportToPrint = React.forwardRef(
               var bDate = new Date(customer.bookDateBySec);
               return (
                 <tr key={index}>
-                  <td>{1 + index}</td>
-                  <td className="text-nowrap">
-                    {customer.ownerFName + "  "}
-                    {customer.ownerSName + "  "}
-                    {customer.ownerTName + "  "}
-                    {customer.ownerFoName && customer.ownerFoName}
-                  </td>
-                  <td className="text-nowrap">{customer.carType}</td>
-                  <td>{customer.chaseNum}</td>
-                  <td>{customer.bookNum}</td>
-                  <td>{bDate.toISOString().slice(0, 10)}</td>
-                  <td>{eDate.toISOString().slice(0, 10)}</td>
                   <td className="text-nowrap">
                     {customer.phone2
                       ? customer.phone2
                       : customer.phone1
                       ? customer.phone1
                       : null}
+                  </td>{" "}
+                  <td>{eDate.toISOString().slice(0, 10)}</td>
+                  <td>{bDate.toISOString().slice(0, 10)}</td>
+                  <td>{customer.bookNum}</td>
+                  <td>{customer.chaseNum}</td>
+                  <td className="text-nowrap">{customer.carType}</td>
+                  <td className="text-nowrap">
+                    {customer.ownerFName + "  "}
+                    {customer.ownerSName + "  "}
+                    {customer.ownerTName + "  "}
+                    {customer.ownerFoName && customer.ownerFoName}
                   </td>
+                  <td>{1 + index}</td>
                 </tr>
               );
             })}
@@ -76,6 +76,6 @@ const CustsReportToPrint = React.forwardRef(
         </Table>
       </Container>
     );
-  }
+  },
 );
 export default CustsReportToPrint;

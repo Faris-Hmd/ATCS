@@ -195,7 +195,7 @@ const CarDetail = () => {
                     variant="danger"
                     onClick={() => setShowDltModal(true)}>
                     <ImBin size={"25px"} />
-                  </Button>{" "}
+                  </Button>
                 </>
               )}
             </ButtonGroup>
@@ -216,8 +216,8 @@ const CarDetail = () => {
                 </Container>
               </Tab>
               <Tab title="التفاصيل" eventKey="التفاصيل">
-                <Container>
-                  <Row className="justify-content-center">
+                <Container className="p-0">
+                  <Row>
                     <Col>
                       <CustomerForm
                         handleChange={handleChange}

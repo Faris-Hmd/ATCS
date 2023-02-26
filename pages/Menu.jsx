@@ -34,17 +34,16 @@ function Menu() {
       <div className={styles.menu}>
         <Link
           href="/UserProfile"
-          className="bg-w flex text-center shadow-sm rounded-bottom overflow-hidden w-100"
-        >
+          className="bg-w flex text-center shadow-sm rounded-bottom overflow-hidden w-100">
           <Container>
             <Col>
-              <BiUserCircle size={"70px"} />
+              <img width={"80px"} src="/icons/user.png" className="icon" />
             </Col>
 
             <Row className="text-nowrap">
-              <Col className="flex-r ">Admin</Col>
-              <Col className="flex-r">
-                faris Hamad
+              <Col className="flex-r ">{user.userType}</Col>
+              <Col className="flex-r text-nowrap">
+                {user.displayName}
                 <BiUser />
               </Col>
             </Row>
@@ -63,12 +62,11 @@ function Menu() {
           <Link
             href="/AddCustomer
           "
-            className={styles.opt}
-          >
+            className={styles.opt}>
             <BiPlusCircle />
-            اضافة سيارة
+            اضافة عميل
           </Link>
-          <Link href="/" className={styles.opt}>
+          <Link href="/#" className={styles.opt}>
             <BsCash /> الحسابات
           </Link>
           <Link href="/Receipt" className={styles.opt}>

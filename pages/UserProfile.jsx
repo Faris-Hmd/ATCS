@@ -70,8 +70,7 @@ function UserProfile() {
                 <FloatingLabel
                   label="اسم المستخدم"
                   controlId="username"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     type="text"
                     name="displayName"
@@ -83,8 +82,7 @@ function UserProfile() {
                 <FloatingLabel
                   label="البريد الالكتروني"
                   controlId="email"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     type="email"
                     name="email"
@@ -96,8 +94,7 @@ function UserProfile() {
                 <FloatingLabel
                   label="كلمة المرور"
                   controlId="password"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     type="text"
                     name="password"
@@ -109,8 +106,7 @@ function UserProfile() {
                 <FloatingLabel
                   label="تاكيد كلمة المرور"
                   controlId="password2"
-                  className="mb-2"
-                >
+                  className="mb-2">
                   <Form.Control
                     type="text"
                     name="password2"
@@ -121,13 +117,13 @@ function UserProfile() {
                 </FloatingLabel>
                 <FloatingLabel label="نوع المستخدم" controlId="userType">
                   <Form.Select
-                    disabled
+                    disabled={userData !== "admin"}
                     name="userType"
                     placeholder="البريد الالكتروني"
                     onChange={handleChage}
-                    value={userData.userType}
-                  >
+                    value={userData.userType}>
                     <option value="admin">مشرف</option>
+                    <option value="khUser">مكتب الخرطوم</option>
                     <option value="swakinUser">مكتب سواكن</option>
                     <option value="ksaUser">مكتب السعودية</option>
                   </Form.Select>
@@ -135,8 +131,7 @@ function UserProfile() {
                 <Button
                   type="submit"
                   className="mt-2 w-100"
-                  disabled={isLoading}
-                >
+                  disabled={isLoading}>
                   {isLoading ? <Spinner /> : "حفظ"}
                 </Button>
               </Form.Group>
