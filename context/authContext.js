@@ -8,8 +8,7 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
 
   function hasAccess(route) {
-    console.log(user);
-    return true;
+    // console.log(user);
     if (user.premessions.includes(route)) return true;
     else return false;
   }
