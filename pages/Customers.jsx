@@ -26,8 +26,8 @@ const Customers = () => {
 
   const { user, hasAccess } = useContext(AuthContext);
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2023-01-01");
-  const [endDate, setEndDate] = useState("2023-02-28");
+  const [startDate, setStartDate] = useState("2022-12-01");
+  const [endDate, setEndDate] = useState("2022-12-31");
   const [repeatEntry, setRepeatEntry] = useState(true);
   const [state, setState] = useState("null");
   const [keyword, setKeyword] = useState("null");
@@ -200,6 +200,7 @@ const Customers = () => {
               endDate={endDate}
               customers={customers}
               ref={reportRef}
+              repeatEntry={repeatEntry}
             />
           </div>
         )}

@@ -4,16 +4,19 @@ import { Container, Table } from "react-bootstrap";
 import reportStyles from "../styles/report.module.css";
 
 const CustsReportToPrint = React.forwardRef(
-  ({ customers, startDate, endDate, state }, ref) => {
+  ({ customers, startDate, endDate, state, repeatEntry }, ref) => {
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className="ltr fos-m w-100" ref={ref}>
+      <Container className="ltr fos-m w-100 text-start" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
-            {(state === "لم يغادر" || state === "null") &&
-              "تقرير مركبات الافراج المؤقت"}
-            {state === "غادر" && "تقرير مركبات المغادرة "}
+            {(state === "لم يغادر" || state === "null") && repeatEntry === true
+              ? "تقرير مركبات الافراج المؤقت شامل للدخول المتكرر"
+              : "تقرير مركبات الافراج المؤقت"}
+
+            {state === "repeatEntry" && "تقرير مركبات الدخول المتكرر "}
+            {state === "غادر" && "تقرير المركبات المغادرة "}
             {state === "مخالف" && "تقرير المركبات المخالفة"}
           </div>
           <div className="fs-6">
@@ -36,9 +39,9 @@ const CustsReportToPrint = React.forwardRef(
             <tr className="bg-b">
               <th>الهاتف</th>
               <th>الدخول</th>
+              <th>الدفتر</th>
               <th>رقم الشاسيه</th>
               <th>نوع السيارة</th>
-              <th>الدفتر</th>
               <th>اسم العميل</th>
               <th>رقم الدفتر</th>
               <th>#</th>
@@ -59,7 +62,6 @@ const CustsReportToPrint = React.forwardRef(
                   </td>{" "}
                   <td>{eDate.toISOString().slice(0, 10)}</td>
                   <td>{bDate.toISOString().slice(0, 10)}</td>
-                  <td>{customer.bookNum}</td>
                   <td>{customer.chaseNum}</td>
                   <td className="text-nowrap">{customer.carType}</td>
                   <td className="text-nowrap">
@@ -68,6 +70,7 @@ const CustsReportToPrint = React.forwardRef(
                     {customer.ownerTName + "  "}
                     {customer.ownerFoName && customer.ownerFoName}
                   </td>
+                  <td>{customer.bookNum}</td>
                   <td>{1 + index}</td>
                 </tr>
               );
