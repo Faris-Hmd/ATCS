@@ -1,5 +1,5 @@
 /** @format */
-
+import Head from "next/head";
 import { useContext } from "react";
 import { Container, ThemeProvider } from "react-bootstrap";
 import { AuthContext } from "../context/authContext";
@@ -22,6 +22,10 @@ const Layout = ({ children }) => {
     return (
       <ThemeProvider>
         <div className={`App`}>
+          {" "}
+          <Head>
+            <link rel="manifest" href="./manifest.json" />
+          </Head>
           <div className="rightSide"></div>
           <div className="leftSide">
             <Menu />
