@@ -11,30 +11,64 @@ import Navbar from "./Navbar";
 /** @format */
 const Layout = ({ children }) => {
   const { user } = useContext(AuthContext);
-  if (!user)
-    return (
-      <Container className="full p-0  vh-100 rtl">
-        <Login />
-      </Container>
-    );
-
-  if (user)
-    return (
-      <ThemeProvider>
-        <div className={`App`}>
-          {" "}
-          <Head>
-            <link rel="manifest" href="./manifest.json" />
-          </Head>
-          <div className="rightSide"></div>
-          <div className="leftSide">
-            <Menu />
+  return (
+    <>
+      <Head>
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      {!user ? (
+        <Container className="full p-0 vh-100 rtl">
+          <Login />
+        </Container>
+      ) : (
+        <ThemeProvider>
+          <div className={`App`}>
+            <div className="rightSide"></div>
+            <div className="leftSide">
+              <Menu />
+            </div>
+            <Navbar />
+            <ButtomNav />
+            <main className="main">{children}</main>
           </div>
-          <Navbar />
-          <ButtomNav />
-          <main className="main">{children}</main>
-        </div>
-      </ThemeProvider>
-    );
+        </ThemeProvider>
+      )}
+    </>
+  );
+
+  // if (user)
+  //   return (
+  //     <ThemeProvider>
+  //       <div className={`App`}>
+  //         {" "}
+  //         <Head>
+  //           <link rel="manifest" href="./manifest.json" />
+  //           <link rel="preconnect" href="https://fonts.googleapis.com" />
+  //           <link
+  //             rel="preconnect"
+  //             href="https://fonts.gstatic.com"
+  //             crossorigin
+  //           />
+  //           <link
+  //             href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"
+  //             rel="stylesheet"
+  //           />
+  //         </Head>
+  //         <div className="rightSide"></div>
+  //         <div className="leftSide">
+  //           <Menu />
+  //         </div>
+  //         <Navbar />
+  //         <ButtomNav />
+  //         <main className="main">{children}</main>
+  //       </div>
+  //     </ThemeProvider>
+  //   );
 };
 export default Layout;
