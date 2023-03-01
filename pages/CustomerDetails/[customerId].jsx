@@ -22,11 +22,12 @@ import {
   Tabs,
 } from "react-bootstrap";
 import Actions from "../../component/Actions";
-import LeftingExReportToPrint from "../../component/LeftingExReport";
+import LeftingExReportToPrint from "../../component/LeftingExReportToPrint";
 import Loading from "../../component/Loading";
 import { CustomerContext } from "../../context/customersContext";
+import ClearReportToPrint from "../../component/ClearReportToPrint";
 
-const CarDetail = () => {
+const Customer = () => {
   const { customers } = useContext(CustomerContext);
 
   const [customer, setCustomer] = useState({});
@@ -41,6 +42,7 @@ const CarDetail = () => {
   const leftReportRef = useRef();
   const exReportRef = useRef();
   const leftExReportRef = useRef();
+  const clearReportRef = useRef();
 
   const handleClose = () => setShowRepModal(false);
   const handleShow = () => setShowRepModal(true);
@@ -54,6 +56,9 @@ const CarDetail = () => {
   });
   const handleLeftExPrint = useReactToPrint({
     content: () => leftExReportRef.current,
+  });
+  const handleClearPrint = useReactToPrint({
+    content: () => clearReportRef.current,
   });
 
   const handleChange = (event) => {
@@ -160,6 +165,12 @@ const CarDetail = () => {
               className="w-100 mb-1">
               <div>مغادرة</div>
             </Button>
+            <Button
+              onClick={handleClearPrint}
+              disabled={customer.state !== "مخلص"}
+              className="w-100 mb-1">
+              <div>تخليص</div>
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -234,6 +245,7 @@ const CarDetail = () => {
             <div className="hidden">
               <LeftingReportToPrint ref={leftReportRef} customer={customer} />
               <ExtentionReportToPrint ref={exReportRef} customer={customer} />
+              <ClearReportToPrint ref={clearReportRef} customer={customer} />
               <LeftingExReportToPrint
                 ref={leftExReportRef}
                 customer={customer}
@@ -245,4 +257,4 @@ const CarDetail = () => {
     );
 };
 
-export default CarDetail;
+export default Customer;

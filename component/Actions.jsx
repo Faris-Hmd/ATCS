@@ -5,7 +5,7 @@ import formStyles from "../styles/Form.module.css";
 
 function Actions({ handleChange, customer, isEditing }) {
   return (
-    <div className={formStyles.inputGroup + " w-50"}>
+    <div className={formStyles.inputGroup + " fos-m"}>
       <div className={formStyles.inputGroupLabel}>الاجرائات</div>
       <label
         htmlFor="threeMonthEx"
@@ -23,13 +23,6 @@ function Actions({ handleChange, customer, isEditing }) {
         }>
         تمديد مغادرة
       </label>{" "}
-      <label
-        htmlFor="clear"
-        className={
-          customer.clear ? formStyles.checkBoxChecked : formStyles.checkBox
-        }>
-        تخليص
-      </label>
       <FloatingLabel controlId="state" label="الحالة" className="mb-2  w-100">
         <Form.Select
           type="text"
@@ -41,36 +34,37 @@ function Actions({ handleChange, customer, isEditing }) {
           required>
           <option value="لم يغادر">لم يغادر</option>
           <option value="غادر">غادر</option>
+          <option value="مخلص">مخلص</option>
           <option disabled value="مخالف">
             مخالف
           </option>
         </Form.Select>
       </FloatingLabel>
-      {customer.threeMonthEx && (
+      {customer.enteringDateBySec && (
         <>
           <FloatingLabel
-            controlId="threeMonthExRec"
-            label="رقم ايصال التمديد الاول"
+            controlId="enteringRec"
+            label="إذن الدخول"
             className="mb-2  w-50">
             <Form.Control
               type="text"
-              value={customer.threeMonthExRec}
-              placeholder="threeMonthExRec"
-              name="threeMonthExRec"
+              value={customer.enteringRec}
+              placeholder="ايصال اذن دخول المركبة"
+              name="enteringRec"
               onChange={handleChange}
               readOnly={!isEditing}
               required
             />
           </FloatingLabel>
           <FloatingLabel
-            controlId="threeMonthExSerialNum"
-            label="رقم خطاب التمديد الاول"
-            className="mb-2  w-50">
+            controlId="enteringDate"
+            label="الدخول المركبة"
+            className="mb-2 w-50">
             <Form.Control
-              type="text"
-              value={customer.threeMonthExSerialNum}
-              placeholder="threeMonthExSerialNum"
-              name="threeMonthExSerialNum"
+              type="date"
+              value={customer.enteringDate}
+              placeholder="تاريخ دخول المركبة"
+              name="enteringDate"
               onChange={handleChange}
               readOnly={!isEditing}
               required
@@ -78,47 +72,63 @@ function Actions({ handleChange, customer, isEditing }) {
           </FloatingLabel>
         </>
       )}
-      {customer.clear && (
-        <FloatingLabel
-          controlId="sixMonthExRec"
-          label="رقم ايصال التمديد الثاني"
-          className="mb-2  w-100">
-          <Form.Control
-            type="text"
-            value={customer.sixMonthExRec}
-            placeholder="رقم ايصال التمديد الثاني"
-            name="sixMonthExRec"
-            onChange={handleChange}
-            readOnly={!isEditing}
-            required
-          />
-        </FloatingLabel>
-      )}
-      {customer.leftEx && (
+      {customer.threeMonthEx && (
         <>
           <FloatingLabel
-            controlId="leftExRec"
-            label="رقم ايصال تمديد المغادرة"
+            controlId="threeMonthExSerialNum"
+            label="خطاب التمديد"
             className="mb-2  w-50">
             <Form.Control
               type="text"
-              value={customer.leftExRec}
-              placeholder="رقم ايصال تمديد المغادرة"
-              name="leftEx"
+              value={customer.threeMonthExSerialNum}
+              placeholder="خطاب التمديد"
+              name="threeMonthExSerialNum"
               onChange={handleChange}
               readOnly={!isEditing}
               required
             />
           </FloatingLabel>
           <FloatingLabel
+            controlId="threeMonthExDate"
+            label="تاريخ التمديد"
+            className="mb-2  w-50">
+            <Form.Control
+              type="date"
+              value={customer.threeMonthExDate}
+              placeholder="تاريخ التمديد"
+              name="threeMonthExDate"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+        </>
+      )}
+      {customer.leftEx && (
+        <>
+          <FloatingLabel
             controlId="leftExSerialNum"
-            label="رقم خطاب تمديد المغادرة"
+            label="خطاب تمديد المغادرة"
             className="mb-2  w-50">
             <Form.Control
               type="text"
               value={customer.leftExSerialNum}
-              placeholder="رقم خطاب تمديد المغادرة"
+              placeholder="خطاب تمديد المغادرة"
               name="leftExSerialNum"
+              onChange={handleChange}
+              readOnly={!isEditing}
+              required
+            />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="leftExDate"
+            label="تاريخ تمديد المغادرة"
+            className="mb-2  w-50">
+            <Form.Control
+              type="date"
+              value={customer.leftExDate}
+              placeholder="تاريخ تمديد المغادرة"
+              name="leftExDate"
               onChange={handleChange}
               readOnly={!isEditing}
               required
@@ -130,12 +140,12 @@ function Actions({ handleChange, customer, isEditing }) {
         <>
           <FloatingLabel
             controlId="leftSerialNum"
-            label="رقم خطاب المغادرة"
-            className={"w-100 mb-2"}>
+            label="خطاب المغادرة"
+            className={"w-50 mb-2"}>
             <Form.Control
               type="text"
               value={customer.leftSerialNum}
-              placeholder="رقم خطاب المغادرة"
+              placeholder="خطاب المغادرة"
               name="leftSerialNum"
               onChange={handleChange}
               readOnly={!isEditing}
@@ -144,40 +154,45 @@ function Actions({ handleChange, customer, isEditing }) {
             />
           </FloatingLabel>
           <FloatingLabel
-            controlId="leftDay"
-            label="اليوم"
-            className={"w-30 mb-2"}>
+            controlId="leftDate"
+            label="تاريخ المغادرة"
+            className={"w-50 mb-2"}>
             <Form.Control
-              type="text"
-              value={customer?.leftDay}
-              placeholder="اليوم"
-              name="leftDay"
+              type="date"
+              value={customer?.leftDate}
+              placeholder="تاريخ المغادرة"
+              name="leftDate"
               onChange={handleChange}
               readOnly={!isEditing}
             />
           </FloatingLabel>
+        </>
+      )}
+      {customer.state === "مخلص" && (
+        <>
           <FloatingLabel
-            controlId="leftMonth"
-            label="الشهر"
-            className={"w-30 mb-2"}>
+            controlId="clearSerialNum"
+            label="خطاب التخليص"
+            className="mb-2  w-50">
             <Form.Control
               type="text"
-              value={customer?.leftMonth}
-              placeholder="الشهر"
-              name="leftMonth"
+              value={customer.clearSerialNum}
+              placeholder="خطاب التخليص"
+              name="clearSerialNum"
               onChange={handleChange}
               readOnly={!isEditing}
+              required
             />
-          </FloatingLabel>{" "}
+          </FloatingLabel>
           <FloatingLabel
-            controlId="leftYear"
-            label="السنة"
-            className={"w-30 mb-2"}>
+            controlId="clearDate"
+            label="تاريخ التخليص"
+            className="mb-2  w-50">
             <Form.Control
-              type="text"
-              value={customer?.leftYear}
-              placeholder="السنة"
-              name="leftYear"
+              type="date"
+              value={customer.clearDate}
+              placeholder="تاريخ التخليص"
+              name="clearDate"
               onChange={handleChange}
               readOnly={!isEditing}
             />
@@ -196,13 +211,13 @@ function Actions({ handleChange, customer, isEditing }) {
       <Form.Check
         style={{ display: "none" }}
         disabled={!isEditing}
-        name={"clear"}
-        id={"clear"}
-        checked={customer.clear}
+        name={"leftEx"}
+        id={"leftEx"}
+        checked={customer.leftEx}
         onChange={handleChange}
         required
       />
-      <Form.Check
+      {/* <Form.Check
         style={{ display: "none" }}
         disabled={!isEditing}
         name={"leftEx"}
@@ -210,7 +225,7 @@ function Actions({ handleChange, customer, isEditing }) {
         checked={customer.leftEx}
         onChange={handleChange}
         required
-      />
+      /> */}
     </div>
   );
 }

@@ -52,7 +52,7 @@
 
 .checkBox {
   cursor: pointer;
-  min-width: 30%;
+  min-width: 45%;
   background-color: #eee;
   color: var(--theme-clr);
   border-radius: 5px;
@@ -63,7 +63,7 @@
   margin-bottom: 0.5em;
 }
 .checkBoxChecked {
-  min-width: 30%;
+  min-width: 45%;
   background-color: var(--theme-clr);
   color: #eee;
   border-radius: 5px;

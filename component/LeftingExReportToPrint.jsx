@@ -2,8 +2,9 @@
 import React from "react";
 import Styles from "../styles/report.module.css";
 
-const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
-  const exDate = new Date(customer.leftDate);
+const LeftingExReportToPrint = React.forwardRef(({ customer }, ref) => {
+  
+  const exDate = new Date(customer.leftExDate);
   const eDate = new Date(customer.enteringDateBySec);
 
   return (
@@ -19,10 +20,10 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
               exDate.getUTCDate()}
           </div>
           <div className={Styles.bookNum}>
-            رقم/ن/س/ر/ {customer.leftSerialNum}
+            رقم/ن/س/ر/ {customer.leftExSerialNum}
           </div>
         </div>
-        <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
+        <div className={Styles.title}>تمديد مغادرة عربة افراج مؤقت</div>
         <div className={Styles.for}>
           <span>معنون للسيد / مدير ادارة مكافحة التهريب </span>
           <span>المحترم</span>
@@ -84,7 +85,9 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
           </tr>
           <tr>
             <td>التــــــــــــــــوصية :</td>
-            <td>نوصي بالمغادرة فورا وفق النظام المعمول به.</td>
+            <td>
+              لا مانع لدينا لمنحه فترة سماح للمغادرة وفق النظام المعمول به.
+            </td>
           </tr>
           <tr>
             <td>مــلــــــــحــوضـــة :</td>
@@ -101,4 +104,4 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
   );
 });
 
-export default LeftingReportToPrint;
+export default LeftingExReportToPrint;

@@ -2,8 +2,8 @@
 import React from "react";
 import Styles from "../styles/report.module.css";
 
-const ExtentionReportToPrint = React.forwardRef(({customer}, ref) => {
-  const date = new Date();
+const ExtentionReportToPrint = React.forwardRef(({ customer }, ref) => {
+  const exDate = new Date(customer.threeMonthExDate);
   const eDate = new Date(customer.enteringDateBySec);
   if (!customer) return <div></div>;
   return (
@@ -12,11 +12,11 @@ const ExtentionReportToPrint = React.forwardRef(({customer}, ref) => {
         <div className={Styles.dateCon}>
           <div className={Styles.date}>
             التاريخ{" "}
-            {date.getFullYear() +
+            {exDate.getFullYear() +
               "/" +
-              (date.getMonth() + 1) +
+              (exDate.getMonth() + 1) +
               "/" +
-              date.getUTCDate()}
+              exDate.getUTCDate()}
           </div>
           <div className={Styles.bookNum}>
             رقم/ن/س/ر/ {customer.threeMonthExSerialNum}
