@@ -45,13 +45,11 @@ const ExtentionReportToPrint = React.forwardRef(({ customer }, ref) => {
           </tr>
           <tr>
             <td>العــــــــــــــــــــنوان :</td>
-            <td>{customer.address}</td>
+            <td>{customer.ownerSdAddress}</td>
           </tr>
           <tr>
             <td>رقـــــم الهــــــاتف :</td>
-            <td>
-              {customer.phone1} {customer.phone2}
-            </td>
+            <td>{customer.ownerSdPhone1}</td>
           </tr>
           <tr>
             <td>تــاربخ الـــــدخول :</td>

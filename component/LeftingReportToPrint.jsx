@@ -44,13 +44,11 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
           </tr>
           <tr>
             <td>العـــــــــــــــــــنوان :</td>
-            <td>{customer.address}</td>
+            <td>{customer.ownerSdAddress}</td>
           </tr>
           <tr>
             <td>رقــــم الهــــــاتف :</td>
-            <td>
-              {customer.phone1} {customer.phone2}
-            </td>
+            <td>{customer.ownerSdPhone1}</td>
           </tr>
           <tr>
             <td>تــاربخ الـــــدخول :</td>
