@@ -15,6 +15,7 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <link rel="manifest" href="./manifest.json" />
+        <link rel="shortcut icon" type="image/x-icon" href="/icons/atcs-logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link

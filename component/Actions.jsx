@@ -17,18 +17,18 @@ function Actions({ handleChange, customer, isEditing }) {
         تمديد الاول
       </label>
       <label
-        htmlFor="sixMonthEx"
-        className={
-          customer.sixMonthEx ? formStyles.checkBoxChecked : formStyles.checkBox
-        }>
-        تمديد ثاني
-      </label>
-      <label
         htmlFor="leftEx"
         className={
           customer.leftEx ? formStyles.checkBoxChecked : formStyles.checkBox
         }>
         تمديد مغادرة
+      </label>{" "}
+      <label
+        htmlFor="clear"
+        className={
+          customer.clear ? formStyles.checkBoxChecked : formStyles.checkBox
+        }>
+        تخليص
       </label>
       <FloatingLabel controlId="state" label="الحالة" className="mb-2  w-100">
         <Form.Select
@@ -46,7 +46,6 @@ function Actions({ handleChange, customer, isEditing }) {
           </option>
         </Form.Select>
       </FloatingLabel>
-
       {customer.threeMonthEx && (
         <>
           <FloatingLabel
@@ -79,7 +78,7 @@ function Actions({ handleChange, customer, isEditing }) {
           </FloatingLabel>
         </>
       )}
-      {customer.sixMonthEx && (
+      {customer.clear && (
         <FloatingLabel
           controlId="sixMonthExRec"
           label="رقم ايصال التمديد الثاني"
@@ -127,7 +126,6 @@ function Actions({ handleChange, customer, isEditing }) {
           </FloatingLabel>
         </>
       )}
-
       {customer.state === "غادر" && (
         <>
           <FloatingLabel
@@ -186,7 +184,6 @@ function Actions({ handleChange, customer, isEditing }) {
           </FloatingLabel>
         </>
       )}
-
       <Form.Check
         style={{ display: "none" }}
         disabled={!isEditing}
@@ -199,9 +196,9 @@ function Actions({ handleChange, customer, isEditing }) {
       <Form.Check
         style={{ display: "none" }}
         disabled={!isEditing}
-        name={"sixMonthEx"}
-        id={"sixMonthEx"}
-        checked={customer.sixMonthEx}
+        name={"clear"}
+        id={"clear"}
+        checked={customer.clear}
         onChange={handleChange}
         required
       />

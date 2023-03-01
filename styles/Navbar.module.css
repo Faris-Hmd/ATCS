@@ -12,7 +12,6 @@
 }
 
 .nav .logo {
-
   padding: 10px;
   margin-right: 0.5em;
   font-weight: 600;
@@ -20,7 +19,6 @@
 }
 .nav .logo span {
   /* color: var(--theme-clr); */
-  
 }
 .theme {
   padding: 0.6em;
@@ -36,10 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* max-width: 30px;
-  min-width: 30px;
-  max-height: 30px;
-  min-height: 30px; */
+
   margin: 0 20px;
   border-radius: 50%;
   background: none;

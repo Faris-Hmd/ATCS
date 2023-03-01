@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { BiUserPlus } from "react-icons/bi";
-import { FaPlus } from "react-icons/fa";
 import { baseUrl } from "../pages/_app";
 
 function Users() {

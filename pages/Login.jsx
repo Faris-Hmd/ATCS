@@ -83,7 +83,7 @@ function Login() {
             className="w-100 bg-w rounded shadow-lg border p-2"
             onSubmit={handleSubmit}>
             <div className="flex pb-3">
-              <img src="/icons/atcs-icon.png" alt="" width={"120px"} />
+              <img src="/icons/atcs-logo.png" alt="" width={"120px"} />
             </div>
             <FloatingLabel
               label="البريد الالكتروني"

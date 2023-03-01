@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <div className={styles.logo}>
         {/* <span>A</span>TSC */}
-        <img width={"50px"} src="/icons/atcs-icon.png" alt="atcs" />
+        <img width={"50px"} src="/icons/atcs-logo.png" alt="atcs" />
         <span className="p-2 fos-m text-nowrap">
           نادي السيارات و الرحلات السوداني
         </span>

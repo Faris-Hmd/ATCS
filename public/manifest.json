@@ -8,7 +8,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icons/atcs-icon.png",
+      "src": "/icons/atcs-logo.png",
       "type": "image/png",
       "sizes": "72x72"
     }

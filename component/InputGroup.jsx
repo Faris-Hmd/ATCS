@@ -15,9 +15,9 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               controlId={feild.name}
               label={feild.placeholder}
               className={(feild.class && feild.class) + " mb-2"}
-              key={index}
-            >
+              key={index}>
               <Form.Select
+                size="sm"
                 disabled={!isEditing}
                 placeholder={feild.placeholder}
                 value={
@@ -25,8 +25,7 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
                 }
                 onChange={handleChange}
                 required={feild.isRequired}
-                name={feild.name}
-              >
+                name={feild.name}>
                 {feild.opt.map((option, index) => (
                   <option key={index} value={option.value}>
                     {option.value}
@@ -41,9 +40,9 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               controlId={feild.name}
               label={feild.placeholder}
               className={(feild.class && feild.class) + " mb-2"}
-              key={index}
-            >
+              key={index}>
               <Form.Control
+                size="sm"
                 name={feild.name}
                 readOnly={!isEditing}
                 placeholder={feild.placeholder}
@@ -66,9 +65,9 @@ function InputGroup({ feilds, title, isEditing, handleChange, customer }) {
               controlId={feild.name}
               label={feild.placeholder}
               className={(feild.class && feild.class) + " mb-2"}
-              key={index}
-            >
+              key={index}>
               <Form.Control
+                size="sm"
                 name={feild.name}
                 readOnly={!isEditing}
                 placeholder={feild.placeholder}
