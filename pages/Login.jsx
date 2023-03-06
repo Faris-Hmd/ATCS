@@ -15,6 +15,7 @@ import { AuthContext } from "../context/authContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 import Loading from "../component/Loading";
+import { toast } from "react-toastify";
 
 function Login() {
   const [userData, setUserData] = useState({});
@@ -40,6 +41,8 @@ function Login() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error.message);
+        toast.error("البريد الالكتروني أو كلمة المرور خاطئة !");
+
         setIsLoading(false);
       });
   }
@@ -67,7 +70,8 @@ function Login() {
           }),
         );
         setIsLoading(false);
-        router.push("/customers");
+        router.push("/Customers");
+        toast.success("تم تسجيل بأسم!" + user.displayName);
       })
       .catch(setIsLoading(false));
   }

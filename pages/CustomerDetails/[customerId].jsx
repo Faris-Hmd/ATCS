@@ -26,6 +26,7 @@ import LeftingExReportToPrint from "../../component/LeftingExReportToPrint";
 import Loading from "../../component/Loading";
 import { CustomerContext } from "../../context/customersContext";
 import ClearReportToPrint from "../../component/ClearReportToPrint";
+import { toast } from "react-toastify";
 
 const Customer = () => {
   const { customers } = useContext(CustomerContext);
@@ -87,7 +88,10 @@ const Customer = () => {
         ...customer,
       },
     })
-      .then(setIsLoading(false))
+      .then(() => {
+        setIsLoading(false);
+        toast.success("تمت التعديل بنجاح !");
+      })
       .catch(setIsLoading(false));
   };
 

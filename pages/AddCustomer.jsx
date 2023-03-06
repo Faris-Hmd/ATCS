@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
+import { toast } from "react-toastify";
 import CustomerForm from "../component/CustomerForm";
 import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
@@ -38,6 +39,7 @@ const AddCar = () => {
     })
       .then(() => {
         setIsLoading(false);
+        toast.success("تمت الاضافة بنجاح !");
         router.push("/");
       })
       .catch((e) => setIsLoading(false));

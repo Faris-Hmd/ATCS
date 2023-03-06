@@ -12,6 +12,7 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 
@@ -55,6 +56,7 @@ function SignUp() {
     })
       .then(() => {
         setIsLoading(false);
+        toast.success("تمت الاضافة بنجاح !");
       })
       .catch(setIsLoading(false));
   }

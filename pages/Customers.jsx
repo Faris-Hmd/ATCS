@@ -46,6 +46,7 @@ const Customers = () => {
 
   const handleFillterdSearch = (e) => {
     e.preventDefault();
+    // setCustomers([]);
     setIsEnable(true);
   };
 
@@ -140,18 +141,19 @@ const Customers = () => {
               onClick={(e) => {
                 handleFillterdSearch(e);
                 setKeyword(null);
+                setShow(false);
               }}>
               بحث
             </Button>
           </Modal.Footer>
         </Modal>
-        <Container>
+        <Container className="h-100">
           <Row>
             <Col className="header p-3">سجلات العملاء</Col>
           </Row>
-          <Row>
+          <Row className="h-100">
             <Col lg={9}>
-              <Container className="p-0 m-0">
+              <Container className="p-0 m-0 h-100">
                 <Row>
                   <Form
                     onSubmit={handleFillterdSearch}
@@ -184,7 +186,7 @@ const Customers = () => {
                   </Form>
                 </Row>
                 <Row className="h-100">
-                  {!isloading ? (
+                  {customers.length > 0 ? (
                     <CustomersList customers={customers} />
                   ) : (
                     <Loading />

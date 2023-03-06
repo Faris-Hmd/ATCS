@@ -12,6 +12,7 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/authContext";
 import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
@@ -59,8 +60,12 @@ function UserProfile() {
             password: userData.password,
           }),
         );
+        toast.success("تمت التعديل بنجاح !");
       })
-      .catch(setIsLoading(false));
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("لم يتم التعدبل!");
+      });
   }
 
   useEffect(() => {

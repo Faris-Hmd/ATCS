@@ -1,10 +1,11 @@
 /** @format */
 
-import { Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row, Tab } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../pages/_app";
 import Loading from "./Loading";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Premessions() {
   const [premessions, setPremessions] = useState();
@@ -29,7 +30,7 @@ function Premessions() {
         setUserType(data.userType);
         setPremessions(data.premessions);
         setUserChangeLoading(false);
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -40,6 +41,8 @@ function Premessions() {
       data: {
         premessions: premessions,
       },
+    }).then(() => {
+      toast.success("تمت تعديل الصلاحيات بنجاح !", { toastId: "1" });
     });
   }
 
@@ -59,15 +62,15 @@ function Premessions() {
     getPremissions();
   }, [userType]);
 
-  useEffect(() => {
-    premessions && handlePremUpdate();
-  }, [premessions]);
+  // useEffect(() => {
+  //   premessions && handlePremUpdate();
+  // }, [premessions]);
 
   return (
     <Container className="bg-w p-2 shadow rounded h-600">
       <Tab.Container defaultActiveKey="#1">
         <Row>
-          <Col lg={5}>
+          <Col lg={5} className="justify-content-center">
             <ListGroup>
               <ListGroup.Item
                 action
@@ -97,7 +100,7 @@ function Premessions() {
               </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col lg={7}>
+          <Col lg={7} className="justify-content-center">
             {!userChangeLoading ? (
               <Tab.Content>
                 {premessionsList.map((item, index) => {
@@ -119,6 +122,9 @@ function Premessions() {
             ) : (
               <Loading />
             )}
+            <Button className="w-50" onClick={handlePremUpdate}>
+              حفظ التعديلات
+            </Button>
           </Col>
         </Row>
       </Tab.Container>

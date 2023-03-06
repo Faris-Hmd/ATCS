@@ -54,7 +54,6 @@ export const UserProvider = (props) => {
           // handleGetUserData(userCredential.user);
         },
       );
-
   }, [user]);
 
   return (
