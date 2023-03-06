@@ -135,7 +135,12 @@ const Customers = () => {
             <Button variant="secondary" onClick={() => setShow(false)}>
               إغلاق
             </Button>
-            <Button variant="primary" onClick={handleFillterdSearch}>
+            <Button
+              variant="primary"
+              onClick={(e) => {
+                handleFillterdSearch(e);
+                setKeyword(null);
+              }}>
               بحث
             </Button>
           </Modal.Footer>

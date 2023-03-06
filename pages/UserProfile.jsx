@@ -30,6 +30,7 @@ function UserProfile() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (userData.password !== userData.password2) return;
     setIsLoading(true);
     await updatePassword(auth.currentUser, userData.password);
     await updateEmail(auth.currentUser, userData.email);
@@ -45,7 +46,19 @@ function UserProfile() {
     })
       .then(() => {
         setIsLoading(false);
+        console.log(userData);
         setUser(userData);
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            premessions: userData.premessions,
+            email: userData.email,
+            uid: userData.uid,
+            displayName: userData.displayName,
+            userType: userData.userType,
+            password: userData.password,
+          }),
+        );
       })
       .catch(setIsLoading(false));
   }
@@ -131,7 +144,9 @@ function UserProfile() {
                 <Button
                   type="submit"
                   className="mt-2 w-100"
-                  disabled={isLoading}>
+                  disabled={
+                    isLoading || userData.password !== userData.password2
+                  }>
                   {isLoading ? <Spinner /> : "حفظ"}
                 </Button>
               </Form.Group>

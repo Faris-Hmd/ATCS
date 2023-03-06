@@ -11,10 +11,10 @@ const CustsReportToPrint = React.forwardRef(
       <Container className="ltr fos-m w-100 text-start" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
-            {(state === "لم يغادر" || state === "null") && repeatEntry === true
-              ? "تقرير مركبات الافراج المؤقت شامل للدخول المتكرر"
-              : "تقرير مركبات الافراج المؤقت"}
-
+            {(state === "لم يغادر" || state === "null") &&
+              "تقرير مركبات الافراج المؤقت"}
+            {/* {repeatEntry === true &&
+              "تقرير مركبات الافراج المؤقت شامل للدخول المتكرر"} */}
             {state === "repeatEntry" && "تقرير مركبات الدخول المتكرر "}
             {state === "غادر" && "تقرير المركبات المغادرة "}
             {state === "مخالف" && "تقرير المركبات المخالفة"}

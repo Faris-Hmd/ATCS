@@ -1,6 +1,8 @@
 /** @format */
 
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { auth } from "../firebase/firebase";
 
 export const AuthContext = createContext();
 
@@ -43,6 +45,17 @@ export const UserProvider = (props) => {
       setUserData(JSON.parse(u));
     }
   }, []);
+
+  useEffect(() => {
+    if (user)
+      signInWithEmailAndPassword(auth, user.email, user.password).then(
+        (userCredential) => {
+          console.log(userCredential);
+          // handleGetUserData(userCredential.user);
+        },
+      );
+
+  }, [user]);
 
   return (
     <AuthContext.Provider
