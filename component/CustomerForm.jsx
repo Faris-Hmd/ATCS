@@ -54,7 +54,7 @@ const ownerDetail = [
     isRequired: false,
   },
   {
-    name: "ownerEneringDate",
+    name: "ownerEnteringDate",
     placeholder: "تاريخ دخول المالك",
     class: "w-50",
     type: "date",
@@ -200,83 +200,83 @@ const bookDetail = [
     isRequired: false,
   },
 ];
-const enteringDetail = [
-  {
-    placeholder: "تاريخ الدخول",
-    name: "enteringDate",
-    type: "date",
-    class: "w-50",
-    isRequired: false,
-  },
-  {
-    placeholder: "نوع الدخول",
-    name: "repeatEntry",
-    type: "text",
-    class: "w-50",
-    isRequired: false,
-  },
-];
+// const enteringDetail = [
+//   {
+//     placeholder: "تاريخ الدخول",
+//     name: "enteringDate",
+//     type: "date",
+//     class: "w-50",
+//     isRequired: false,
+//   },
+//   {
+//     placeholder: "نوع الدخول",
+//     name: "repeatEntry",
+//     type: "text",
+//     class: "w-50",
+//     isRequired: false,
+//   },
+// ];
 
 const ksaAddress = [
   {
     placeholder: "اسم الشركة او الكفيل",
-    name: "OwnerKsaGuarantor",
+    name: "ownerKsaGuarantor",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "تلفون",
-    name: "OwnerKsaPhone",
+    name: "ownerKsaPhone",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "المدينة",
-    name: "OwnerKsaCity",
+    name: "ownerKsaCity",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "الحي",
-    name: "OwnerKsaDist",
+    name: "ownerKsaDist",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "الشارع",
-    name: "OwnerKsaStreet",
+    name: "ownerKsaStreet",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "المبنى",
-    name: "OwnerKsaBuilding",
+    name: "ownerKsaBuilding",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "العنوان",
-    name: "OwnerKsaAddress",
+    name: "ownerKsaAddress",
     type: "text",
     class: "w-100",
     isRequired: false,
   },
   {
     placeholder: "جوال سعودي",
-    name: "OwnerKsaPhone",
+    name: "ownerKsaPhone",
     type: "text",
     class: "w-50",
     isRequired: false,
   },
   {
     placeholder: "واتساب سعودي",
-    name: "OwnerKsaWhats",
+    name: "ownerKsaWhats",
     type: "text",
     class: "w-50",
     isRequired: false,

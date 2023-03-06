@@ -82,6 +82,7 @@ const Customers = () => {
               <option value={"null"}>الكل</option>
               <option value="repeatEntry">دخول متكرر</option>
               <option value="لم يغادر">داخل البلاد</option>
+              <option value="مخلص">مخلصين</option>
               <option value="غادر">مغادرين</option>
               <option value="مخالف">مخالفين</option>
             </Form.Select>

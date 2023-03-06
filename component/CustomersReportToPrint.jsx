@@ -18,6 +18,7 @@ const CustsReportToPrint = React.forwardRef(
             {state === "repeatEntry" && "تقرير مركبات الدخول المتكرر "}
             {state === "غادر" && "تقرير المركبات المغادرة "}
             {state === "مخالف" && "تقرير المركبات المخالفة"}
+            {state === "مخلص" && "تقرير المركبات المخلصة"}
           </div>
           <div className="fs-6">
             الفترة من{" "}

@@ -100,6 +100,6 @@ export default async function handler(req, res) {
       enteringDate: enteringDate ? enteringDate.toISOString().slice(0, 10) : 0,
     };
   });
-  console.log(customers);
+  // console.log(customers);
   res.status(200).json(customers);
 }

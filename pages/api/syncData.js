@@ -21,7 +21,9 @@ export default async function handler(req, res) {
     return {
       ...customer.data(),
       customerId: customer.id,
-      repeatEntry: false,
+      repeatEntry: customer.data().repeatEntry
+        ? customer.data().repeatEntry
+        : false,
       state: state,
     };
   });
@@ -29,12 +31,9 @@ export default async function handler(req, res) {
   customers.forEach((customer) => {
     // console.log(customer.state);
     console.log({
-      ownerFName: customer.ownerFName,
-      ownerSName: customer.ownerSName,
-      ownerTName: customer.ownerTName,
-      ownerFoName: customer.ownerFoName,
-      phone1: customer.phone1,
-      phone2: customer.phone2 ? customer.phone2 : null,
+      ...customer,
+      ownerSdPhone1: customer.phone1,
+      ownerSdPhone2: customer.phone2 ? customer.phone2 : null,
       bookNum: customer.bookNum,
       chaseNum: customer.chaseNum,
       enteringDateBySec: customer.enteringDateBySec,
@@ -88,7 +87,7 @@ export default async function handler(req, res) {
         ],
       });
     }
-    u();
+    // u();
   });
   // console.log(customers);
   res.status(200).json(customers);

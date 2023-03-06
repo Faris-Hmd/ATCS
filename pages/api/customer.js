@@ -29,9 +29,14 @@ export default async function handler(req, res) {
           enteringDate: enteringDate.toISOString().slice(0, 10),
           customerId: querySnapShot.id,
         });
+        console.log({
+          ...customer,
+          bookDate: bookDate.toISOString().slice(0, 10),
+          enteringDate: enteringDate.toISOString().slice(0, 10),
+          customerId: querySnapShot.id,
+        });
       }
       break;
-
     case "POST":
       {
         const customer = req.body;
