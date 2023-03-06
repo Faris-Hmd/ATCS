@@ -2,6 +2,7 @@
 import { IconContext } from "react-icons";
 import { BsCash, BsGear, BsHouseDoor, BsReceipt } from "react-icons/bs";
 import {
+  BiBook,
   BiListUl,
   BiLogIn,
   BiLogOut,
@@ -56,13 +57,10 @@ function Menu() {
             الرئيسة
           </Link>
           <Link href="/Customers" className={styles.opt}>
-            <BiListUl />
+            <BiBook />
             قائمة العملاء
           </Link>
-          <Link
-            href="/AddCustomer
-          "
-            className={styles.opt}>
+          <Link href="/AddCustomer" className={styles.opt}>
             <BiPlusCircle />
             اضافة عميل
           </Link>
@@ -88,10 +86,10 @@ function Menu() {
               </div>
             </>
           )}
-          <div className={styles.opt} onClick={() => {}}>
+          {/* <div className={styles.opt} onClick={() => {}}>
             {syncing ? <Spinner /> : <BiSync />}
             مزامنة البيانات
-          </div>
+          </div> */}
           <Link href="/Settings" className={styles.opt}>
             <BsGear />
             الاعدادات
