@@ -67,7 +67,7 @@ function Login() {
           }),
         );
         setIsLoading(false);
-        router.push("/");
+        router.push("/customers");
       })
       .catch(setIsLoading(false));
   }
@@ -94,7 +94,7 @@ function Login() {
                 name="email"
                 placeholder="البريد الالكتروني"
                 onChange={handleChage}
-                value={userData.email}
+                value={userData.email ? userData.email : ""}
               />
             </FloatingLabel>
             <FloatingLabel
@@ -106,7 +106,7 @@ function Login() {
                 name="password"
                 placeholder="البريد الالكتروني"
                 onChange={handleChage}
-                value={userData.password}
+                value={userData.password ? userData.password : ""}
               />
             </FloatingLabel>
             <Button type="submit" className="mt-2 w-100" disabled={isLoading}>

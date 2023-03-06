@@ -71,8 +71,7 @@ function SignUp() {
               <FloatingLabel
                 label="اسم المستخدم"
                 controlId="displayName"
-                className="mb-2"
-              >
+                className="mb-2">
                 <Form.Control
                   type="text"
                   name="displayName"
@@ -84,8 +83,7 @@ function SignUp() {
               <FloatingLabel
                 label="البريد الالكتروني"
                 controlId="email"
-                className="mb-2"
-              >
+                className="mb-2">
                 <Form.Control
                   type="email"
                   name="email"
@@ -97,8 +95,7 @@ function SignUp() {
               <FloatingLabel
                 label="كلمة المرور"
                 controlId="password"
-                className="mb-2"
-              >
+                className="mb-2">
                 <Form.Control
                   type="password"
                   name="password"
@@ -110,8 +107,7 @@ function SignUp() {
               <FloatingLabel
                 label="تاكيد كلمة المرور"
                 controlId="password2"
-                className="mb-2"
-              >
+                className="mb-2">
                 <Form.Control
                   type="password"
                   name="password2"
@@ -125,7 +121,7 @@ function SignUp() {
                   name="userType"
                   onChange={handleChage}
                   value={userData.userType}
-                >
+                  required>
                   <option value="admin">مشرف</option>
                   <option value="khUser">مكتب الخرطوم</option>
                   <option value="swakinUser">مكتب سواكن</option>

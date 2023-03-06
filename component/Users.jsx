@@ -40,9 +40,9 @@ function Users() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => {
+              {users.map((user, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{user.displayName}</td>
                     <td>{user.email}</td>
                     <td>{user.userType}</td>
