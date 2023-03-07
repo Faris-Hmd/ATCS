@@ -77,7 +77,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="threeMonthExSerialNum"
             label="خطاب التمديد"
-            className="mb-2  w-50">
+            className="mb-2  w-30">
             <Form.Control
               type="text"
               value={customer.threeMonthExSerialNum}
@@ -91,7 +91,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="threeMonthExDate"
             label="تاريخ التمديد"
-            className="mb-2  w-50">
+            className="mb-2  w-30">
             <Form.Control
               type="date"
               value={customer.threeMonthExDate}
@@ -101,6 +101,25 @@ function Actions({ handleChange, customer, isEditing }) {
               readOnly={!isEditing}
               required
             />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="threeMonthExDur"
+            label="مدة التمديد"
+            className="mb-2  w-30">
+            <Form.Select
+              type="text"
+              value={customer.threeMonthExDur}
+              placeholder="مدة التمديد"
+              name="threeMonthExDur"
+              onChange={handleChange}
+              disabled={!isEditing}
+              defaultValue="ثلاثة اشهر"
+              required>
+              <option value="ثلاثة أشهر">ثلاثة أشهر</option>
+              <option value="شهرين">شهرين</option>
+              <option value="شهر واحد">شهر واحد</option>
+              <option value="15 يوم">15 يوم</option>
+            </Form.Select>
           </FloatingLabel>
         </>
       )}

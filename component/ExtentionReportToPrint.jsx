@@ -84,7 +84,8 @@ const ExtentionReportToPrint = React.forwardRef(({ customer }, ref) => {
           <tr>
             <td>التــــــــــــــــوصية :</td>
             <td>
-              لامانع لدينا في تجديد لفترة ثلاثة شهور أخرى وفق النظام المعمول به.
+              لامانع لدينا في تجديد لفترة {customer.threeMonthExDur} أخرى وفق
+              النظام المعمول به.
             </td>
           </tr>
           <tr>
