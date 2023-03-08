@@ -2,7 +2,7 @@
 import Layout from "../component/Layout";
 import "../styles/globals.css";
 import "../styles/util.css";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.rtl.min.css";
 import { UserProvider } from "../context/authContext";
 import { CustomerProvider } from "../context/customersContext";

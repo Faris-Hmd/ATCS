@@ -30,11 +30,11 @@ function Settings() {
               </Col>
             </Container>
           </Tab>
-          <Tab title="الانواع" eventKey={4}>
+          {/* <Tab title="الانواع" eventKey={4}>
             <Row>
               <Col></Col>
             </Row>
-          </Tab>
+          </Tab> */}
         </Tabs>
       </Col>
     </Container>
