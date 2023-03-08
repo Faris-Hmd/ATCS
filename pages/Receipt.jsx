@@ -200,7 +200,7 @@ function Receipt() {
                 </div>
 
                 {customer && (
-                  <Button type="submit" disabled={isLoading || !customerS}>
+                  <Button type="submit" disabled={isLoading || !customer}>
                     {isLoading ? <Spinner /> : "استخراج"}
                   </Button>
                 )}
