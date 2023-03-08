@@ -82,4 +82,4 @@ const CustomersReport = React.forwardRef(
     );
   },
 );
-export default CustsReportToPrint;
+export default CustomersReport;

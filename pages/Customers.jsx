@@ -20,6 +20,7 @@ import { useQuery } from "react-query";
 import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
 import CustomerReport from "../component/CustomerReport";
+import CustomersReport from "../component/CustomersReport";
 
 const Customers = () => {
   const reportRef = useRef();
@@ -202,7 +203,7 @@ const Customers = () => {
         </Container>
         {(state || state === "null") && (
           <div className="hidden">
-            <CustomerReport
+            <CustomersReport
               state={state}
               startDate={startDate}
               endDate={endDate}

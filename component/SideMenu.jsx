@@ -11,21 +11,11 @@ import {
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
 import { AuthContext } from "../context/authContext";
-import { useContext, useState } from "react";
-import { baseUrl } from "../pages/_app";
+import { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 function SideMenu() {
   const { user, handleSignOut } = useContext(AuthContext);
-  const [syncing, setIsSyncing] = useState(false);
-
-  function dataSync() {
-    setIsSyncing(true);
-    fetch(baseUrl + "/api/dataSync")
-      .then((res) => res.json())
-      .then((data) => data === true && setIsSyncing(false))
-      .catch(setIsSyncing(false));
-  }
 
   return (
     <IconContext.Provider value={{ className: styles.menuIcons }}>
@@ -51,11 +41,11 @@ function SideMenu() {
             <BsHouseDoor />
             الرئيسة
           </Link>
-          <Link href="/Customers" className={styles.opt}>
+          <Link href="/Customers" className={styles.opt} prefetch={false}>
             <BiBook />
             قائمة العملاء
           </Link>
-          <Link href="/AddCustomer" className={styles.opt}>
+          <Link href="/AddCustomer" className={styles.opt} prefetch={false}>
             <BiPlusCircle />
             اضافة عميل
           </Link>
@@ -85,7 +75,7 @@ function SideMenu() {
             {syncing ? <Spinner /> : <BiSync />}
             مزامنة البيانات
           </div> */}
-          <Link href="/Settings" className={styles.opt}>
+          <Link href="/Settings" className={styles.opt} prefetch={false}>
             <BsGear />
             الاعدادات
           </Link>

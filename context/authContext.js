@@ -2,7 +2,6 @@
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../firebase/firebase";
 
 export const AuthContext = createContext();
 
@@ -48,13 +47,17 @@ export const UserProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    if (user)
-      signInWithEmailAndPassword(auth, user.email, user.password).then(
-        (userCredential) => {
-          console.log(userCredential);
-          // handleGetUserData(userCredential.user);
-        },
-      );
+    if (user) {
+      async () => {
+        const { auth } = await import("../firebase/firebase");
+        signInWithEmailAndPassword(auth, user.email, user.password).then(
+          (userCredential) => {
+            console.log(userCredential);
+            // handleGetUserData(userCredential.user);
+          },
+        );
+      };
+    }
   }, [user]);
 
   return (
