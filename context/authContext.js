@@ -42,6 +42,7 @@ export const UserProvider = (props) => {
   useEffect(() => {
     if (sessionStorage.getItem("user") !== null) {
       let u = sessionStorage.getItem("user");
+
       setUserData(JSON.parse(u));
     }
   }, []);

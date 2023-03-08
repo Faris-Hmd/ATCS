@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Container, ThemeProvider } from "react-bootstrap";
 import { AuthContext } from "../context/authContext";
 import Login from "../pages/Login";
-import Menu from "../pages/Menu";
+import SideMenu from "./SideMenu";
 import ButtomNav from "./ButtomNav";
 import Navbar from "./Navbar";
 
@@ -15,7 +15,11 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <link rel="manifest" href="./manifest.json" />
-        <link rel="shortcut icon" type="image/x-icon" href="/icons/atcs-logo.png" />
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="/icons/atcs-logo.png"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -32,7 +36,7 @@ const Layout = ({ children }) => {
           <div className={`App`}>
             <div className="rightSide"></div>
             <div className="leftSide">
-              <Menu />
+              <SideMenu />
             </div>
             <Navbar />
             <ButtomNav />

@@ -15,7 +15,7 @@ import {
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/authContext";
 import { auth } from "../firebase/firebase";
-import { baseUrl } from "./_app";
+import { baseUrl } from "../pages/_app";
 
 function UserProfile() {
   const { user, setUser } = useContext(AuthContext);
@@ -78,13 +78,13 @@ function UserProfile() {
   if (user)
     return (
       <Container className="h-100">
-        <Row>
+        {/* <Row>
           <div className="p-3 bg-clr">تعديل بيانات مستخدم</div>
-        </Row>
-        <Row className="full">
-          <Col xs={11} lg={5}>
+        </Row> */}
+        <Row className="full h-100">
+          <Col xs={12} lg={5} className="h-100 mt-4">
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="inputGroup   p-2 rounded shadow bg-w">
+              <Form.Group className="inputGroup  p-2 rounded shadow bg-w">
                 <FloatingLabel
                   label="اسم المستخدم"
                   controlId="username"

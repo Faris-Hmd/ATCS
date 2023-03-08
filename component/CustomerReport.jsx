@@ -2,10 +2,10 @@
 import React from "react";
 import Styles from "../styles/report.module.css";
 
-const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
-  const exDate = new Date(customer.leftDate);
+const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
+  const exDate = new Date(customer.threeMonthExDate);
   const eDate = new Date(customer.enteringDateBySec);
-
+  if (!customer) return <div></div>;
   return (
     <div className={Styles.printContainer} ref={ref}>
       <div className={Styles.header}>
@@ -19,10 +19,24 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
               exDate.getUTCDate()}
           </div>
           <div className={Styles.bookNum}>
-            رقم/ن/س/ر/ {customer.leftSerialNum}
+            رقم/ن/س/ر/ {customer.threeMonthExSerialNum}
           </div>
         </div>
-        <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
+        {reportType === "تمديد مغادرة" && (
+          <div className={Styles.title}>تمديد مغادرة عربة افراج مؤقت</div>
+        )}
+        {reportType === "مغادرة" && (
+          <div className={Styles.title}>خطاب مغادرة عربة افراج مؤقت</div>
+        )}
+
+        {reportType === "تمديد" && (
+          <div className={Styles.title}>تمديد دفاتر المرور الجمركي</div>
+        )}
+        {reportType === "تخليص" && (
+          <div className={Styles.title}>
+            اورنيك تخليص مركبات دفاتر المرور الجمركي
+          </div>
+        )}
         <div className={Styles.for}>
           <span>معنون للسيد / مدير ادارة مكافحة التهريب </span>
           <span>المحترم</span>
@@ -32,6 +46,7 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
         <tbody>
           <tr>
             <td>اســــــم المــــالك :</td>
+
             <td>
               {customer.ownerFName} {customer.ownerSName} {customer.ownerTName}{" "}
               {customer.ownerFoName}
@@ -43,11 +58,11 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
             <td>{customer.passport}</td>
           </tr>
           <tr>
-            <td>العـــــــــــــــــــنوان :</td>
+            <td>العــــــــــــــــــــنوان :</td>
             <td>{customer.ownerSdAddress}</td>
           </tr>
           <tr>
-            <td>رقــــم الهــــــاتف :</td>
+            <td>رقـــــم الهــــــاتف :</td>
             <td>{customer.ownerSdPhone1}</td>
           </tr>
           <tr>
@@ -82,11 +97,29 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
           </tr>
           <tr>
             <td>التــــــــــــــــوصية :</td>
-            <td>نوصي بالمغادرة فورا وفق النظام المعمول به.</td>
+            {reportType === "تمديد" && (
+              <td>
+                لا مانع لدينا في تجديد لفترة {customer.threeMonthExDur} أخرى وفق
+                النظام المعمول به.
+              </td>
+            )}
+            {reportType === "مغادرة" && (
+              <td>نوصي بالمغادرة فورا وفق النظام المعمول به.</td>
+            )}
+
+            {reportType === "تمديد مغادرة" && (
+              <td>
+                لا مانع لدينا لمنحه فترة سماح للمغادرة وفق النظام المعمول به.
+              </td>
+            )}
+
+            {reportType === "تخليص" && (
+              <td>لا مانع لدينا وفق النظام المعمول به.</td>
+            )}
           </tr>
           <tr>
             <td>مــلــــــــحــوضـــة :</td>
-            <td>اي كشط او تعديل يلغي هذا الارونيك. </td>
+            <td>اي كشط او تعديل يلغي هذا الارونيك </td>
           </tr>
         </tbody>
       </table>
@@ -99,4 +132,4 @@ const LeftingReportToPrint = React.forwardRef(({ customer }, ref) => {
   );
 });
 
-export default LeftingReportToPrint;
+export default CustomerReport;

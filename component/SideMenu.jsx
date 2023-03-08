@@ -3,22 +3,19 @@ import { IconContext } from "react-icons";
 import { BsCash, BsGear, BsHouseDoor, BsReceipt } from "react-icons/bs";
 import {
   BiBook,
-  BiListUl,
   BiLogIn,
   BiLogOut,
   BiPlusCircle,
-  BiSync,
   BiUser,
-  BiUserCircle,
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
 import Link from "next/link";
 import { AuthContext } from "../context/authContext";
 import { useContext, useState } from "react";
-import { baseUrl } from "./_app";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { baseUrl } from "../pages/_app";
+import { Col, Container, Row } from "react-bootstrap";
 
-function Menu() {
+function SideMenu() {
   const { user, handleSignOut } = useContext(AuthContext);
   const [syncing, setIsSyncing] = useState(false);
 
@@ -33,9 +30,7 @@ function Menu() {
   return (
     <IconContext.Provider value={{ className: styles.menuIcons }}>
       <div className={styles.menu}>
-        <Link
-          href="/UserProfile"
-          className="bg-w flex text-center shadow-sm rounded-bottom overflow-hidden w-100">
+        <div className="bg-w flex text-center shadow-sm rounded-bottom overflow-hidden w-100">
           <Container>
             <Col>
               <img width={"80px"} src="/icons/user.png" className="icon" />
@@ -49,7 +44,7 @@ function Menu() {
               </Col>
             </Row>
           </Container>
-        </Link>
+        </div>
 
         <div className={styles.optCon}>
           <Link href="/" className={styles.opt}>
@@ -100,4 +95,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default SideMenu;

@@ -7,8 +7,7 @@ import { BsPencil, BsPrinter, BsSave } from "react-icons/bs";
 import { ImBin } from "react-icons/im";
 
 import { useReactToPrint } from "react-to-print";
-import ExtentionReportToPrint from "../../component/ExtentionReportToPrint";
-import LeftingReportToPrint from "../../component/LeftingReportToPrint";
+import CustomerReport from "../../component/CustomerReport";
 import { baseUrl } from "../_app";
 import CustomerForm from "../../component/CustomerForm";
 import {
@@ -22,10 +21,8 @@ import {
   Tabs,
 } from "react-bootstrap";
 import Actions from "../../component/Actions";
-import LeftingExReportToPrint from "../../component/LeftingExReportToPrint";
 import Loading from "../../component/Loading";
 import { CustomerContext } from "../../context/customersContext";
-import ClearReportToPrint from "../../component/ClearReportToPrint";
 import { toast } from "react-toastify";
 
 const Customer = () => {
@@ -36,34 +33,22 @@ const Customer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showRepModal, setShowRepModal] = useState(false);
   const [showDltModal, setShowDltModal] = useState(false);
+  const [reportType, setReportType] = useState("");
 
   const route = useRouter();
   const { customerId } = route.query;
 
-  const leftReportRef = useRef();
   const exReportRef = useRef();
-  const leftExReportRef = useRef();
-  const clearReportRef = useRef();
 
   const handleClose = () => setShowRepModal(false);
   const handleShow = () => setShowRepModal(true);
 
-  const handleExPrint = useReactToPrint({
+  const handleCustReportPrint = useReactToPrint({
     content: () => exReportRef.current,
   });
 
-  const handleLeftPrint = useReactToPrint({
-    content: () => leftReportRef.current,
-  });
-  const handleLeftExPrint = useReactToPrint({
-    content: () => leftExReportRef.current,
-  });
-  const handleClearPrint = useReactToPrint({
-    content: () => clearReportRef.current,
-  });
-
   const handleChange = (event) => {
-    console.log(customer);
+    // console.log(customer);
     const { name, value } = event.target;
     // console.log(value, name);
     if (event.target.type === "checkbox") {
@@ -103,6 +88,7 @@ const Customer = () => {
 
   useEffect(() => {
     if (!customerId) return;
+
     if (customers.find((cust) => cust.customerId === customerId)) {
       setCustomer(customers.find((cust) => cust.customerId === customerId));
       setIsLoading(false);
@@ -115,6 +101,11 @@ const Customer = () => {
         });
     }
   }, [customerId, customers]);
+
+  useEffect(() => {
+    if (reportType === "") return;
+    handleCustReportPrint();
+  }, [reportType]);
 
   if (isLoading) return <Loading />;
   if (customer)
@@ -152,25 +143,37 @@ const Customer = () => {
           </Modal.Header>
           <Modal.Body>
             <Button
-              onClick={handleExPrint}
+              onClick={() => {
+                setReportType("تمديد");
+                handleCustReportPrint();
+              }}
               disabled={!customer.threeMonthEx}
               className="w-100 mb-2">
               <div>تمديد</div>
             </Button>
             <Button
-              onClick={handleLeftExPrint}
+              onClick={() => {
+                setReportType("تمديد مغادرة");
+                handleCustReportPrint();
+              }}
               disabled={!customer.leftEx}
               className="w-100 mb-2">
               <div>تمديد مغادرة</div>
             </Button>
             <Button
-              onClick={handleLeftPrint}
+              onClick={() => {
+                setReportType("مغادرة");
+                handleCustReportPrint();
+              }}
               disabled={customer.state !== "غادر"}
               className="w-100 mb-1">
               <div>مغادرة</div>
             </Button>
             <Button
-              onClick={handleClearPrint}
+              onClick={() => {
+                setReportType("تخليص");
+                handleCustReportPrint();
+              }}
               disabled={customer.state !== "مخلص"}
               className="w-100 mb-1">
               <div>تخليص</div>
@@ -247,13 +250,17 @@ const Customer = () => {
           </Col>
           {!isEditing && (
             <div className="hidden">
-              <LeftingReportToPrint ref={leftReportRef} customer={customer} />
-              <ExtentionReportToPrint ref={exReportRef} customer={customer} />
-              <ClearReportToPrint ref={clearReportRef} customer={customer} />
-              <LeftingExReportToPrint
+              {/* <LeftingReportToPrint ref={leftReportRef} customer={customer} /> */}
+              <CustomerReport
+                ref={exReportRef}
+                customer={customer}
+                reportType={reportType}
+              />
+              {/* <ClearReportToPrint ref={clearReportRef} customer={customer} /> */}
+              {/* <LeftingExReportToPrint
                 ref={leftExReportRef}
                 customer={customer}
-              />
+              /> */}
             </div>
           )}
         </Container>

@@ -16,10 +16,10 @@ import {
 import Loading from "../component/Loading";
 import { CustomerContext } from "../context/customersContext";
 import { useReactToPrint } from "react-to-print";
-import CustsReportToPrint from "../component/CustomersReportToPrint";
 import { useQuery } from "react-query";
 import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
+import CustomerReport from "../component/CustomerReport";
 
 const Customers = () => {
   const reportRef = useRef();
@@ -202,7 +202,7 @@ const Customers = () => {
         </Container>
         {(state || state === "null") && (
           <div className="hidden">
-            <CustsReportToPrint
+            <CustomerReport
               state={state}
               startDate={startDate}
               endDate={endDate}

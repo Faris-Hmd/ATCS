@@ -3,7 +3,7 @@ import React from "react";
 import { Container, Table } from "react-bootstrap";
 import reportStyles from "../styles/report.module.css";
 
-const CustsReportToPrint = React.forwardRef(
+const CustomersReport = React.forwardRef(
   ({ customers, startDate, endDate, state, repeatEntry }, ref) => {
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
