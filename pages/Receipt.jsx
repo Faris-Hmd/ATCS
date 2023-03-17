@@ -26,19 +26,27 @@ function Receipt() {
 
   function getCustomer(e) {
     e.preventDefault();
-    setIsLoading(true);
-    fetch(`${baseUrl}/api/receipt?bookNum=${bookNum}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCustomer(data);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setCustomer({});
-        toast.error("لا يوجد عميل بهذا الرقم");
-      });
+    try {
+      fetch(`${baseUrl}/api/receipt?bookNum=${bookNum}`)
+        .then((res) => {
+          if (!res.ok) {
+            setCustomer({});
+            res.json().then((data) => toast.error(data.error));
+            return;
+          } else return res.json();
+        })
+        .then((data) => {
+          data && setCustomer(data);
+        });
+    } catch (error) {
+      toast.error("حصل خطأ في العملية");
+      setCustomer({});
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -58,7 +66,7 @@ function Receipt() {
         })
         .catch(() => {
           setIsLoading(false);
-          toast.error("العملية لم تتم بنجاح");
+          toast.error("حصل خطأ في العملية");
         });
     } else {
       axios({

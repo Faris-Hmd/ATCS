@@ -1,13 +1,6 @@
 /** @format */
 
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
 
@@ -24,14 +17,28 @@ export default async function handler(req, res) {
           )
         );
 
-        const customer = querySnapShot.docs.find(
+        const isCustClr = querySnapShot.docs.find(
+          (cust) => cust.data().state === "مخلص"
+        );
+        if (isCustClr) {
+          return res.status(406).send({ error: "تم تخليص مركبة هذا العميل" });
+        }
+
+        const isCustVio = querySnapShot.docs.find(
+          (cust) => cust.data().state === "مخالف"
+        );
+        if (isCustVio) {
+          return res.status(406).send({ error: "هذا العميل مخالف" });
+        }
+
+        const newEntryCustomer = querySnapShot.docs.find(
           (cust) => cust.data().enteringDateBySec === 0
         );
 
-        if (customer) {
-          const bookDate = new Date(customer.data().bookDateBySec);
+        if (newEntryCustomer) {
+          const bookDate = new Date(newEntryCustomer.data().bookDateBySec);
           res.status(200).json({
-            ...customer.data(),
+            ...newEntryCustomer.data(),
             repeatEntry: false,
             customerId: querySnapShot.docs.at(0).id,
             bookDate: bookDate.toISOString().slice(0, 10),
@@ -47,14 +54,6 @@ export default async function handler(req, res) {
             bookDate: bookDate.toISOString().slice(0, 10),
           });
         }
-      }
-      break;
-
-    case "PATCH":
-      {
-        const premessions = req.body;
-        await updateDoc(doc(db, "userType", userType), premessions);
-        res.status(200).json("update");
       }
       break;
   }
