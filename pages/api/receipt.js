@@ -6,14 +6,14 @@ import { baseUrl } from "../_app";
 
 export default async function handler(req, res) {
   const url = new URL(baseUrl + req.url);
-  const bookNum = url.searchParams.get("bookNum");
+  const carnetNo = url.searchParams.get("carnetNo");
   switch (req.method) {
     case "GET":
       {
         const querySnapShot = await getDocs(
           query(
             collection(db, "customers"),
-            where("keywords", "array-contains", bookNum)
+            where("keywords", "array-contains", carnetNo)
           )
         );
 

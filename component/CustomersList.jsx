@@ -55,7 +55,7 @@ function CustomersList({ customers }) {
                     <Container>
                       <Row>{customer.carType}</Row>
                       <Row className="fos-sm opacity-75 text-nowrap">
-                        {customer.bookNum}
+                        {customer.carnetNo}
                       </Row>
                     </Container>
                   </Col>
@@ -105,7 +105,7 @@ function CustomersList({ customers }) {
   //               {`${customer.ownerFName} ${customer.ownerSName} ${customer.ownerTName}`}
   //             </td>
   //             <td className="text-nowrap text-start">{customer.carType}</td>
-  //             <td>{customer.bookNum}</td>
+  //             <td>{customer.carnetNo}</td>
   //             <td>{bDate.toISOString().slice(0, 10)}</td>
   //             <td>{eDate.toISOString().slice(0, 10)}</td>
   //             <td>{Math.floor(dayDiff)}</td>

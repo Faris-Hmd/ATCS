@@ -18,7 +18,7 @@ const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
               "/" +
               exDate.getUTCDate()}
           </div>
-          <div className={Styles.bookNum}>
+          <div className={Styles.carnetNo}>
             رقم/ن/س/ر/ {customer.threeMonthExSerialNum}
           </div>
         </div>
@@ -93,7 +93,7 @@ const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
           </tr>
           <tr>
             <td>رقـــــــم الـــدفـــتر :</td>
-            <td>{customer.bookNum}</td>
+            <td>{customer.carnetNo}</td>
           </tr>
           <tr>
             <td>التــــــــــــــــوصية :</td>

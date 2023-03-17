@@ -135,7 +135,7 @@ const carDetail = [
 ];
 const bookDetail = [
   {
-    name: "bookNum",
+    name: "carnetNo",
     placeholder: "رقم الدفتر",
     class: "w-100",
     type: "text",

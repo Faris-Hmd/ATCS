@@ -71,7 +71,7 @@ const CustomersReport = React.forwardRef(
                     {customer.ownerTName + "  "}
                     {customer.ownerFoName && customer.ownerFoName}
                   </td>
-                  <td>{customer.bookNum}</td>
+                  <td>{customer.carnetNo}</td>
                   <td>{1 + index}</td>
                 </tr>
               );
@@ -80,6 +80,6 @@ const CustomersReport = React.forwardRef(
         </Table>
       </Container>
     );
-  },
+  }
 );
 export default CustomersReport;

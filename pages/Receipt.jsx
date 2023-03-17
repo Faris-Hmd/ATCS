@@ -21,13 +21,13 @@ function Receipt() {
   const { user, hasAccess } = useContext(AuthContext);
   const [customer, setCustomer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [bookNum, setBookNum] = useState("");
+  const [carnetNo, setBookNum] = useState("");
   const [enteringDate, setEnteringDate] = useState("2023-02-24");
 
   function getCustomer(e) {
     e.preventDefault();
     try {
-      fetch(`${baseUrl}/api/receipt?bookNum=${bookNum}`)
+      fetch(`${baseUrl}/api/receipt?carnetNo=${carnetNo}`)
         .then((res) => {
           if (!res.ok) {
             setCustomer({});
@@ -105,12 +105,12 @@ function Receipt() {
               >
                 <InputGroup
                   label="رقم الدفتر"
-                  controlId="bookNum"
+                  controlId="carnetNo"
                   className="mb-2"
                 >
                   <Form.Control
                     type="text"
-                    name="bookNum"
+                    name="carnetNo"
                     placeholder="رقم الدفتر"
                     className="p-2"
                     onChange={(e) => {
@@ -212,7 +212,7 @@ function Receipt() {
                     <Form.Control
                       disabled
                       type="date"
-                      name="bookNum"
+                      name="carnetNo"
                       placeholder="تاريخ الدفتر"
                       value={customer.bookDate}
                       onChange={(e) => {
@@ -228,7 +228,7 @@ function Receipt() {
                   >
                     <Form.Control
                       type="date"
-                      name="bookNum"
+                      name="carnetNo"
                       placeholder="تاريخ الدخول"
                       value={enteringDate}
                       onChange={(e) => {
