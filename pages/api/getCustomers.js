@@ -55,6 +55,7 @@ export default async function handler(req, res) {
       ...customer.data(),
       customerId: customer.id,
       bookDate: bookDate.toISOString().slice(0, 10),
+      stayingTime: customer.data().threeMonthEx ? 180 : 90,
       enteringDate: enteringDate ? enteringDate.toISOString().slice(0, 10) : 0,
     };
   });

@@ -127,3 +127,13 @@ a:hover {
   text-align: center;
   margin-bottom: 0.5em;
 }
+
+.floating-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 10px 0;
+  padding: 1px 5px;
+  background: var(--theme-clr);
+  color: var(--theme-clr);
+}

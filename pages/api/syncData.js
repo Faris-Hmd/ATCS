@@ -30,20 +30,19 @@ export default async function handler(req, res) {
         (currentDate.getTime() - customer.data().bookDateBySec) /
           (1000 * 60 * 60 * 24)
       ) > 365
-        ? customer.data().state === "غادر"
-          ? "غادر"
+        ? customer.data().state
+          ? customer.data().state
           : "مخالف"
         : isLessThan15
         ? "مغادر قريبا"
+        : customer.data().state
+        ? customer.data().state
         : "لم يغادر";
 
     return {
       ...customer.data(),
       customerId: customer.id,
-      repeatEntry: customer.data().repeatEntry
-        ? customer.data().repeatEntry
-        : false,
-      // state: state,
+      state: state,
     };
   });
 
@@ -77,11 +76,10 @@ export default async function handler(req, res) {
     // });
     async function u() {
       await updateDoc(doc(db, "customers", customer.customerId), {
-        repeatEntry: customer.repeatEntry,
-        carnetNo: customer.bookNum,
+        state: customer.state,
       });
     }
-    // u();
+    u();
   });
   // console.log(customers);
   res.status(200).json(customers);

@@ -20,12 +20,12 @@ const Layout = ({ children }) => {
           type="image/x-icon"
           href="/icons/atcs-logo.png"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
+        {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
+        {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> */}
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"
           rel="stylesheet"
-        />
+        /> */}
       </Head>
       {!user ? (
         <Container className="full p-0 vh-100 rtl">

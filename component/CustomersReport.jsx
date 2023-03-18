@@ -59,8 +59,8 @@ const CustomersReport = React.forwardRef(
                       ? customer.phone2
                       : customer.phone1
                       ? customer.phone1
-                      : null}
-                  </td>{" "}
+                      : 0}
+                  </td>
                   <td>{eDate.toISOString().slice(0, 10)}</td>
                   <td>{bDate.toISOString().slice(0, 10)}</td>
                   <td>{customer.chaseNum}</td>

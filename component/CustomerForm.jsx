@@ -473,6 +473,7 @@ const secRelative = [
     isRequired: false,
   },
 ];
+
 function CustomerForm({
   handleChange,
   customer,

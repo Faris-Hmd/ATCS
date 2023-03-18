@@ -19,9 +19,8 @@ import { useReactToPrint } from "react-to-print";
 import { useQuery } from "react-query";
 import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
-import CustomerReport from "../component/CustomerReport";
 import CustomersReport from "../component/CustomersReport";
-
+const currentDate = new Date();
 const Customers = () => {
   const reportRef = useRef();
 
@@ -57,7 +56,6 @@ const Customers = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setCustomers(data);
       setIsEnable(false);
     } else {
@@ -88,6 +86,7 @@ const Customers = () => {
               <option value="لم يغادر">داخل البلاد</option>
               <option value="مخلص">مخلصين</option>
               <option value="غادر">مغادرين</option>
+              <option value="مغادر قريبا"> متبقي 15 يوم او اقل </option>
               <option value="مخالف">مخالفين</option>
             </Form.Select>
             <Form.Label>الدخول المتكرر</Form.Label>
@@ -126,9 +125,8 @@ const Customers = () => {
                   <Form.Control
                     type="date"
                     name="keyword"
-                    min="2021-07-01"
+                    min={startDate}
                     max="2023-03-31"
-                    defaultValue="2014-02-09"
                     className="rounded"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
