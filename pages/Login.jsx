@@ -1,7 +1,6 @@
 /** @format */
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import {
   Button,
@@ -12,7 +11,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { AuthContext } from "../context/authContext";
-import { auth } from "../firebase/firebase";
 import { baseUrl } from "./_app";
 import Loading from "../component/Loading";
 import { toast } from "react-toastify";
@@ -20,8 +18,7 @@ import { toast } from "react-toastify";
 function Login() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   function handleChage(event) {
     const { name, value } = event.target;
@@ -30,50 +27,51 @@ function Login() {
       return { ...prev, [name]: value };
     });
   }
-  function handleSubmit(event) {
-    setIsLoading(true);
-    event.preventDefault();
+  async function login(userData) {
+    console.log("fromm login");
+    const { auth } = await import("../firebase/firebase");
     signInWithEmailAndPassword(auth, userData.email, userData.password)
       .then((userCredential) => {
-        handleGetUserData(userCredential.user);
+        // console.log(auth.currentUser);
+        if (user === null) handleGetUserData(userCredential.user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error.message);
-        toast.error("البريد الالكتروني أو كلمة المرور خاطئة !");
-
         setIsLoading(false);
+        toast.error("البريد الالكتروني أو كلمة المرور خاطئة !");
       });
   }
-  function handleGetUserData(user) {
-    fetch(baseUrl + "/api/user?uid=" + user.uid)
+
+  async function handleGetUserData(userCred) {
+    const { auth } = await import("../firebase/firebase");
+    console.log("fromm getUser");
+    fetch(baseUrl + "/api/user?uid=" + userCred.uid)
       .then((res) => res.json())
       .then((data) => {
+        if (auth.currentUser === null) login(data);
+        toast.success(" تم تسجيل بأسم" + data.displayName);
         setUser({
           premessions: data.premessions,
-          email: user.email,
-          uid: user.uid,
-          displayName: user.displayName,
+          email: data.email,
+          uid: data.uid,
+          displayName: data.displayName,
           userType: data.userType,
-          password: userData.password,
+          password: data.password,
         });
-        sessionStorage.setItem(
-          "user",
-          JSON.stringify({
-            premessions: data.premessions,
-            email: user.email,
-            uid: user.uid,
-            displayName: user.displayName,
-            userType: data.userType,
-            password: userData.password,
-          }),
-        );
-        setIsLoading(false);
-        router.push("/Customers");
-        toast.success("تم تسجيل بأسم!" + user.displayName);
       })
-      .catch(setIsLoading(false));
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("حصل خطأ في تسجيل الدخول!");
+      });
+  }
+
+  function handleSubmit(event) {
+    setIsLoading(true);
+    event.preventDefault();
+    // console.log(userData);
+    login(userData);
   }
 
   return (
@@ -85,14 +83,16 @@ function Login() {
         <Col xs={11} lg={4}>
           <Form
             className="w-100 bg-w rounded shadow-lg border p-2"
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+          >
             <div className="flex pb-3">
               <img src="/icons/atcs-logo.png" alt="" width={"120px"} />
             </div>
             <FloatingLabel
               label="البريد الالكتروني"
               controlId="email"
-              className="mb-2 w-100">
+              className="mb-2 w-100"
+            >
               <Form.Control
                 type="email"
                 name="email"
@@ -104,7 +104,8 @@ function Login() {
             <FloatingLabel
               label="كلمة المرور"
               controlId="password"
-              className="mb-2 w-100">
+              className="mb-2 w-100"
+            >
               <Form.Control
                 type="password"
                 name="password"

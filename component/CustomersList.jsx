@@ -15,8 +15,8 @@ function CustomersList({ customers }) {
       <Row>
         <Col>
           {customers.map((customer, index) => {
-            var diff = currentDate.getTime() - customer.enteringDateBySec;
-            var dayDiff = diff / (1000 * 60 * 60 * 24);
+            // var diff = currentDate.getTime() - customer.enteringDateBySec;
+            // var dayDiff = diff / (1000 * 60 * 60 * 24);
             var eDate = new Date(customer.enteringDateBySec);
             var bDate = new Date(customer.bookDateBySec);
             return (
@@ -65,20 +65,43 @@ function CustomersList({ customers }) {
                   {/* <Col className="" xs={2}>
                     {customer.state}
                   </Col> */}
-                  <Col xs={2}>
+                  <Col xs={2} className="text-center rounded fos-m">
                     <span
-                      className={`${
-                        Math.floor(dayDiff) < customer.stayingTime
+                      className={` ${
+                        customer.stayingTime <= customer.availableTime
                           ? "text-success"
                           : "text-danger"
                       }`}
                     >
-                      {Math.floor(dayDiff)}
+                      {customer.stayingTime}
                     </span>
-                    <span> / {customer.stayingTime}</span>
+                    <span> / {customer.availableTime}</span>
                   </Col>
                   {customer.repeatEntry && (
                     <Col className="floating-badge">0</Col>
+                  )}
+                  {customer.state === "مخلص" && (
+                    <Col className="floating-badge-2 floating-badge-orange">
+                      0
+                    </Col>
+                  )}
+                  {customer.state === "غادر" && (
+                    <Col className="floating-badge-2 floating-badge-gray">
+                      0
+                    </Col>
+                  )}
+                  {customer.state === "لم يغادر" && (
+                    <Col className="floating-badge-2 floating-badge-green">
+                      0
+                    </Col>
+                  )}
+                  {customer.state === "مغادر قريبا" && (
+                    <Col className="floating-badge-2 floating-badge-yellow">
+                      0
+                    </Col>
+                  )}
+                  {customer.state === "مخالف" && (
+                    <Col className="floating-badge-2 floating-badge-red">0</Col>
                   )}
                 </Container>
               </Link>

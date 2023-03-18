@@ -24,7 +24,7 @@ import Actions from "../../component/Actions";
 import Loading from "../../component/Loading";
 import { CustomerContext } from "../../context/customersContext";
 import { toast } from "react-toastify";
-
+const currentDate = new Date();
 const Customer = () => {
   const { customers } = useContext(CustomerContext);
 
@@ -106,6 +106,15 @@ const Customer = () => {
         });
     }
   }, [customerId, customers]);
+
+  // useEffect(() => {
+  //   customer &&
+  //     console.log(
+  //       customer.stayingTime,
+  //       customer.enteringDate,
+  //       customer.clearDate
+  //     );
+  // }, [customer]);
 
   useEffect(() => {
     if (reportType === "") return;

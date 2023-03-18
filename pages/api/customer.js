@@ -12,6 +12,8 @@ import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
 
 export default async function handler(req, res) {
+  const currentDate = new Date();
+
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
   const customerId = searchParams.get("customerId");
@@ -23,18 +25,34 @@ export default async function handler(req, res) {
         const customer = querySnapShot.data();
         const bookDate = new Date(customer.bookDateBySec);
         const enteringDate = new Date(customer.enteringDateBySec);
+        const leftDate = customer.leftDate ? new Date(customer.leftDate) : 0;
+        const clearDate = customer.clearDate ? new Date(customer.clearDate) : 0;
+
+        const stayingTime =
+          customer.state === "غادر" && leftDate !== 0
+            ? (leftDate.getTime() - customer.enteringDateBySec) /
+              (1000 * 60 * 60 * 24)
+            : customer.state === "مخلص" && clearDate !== 0
+            ? (clearDate.getTime() - customer.enteringDateBySec) /
+              (1000 * 60 * 60 * 24)
+            : (currentDate.getTime() - customer.enteringDateBySec) /
+              (1000 * 60 * 60 * 24);
+
         res.status(200).json({
           ...customer,
+          stayingTime,
+          leftDateBySec: leftDate.getTime(),
           bookDate: bookDate.toISOString().slice(0, 10),
           enteringDate: enteringDate.toISOString().slice(0, 10),
           customerId: querySnapShot.id,
         });
-        console.log({
-          ...customer,
-          bookDate: bookDate.toISOString().slice(0, 10),
-          enteringDate: enteringDate.toISOString().slice(0, 10),
-          customerId: querySnapShot.id,
-        });
+
+        // console.log({
+        //   ..customer,
+        //   bookDate: bookDate.toISOString().slice(0, 10),
+        //   enteringDate: enteringDate.toISOString().slice(0, 10),
+        //   customerId: querySnapShot.id,
+        // });
       }
       break;
     case "POST":
@@ -44,7 +62,7 @@ export default async function handler(req, res) {
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
         // console.log({
-        //   ...customer,
+        //   ..customer,
         //   enteringDate: customer.enteringDate === 0 ? 0 : enteringDate,
         //   sixMonthEx: false,
         //   threeMonthEx: false,
@@ -54,7 +72,7 @@ export default async function handler(req, res) {
         //   bookNumNo: customer.carnetNo.slice(4),
         //   state: "لم يغادر",
         //   keywords: [
-        //     ...new Set([
+        //     ..new Set([
         //       customer.carnetNo.slice(4),
         //       customer.ownerSName,
         //       customer.ownerFName,
@@ -98,12 +116,12 @@ export default async function handler(req, res) {
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
         // console.log({
-        //   ...customer,
+        //   ..customer,
         //   enteringDateBySec: enteringDate.getTime(),
         //   bookDateBySec: bookDate.getTime(),
         //   bookNumNo: parseInt(customer.carnetNo.slice(4)),
         //   keywords: [
-        //     ...new Set([
+        //     ..new Set([
         //       customer.carnetNo.slice(4),
         //       customer.ownerSName,
         //       customer.ownerFName,

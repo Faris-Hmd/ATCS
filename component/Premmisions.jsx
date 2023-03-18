@@ -18,8 +18,10 @@ function Premessions() {
     { route: "CustomersDetails", name: "تفاصيل العملاء" },
     { route: "AddCustomer", name: "اضافة عميل" },
     { route: "Receipt", name: "استخراج ايصال" },
-    { route: "Settings", name: "الاعدادات" },
+    // { route: "Settings", name: "الاعدادات" },
     { route: "SignUp", name: "اضافة مستخدم" },
+    { route: "Users", name: "المستخدمين" },
+    { route: "Premm", name: "تغيير الصلاحيات" },
   ];
 
   function getPremissions() {
@@ -67,64 +69,71 @@ function Premessions() {
   // }, [premessions]);
 
   return (
-    <Container className="bg-w p-2 shadow rounded h-600">
+    <Container className="bg-w p-2 shadow rounded h-500">
       <Tab.Container defaultActiveKey="#1">
         <Row>
-          <Col lg={5} className="justify-content-center">
+          <Col lg={5} className="justify-content-center h-600">
             <ListGroup>
               <ListGroup.Item
                 action
                 href="#1"
                 // className={`${hre && "fc-w"}`}
-                onClick={() => setUserType("admin")}>
+                onClick={() => setUserType("admin")}
+              >
                 مشرف
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#4"
                 // className={`${hre && "fc-w"}`}
-                onClick={() => setUserType("khUser")}>
+                onClick={() => setUserType("khUser")}
+              >
                 مكتب الخرطوم
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#2"
-                onClick={() => setUserType("swakinUser")}>
+                onClick={() => setUserType("swakinUser")}
+              >
                 مكتب سواكن
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#3"
-                onClick={() => setUserType("ksaUser")}>
+                onClick={() => setUserType("ksaUser")}
+              >
                 مكتب السعودية
               </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col lg={7} className="justify-content-center">
+          <Col lg={7} className="justify-content-center ">
             {!userChangeLoading ? (
               <Tab.Content>
                 {premessionsList.map((item, index) => {
                   return (
-                    <div eventKey={"#" + index + 1} key={index}>
-                      <div
-                        className={`mt-2  ${
-                          premessions?.includes(item.route)
-                            ? "checkBoxChecked"
-                            : "checkBox"
-                        }`}
-                        onClick={() => handlePremChange(item.route)}>
-                        {item.name}
+                    <>
+                      <div eventKey={"#" + index + 1} key={index}>
+                        <div
+                          className={`mt-2  ${
+                            premessions?.includes(item.route)
+                              ? "checkBoxChecked"
+                              : "checkBox"
+                          }`}
+                          onClick={() => handlePremChange(item.route)}
+                        >
+                          {item.name}
+                        </div>
                       </div>
-                    </div>
+                    </>
                   );
                 })}
+                <Button className="w-100 mt-2" onClick={handlePremUpdate}>
+                  حفظ التعديلات
+                </Button>
               </Tab.Content>
             ) : (
               <Loading />
             )}
-            <Button className="w-50" onClick={handlePremUpdate}>
-              حفظ التعديلات
-            </Button>
           </Col>
         </Row>
       </Tab.Container>

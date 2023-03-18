@@ -3,6 +3,7 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { baseUrl } from "../_app";
 export default async function handler(req, res) {
+  const currentDate = new Date();
   const url = new URL(baseUrl + req.url);
   const searchParams = url.searchParams;
   const fromDate = searchParams.get("startDate");
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
 
     if (state === "repeatEntry") querys.push(where("repeatEntry", "==", true));
 
-    console.log(searchParams);
+    // console.log(searchParams);
 
     querySnapShot = await getDocs(
       query(
@@ -50,12 +51,29 @@ export default async function handler(req, res) {
   const customers = querySnapShot.docs.map((customer) => {
     const bookDate = new Date(customer.data().bookDateBySec);
     const enteringDate = new Date(customer.data().enteringDateBySec);
+    const leftDate = customer.data().leftDate
+      ? new Date(customer.data().leftDate)
+      : 0;
+    const clearDate = customer.data().clearDate
+      ? new Date(customer.data().clearDate)
+      : 0;
+
+    const stayingTime =
+      customer.data().state === "غادر" && leftDate !== 0
+        ? (leftDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24)
+        : customer.data().state === "مخلص" && clearDate !== 0
+        ? (clearDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24)
+        : (currentDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24);
 
     return {
       ...customer.data(),
       customerId: customer.id,
       bookDate: bookDate.toISOString().slice(0, 10),
-      stayingTime: customer.data().threeMonthEx ? 180 : 90,
+      availableTime: customer.data().threeMonthEx ? 180 : 90,
+      stayingTime: Math.floor(stayingTime),
       enteringDate: enteringDate ? enteringDate.toISOString().slice(0, 10) : 0,
     };
   });

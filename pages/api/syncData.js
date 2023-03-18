@@ -1,12 +1,6 @@
 /** @format */
 
-import {
-  collection,
-  doc,
-  getDocs,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 export default async function handler(req, res) {
@@ -14,14 +8,31 @@ export default async function handler(req, res) {
   const currentDate = new Date();
 
   const customers = querySnapShot.docs.map((customer) => {
-    const stayingTime = customer.data().threeMonthEx ? 180 : 90;
+    const availableTime = customer.data().threeMonthEx ? 180 : 90;
+
+    const leftDate = customer.data().leftDate
+      ? new Date(customer.data().leftDate)
+      : 0;
+    const clearDate = customer.data().clearDate
+      ? new Date(customer.data().clearDate)
+      : 0;
+
+    const stayingTime =
+      customer.data().state === "غادر" && leftDate !== 0
+        ? (leftDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24)
+        : customer.data().state === "مخلص" && clearDate !== 0
+        ? (clearDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24)
+        : (currentDate.getTime() - customer.data().enteringDateBySec) /
+          (1000 * 60 * 60 * 24);
 
     const isLessThan15 =
       Math.floor(
         (currentDate.getTime() - customer.data().enteringDateBySec) /
           (1000 * 60 * 60 * 24)
       ) >
-      stayingTime - 15
+      availableTime - 15
         ? true
         : false;
 
@@ -43,6 +54,8 @@ export default async function handler(req, res) {
       ...customer.data(),
       customerId: customer.id,
       state: state,
+      stayingTime: stayingTime,
+      availableTime: availableTime,
     };
   });
 
@@ -77,6 +90,8 @@ export default async function handler(req, res) {
     async function u() {
       await updateDoc(doc(db, "customers", customer.customerId), {
         state: customer.state,
+        stayingTime: customer.stayingTime,
+        availableTime: customer.availableTime,
       });
     }
     u();
