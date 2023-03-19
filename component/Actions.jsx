@@ -13,16 +13,14 @@ function Actions({ handleChange, customer, isEditing }) {
           customer.threeMonthEx
             ? formStyles.checkBoxChecked
             : formStyles.checkBox
-        }
-      >
+        }>
         تمديد الاول
       </label>
       <label
         htmlFor="leftEx"
         className={
           customer.leftEx ? formStyles.checkBoxChecked : formStyles.checkBox
-        }
-      >
+        }>
         تمديد مغادرة
       </label>{" "}
       <FloatingLabel controlId="state" label="الحالة" className="mb-2  w-100">
@@ -33,8 +31,7 @@ function Actions({ handleChange, customer, isEditing }) {
           name="state"
           onChange={handleChange}
           disabled={!isEditing}
-          required
-        >
+          required>
           <option value="لم يغادر">لم يغادر</option>
           <option value="غادر">غادر</option>
           <option value="مخلص">مخلص</option>
@@ -51,8 +48,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="enteringRec"
             label="إذن الدخول"
-            className="mb-2  w-50"
-          >
+            className="mb-2  w-50">
             <Form.Control
               type="text"
               value={customer.enteringRec}
@@ -66,8 +62,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="enteringDate"
             label="الدخول المركبة"
-            className="mb-2 w-50"
-          >
+            className="mb-2 w-50">
             <Form.Control
               type="date"
               value={customer.enteringDate}
@@ -85,8 +80,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="threeMonthExSerialNum"
             label="خطاب التمديد"
-            className="mb-2  w-30"
-          >
+            className="mb-2  w-30">
             <Form.Control
               type="text"
               value={customer.threeMonthExSerialNum}
@@ -100,8 +94,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="threeMonthExDate"
             label="تاريخ التمديد"
-            className="mb-2  w-30"
-          >
+            className="mb-2  w-30">
             <Form.Control
               type="date"
               value={customer.threeMonthExDate}
@@ -115,8 +108,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="threeMonthExDur"
             label="مدة التمديد"
-            className="mb-2  w-30"
-          >
+            className="mb-2  w-30">
             <Form.Select
               type="text"
               value={customer.threeMonthExDur}
@@ -125,8 +117,7 @@ function Actions({ handleChange, customer, isEditing }) {
               onChange={handleChange}
               disabled={!isEditing}
               defaultValue="ثلاثة اشهر"
-              required
-            >
+              required>
               <option value="ثلاثة أشهر">ثلاثة أشهر</option>
               <option value="شهرين">شهرين</option>
               <option value="شهر واحد">شهر واحد</option>
@@ -140,8 +131,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="leftExSerialNum"
             label="خطاب تمديد المغادرة"
-            className="mb-2  w-50"
-          >
+            className="mb-2  w-50">
             <Form.Control
               type="text"
               value={customer.leftExSerialNum}
@@ -155,8 +145,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="leftExDate"
             label="تاريخ تمديد المغادرة"
-            className="mb-2  w-50"
-          >
+            className="mb-2  w-50">
             <Form.Control
               type="date"
               value={customer.leftExDate}
@@ -174,8 +163,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="leftSerialNum"
             label="خطاب المغادرة"
-            className={"w-50 mb-2"}
-          >
+            className={"w-50 mb-2"}>
             <Form.Control
               type="text"
               value={customer.leftSerialNum}
@@ -190,8 +178,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="leftDate"
             label="تاريخ المغادرة"
-            className={"w-50 mb-2"}
-          >
+            className={"w-50 mb-2"}>
             <Form.Control
               type="date"
               value={customer?.leftDate}
@@ -208,8 +195,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="clearSerialNum"
             label="خطاب التخليص"
-            className="mb-2  w-50"
-          >
+            className="mb-2  w-50">
             <Form.Control
               type="text"
               value={customer.clearSerialNum}
@@ -223,8 +209,7 @@ function Actions({ handleChange, customer, isEditing }) {
           <FloatingLabel
             controlId="clearDate"
             label="تاريخ التخليص"
-            className="mb-2  w-50"
-          >
+            className="mb-2  w-50">
             <Form.Control
               type="date"
               value={customer.clearDate}

@@ -3,8 +3,23 @@ import React from "react";
 import Styles from "../styles/report.module.css";
 
 const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
-  const exDate = new Date(customer.threeMonthExDate);
+  const exDate = customer.threeMonthExDate
+    ? new Date(customer.threeMonthExDate)
+    : new Date(0);
   const eDate = new Date(customer.enteringDateBySec);
+
+  const leftExDate = customer.leftExDate
+    ? new Date(customer.leftExDate)
+    : new Date(0);
+
+  const clearDate = customer.clearDate
+    ? new Date(customer.clearDate)
+    : new Date(0);
+
+  const leftDate = customer.leftDate
+    ? new Date(customer.leftDate)
+    : new Date(0);
+
   if (!customer) return <div></div>;
   return (
     <div className={Styles.printContainer} ref={ref}>
@@ -12,14 +27,37 @@ const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
         <div className={Styles.dateCon}>
           <div className={Styles.date}>
             التاريخ{" "}
-            {exDate.getFullYear() +
-              "/" +
-              (exDate.getMonth() + 1) +
-              "/" +
-              exDate.getUTCDate()}
+            {reportType === "تمديد" &&
+              exDate.getFullYear() +
+                "/" +
+                (exDate.getMonth() + 1) +
+                "/" +
+                exDate.getUTCDate()}
+            {reportType === "تمديد مغادرة" &&
+              leftExDate.getFullYear() +
+                "/" +
+                (leftExDate.getMonth() + 1) +
+                "/" +
+                leftExDate.getUTCDate()}
+            {reportType === "تخليص" &&
+              clearDate.getFullYear() +
+                "/" +
+                (clearDate.getMonth() + 1) +
+                "/" +
+                clearDate.getUTCDate()}
+            {reportType === "مغادرة" &&
+              leftDate.getFullYear() +
+                "/" +
+                (leftDate.getMonth() + 1) +
+                "/" +
+                leftDate.getUTCDate()}
           </div>
           <div className={Styles.carnetNo}>
-            رقم/ن/س/ر/ {customer.threeMonthExSerialNum}
+            رقم/ن/س/ر/{" "}
+            {reportType === "تمديد" && customer.threeMonthExSerialNum}
+            {reportType === "تخليص" && customer.clearSerialNum}
+            {reportType === "تمديد مغادرة" && customer.leftExSerialNum}
+            {reportType === "مغادرة" && customer.leftSerialNum}
           </div>
         </div>
         {reportType === "تمديد مغادرة" && (
@@ -119,7 +157,7 @@ const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
           </tr>
           <tr>
             <td>مــلــــــــحــوضـــة :</td>
-            <td>اي كشط او تعديل يلغي هذا الارونيك </td>
+            <td>اي كشط او تعديل يلغي هذا الارونيك. </td>
           </tr>
         </tbody>
       </table>

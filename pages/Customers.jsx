@@ -39,9 +39,9 @@ const Customers = () => {
     "customers",
     async () =>
       await fetch(
-        `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`
+        `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`,
       ).then((res) => res.json()),
-    { enabled: isEnable }
+    { enabled: isEnable },
   );
 
   const handleFillterdSearch = (e) => {
@@ -79,13 +79,13 @@ const Customers = () => {
             <Form.Label>الحالة</Form.Label>
             <Form.Select
               value={state}
-              onChange={(e) => setState(e.target.value)}
-            >
+              onChange={(e) => setState(e.target.value)}>
               <option value={"null"}>الكل</option>
               <option value="repeatEntry">دخول متكرر</option>
               <option value="لم يغادر">داخل البلاد</option>
               <option value="مخلص">مخلصين</option>
               <option value="غادر">مغادرين</option>
+              <option value="ممددين">ممددين</option>
               <option value="مغادر قريبا"> متبقي 15 يوم او اقل </option>
               <option value="مخالف">مخالفين</option>
             </Form.Select>
@@ -93,16 +93,14 @@ const Customers = () => {
             <Form.Select
               disabled={state === "repeatEntry" && true}
               value={repeatEntry}
-              onChange={(e) => setRepeatEntry(e.target.value)}
-            >
+              onChange={(e) => setRepeatEntry(e.target.value)}>
               <option value={true}>عرض</option>
               <option value={false}>اخفاء</option>
             </Form.Select>
             <Form.Label>الحصر حسب </Form.Label>
             <Form.Select
               value={searchBy}
-              onChange={(e) => setSearchBy(e.target.value)}
-            >
+              onChange={(e) => setSearchBy(e.target.value)}>
               <option value="enteringDateBySec">تاريخ الدخول</option>
               <option value="bookDateBySec">تاريخ الدفتر</option>
             </Form.Select>
@@ -145,8 +143,7 @@ const Customers = () => {
                 handleFillterdSearch(e);
                 setKeyword(null);
                 setShow(false);
-              }}
-            >
+              }}>
               بحث
             </Button>
           </Modal.Footer>
@@ -164,19 +161,16 @@ const Customers = () => {
                     className={
                       formStyles.fillter +
                       " w-100 shadow p-2 rounded-bottom bg-clr "
-                    }
-                  >
+                    }>
                     <InputGroup className="w-100 border overflow-hidden rounded">
                       <Button
                         variant="outline-secondary"
-                        onClick={handleFillterdSearch}
-                      >
+                        onClick={handleFillterdSearch}>
                         <FaSearch />
                       </Button>
                       <Button
                         variant="outline-secondary"
-                        onClick={() => setShow(true)}
-                      >
+                        onClick={() => setShow(true)}>
                         <FaFilter />
                       </Button>
                       <Form.Control

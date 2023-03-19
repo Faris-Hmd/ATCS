@@ -41,7 +41,7 @@ export default async function handler(req, res) {
         res.status(200).json({
           ...customer,
           stayingTime,
-          leftDateBySec: leftDate.getTime(),
+          leftDateBySec: leftDate ? leftDate.getTime() : 0,
           bookDate: bookDate.toISOString().slice(0, 10),
           enteringDate: enteringDate.toISOString().slice(0, 10),
           customerId: querySnapShot.id,

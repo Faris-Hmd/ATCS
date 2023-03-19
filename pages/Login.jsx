@@ -51,7 +51,7 @@ function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (auth.currentUser === null) login(data);
-        toast.success(" تم تسجيل بأسم" + data.displayName);
+        toast.success("  تم تسجيل بأسم " + data.displayName);
         setUser({
           premessions: data.premessions,
           email: data.email,
@@ -83,16 +83,14 @@ function Login() {
         <Col xs={11} lg={4}>
           <Form
             className="w-100 bg-w rounded shadow-lg border p-2"
-            onSubmit={handleSubmit}
-          >
+            onSubmit={handleSubmit}>
             <div className="flex pb-3">
               <img src="/icons/atcs-logo.png" alt="" width={"120px"} />
             </div>
             <FloatingLabel
               label="البريد الالكتروني"
               controlId="email"
-              className="mb-2 w-100"
-            >
+              className="mb-2 w-100">
               <Form.Control
                 type="email"
                 name="email"
@@ -104,8 +102,7 @@ function Login() {
             <FloatingLabel
               label="كلمة المرور"
               controlId="password"
-              className="mb-2 w-100"
-            >
+              className="mb-2 w-100">
               <Form.Control
                 type="password"
                 name="password"
