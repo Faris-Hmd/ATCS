@@ -61,8 +61,12 @@ const CustomersReport = React.forwardRef(
                       ? customer.phone1
                       : 0}
                   </td>
-                  <td>{eDate.toISOString().slice(0, 10)}</td>
-                  <td>{bDate.toISOString().slice(0, 10)}</td>
+                  <td className="text-nowrap">
+                    {eDate.toISOString().slice(0, 10)}
+                  </td>
+                  <td className="text-nowrap">
+                    {bDate.toISOString().slice(0, 10)}
+                  </td>
                   <td>{customer.chaseNum}</td>
                   <td className="text-nowrap">{customer.carType}</td>
                   <td className="text-nowrap">
@@ -80,6 +84,6 @@ const CustomersReport = React.forwardRef(
         </Table>
       </Container>
     );
-  }
+  },
 );
 export default CustomersReport;

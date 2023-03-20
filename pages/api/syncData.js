@@ -27,33 +27,41 @@ export default async function handler(req, res) {
         : (currentDate.getTime() - customer.enteringDateBySec) /
           (1000 * 60 * 60 * 24);
 
-    const isLessThan15 =
-      Math.ceil(
-        (currentDate.getTime() - customer.enteringDateBySec) /
-          (1000 * 60 * 60 * 24),
-      ) >
-      availableTime - 15
-        ? true
-        : false;
+    const isLessThan15 = Math.ceil(stayingTime) > availableTime - 15;
+    const nearLefting = isLessThan15 < availableTime ? true : false;
 
-    const state =
+    const isGreaterThanAvialTime =
+      Math.ceil(stayingTime) > availableTime ? true : false;
+
+    const moreThanYear =
       Math.ceil(
         (currentDate.getTime() - customer.bookDateBySec) /
           (1000 * 60 * 60 * 24),
-      ) > 365
-        ? customer.state
-          ? customer.state
-          : "مخالف"
-        : isLessThan15
-        ? "مغادر قريبا"
-        : customer.state
-        ? customer.state
-        : "لم يغادر";
+      ) > 365;
+
+    const state = () => {
+      if (moreThanYear) {
+        if (customer.state === "غادر" || customer.state === "مخلص") {
+          return customer.state;
+        } else {
+          return "مخالف";
+        }
+      } else if (nearLefting) {
+        return "مغادر قريبا";
+      } else if (isGreaterThanAvialTime) {
+        return "مخالفة تمديد";
+      } else {
+        return "لم يغادر";
+      }
+    };
+    console.log("---------------------------------------");
+    console.log("isGraetThanAvailTime : ", isGreaterThanAvialTime);
+    console.log("near lifting : ", nearLefting);
 
     const newCustomer = {
-      ...customer,
+      // ...customer,
       customerId: doc.id,
-      state: state,
+      state: state(),
       stayingTime: Math.ceil(stayingTime),
       availableTime: availableTime,
       repeatEntry: customer.repeatEntry ? customer.repeatEntry : false,
@@ -68,7 +76,7 @@ export default async function handler(req, res) {
     async function u() {
       await updateDoc(doc(db, "customers", customer.customerId), customer);
     }
-    u();
+    // u();
   });
   // console.log(customers);
   res.status(200).json(customers);

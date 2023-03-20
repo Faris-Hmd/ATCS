@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
-        where(searchBy, ">=", fromDateBySec.getTime()),
+        where(searchBy, ">=", fromDateBySec.getTime() ),
         where(searchBy, "<=", toDateBySec.getTime() + 1000 * 60 * 60 * 24),
         ...querys,
         orderBy(searchBy),

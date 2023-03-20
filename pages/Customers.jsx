@@ -20,7 +20,6 @@ import { useQuery } from "react-query";
 import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
 import CustomersReport from "../component/CustomersReport";
-const currentDate = new Date();
 const Customers = () => {
   const reportRef = useRef();
 
@@ -46,7 +45,6 @@ const Customers = () => {
 
   const handleFillterdSearch = (e) => {
     e.preventDefault();
-    setIs;
     setCustomers([]);
     setIsEnable(true);
   };
@@ -72,82 +70,82 @@ const Customers = () => {
   if (user && hasAccess("Customers"))
     return (
       <>
-        <Modal show={show} onHide={() => setShow(false)} keyboard={false}>
+        <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>قائمة الفرز</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Label>الحالة</Form.Label>
-            <Form.Select
-              value={state}
-              onChange={(e) => setState(e.target.value)}>
-              <option value={"null"}>الكل</option>
-              <option value="repeatEntry">دخول متكرر</option>
-              <option value="لم يغادر">داخل البلاد</option>
-              <option value="مخلص">مخلصين</option>
-              <option value="غادر">مغادرين</option>
-              <option value="ممددين">ممددين</option>
-              <option value="مغادر قريبا"> متبقي 15 يوم او اقل </option>
-              <option value="مخالف">مخالفين</option>
-            </Form.Select>
-            <Form.Label>الدخول المتكرر</Form.Label>
-            <Form.Select
-              disabled={state === "repeatEntry" && true}
-              value={repeatEntry}
-              onChange={(e) => setRepeatEntry(e.target.value)}>
-              <option value={true}>عرض</option>
-              <option value={false}>اخفاء</option>
-            </Form.Select>
-            <Form.Label>الحصر حسب </Form.Label>
-            <Form.Select
-              value={searchBy}
-              onChange={(e) => setSearchBy(e.target.value)}>
-              <option value="enteringDateBySec">تاريخ الدخول</option>
-              <option value="bookDateBySec">تاريخ الدفتر</option>
-            </Form.Select>
-            <Container className="p-0">
-              <Row>
-                <Col>
-                  <Form.Label>من</Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="keyword"
-                    className="rounded"
-                    min="2021-07-01"
-                    max="2023-03-10"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>الى</Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="keyword"
-                    min={startDate}
-                    max="2023-03-31"
-                    className="rounded"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
-              إغلاق
-            </Button>
-            <Button
-              variant="primary"
-              onClick={(e) => {
-                handleFillterdSearch(e);
-                setKeyword(null);
-                setShow(false);
-              }}>
-              بحث
-            </Button>
-          </Modal.Footer>
+          </Modal.Header>{" "}
+          <Form
+            onSubmit={(e) => {
+              handleFillterdSearch(e);
+              setShow(false);
+            }}>
+            <Modal.Body>
+              <Form.Label>الحالة</Form.Label>
+              <Form.Select
+                value={state}
+                onChange={(e) => setState(e.target.value)}>
+                <option value={"null"}>الكل</option>
+                <option value="repeatEntry">دخول متكرر</option>
+                <option value="لم يغادر">داخل البلاد</option>
+                <option value="مخلص">مخلصين</option>
+                <option value="غادر">مغادرين</option>
+                <option value="ممددين">ممددين</option>
+                <option value="مغادر قريبا"> متبقي 15 يوم او اقل </option>
+                <option value="مخالف">مخالفين</option>
+              </Form.Select>
+              <Form.Label>الدخول المتكرر</Form.Label>
+              <Form.Select
+                disabled={state === "repeatEntry" && true}
+                value={repeatEntry}
+                onChange={(e) => setRepeatEntry(e.target.value)}>
+                <option value={true}>عرض</option>
+                <option value={false}>اخفاء</option>
+              </Form.Select>
+              <Form.Label>الحصر حسب </Form.Label>
+              <Form.Select
+                value={searchBy}
+                onChange={(e) => setSearchBy(e.target.value)}>
+                <option value="enteringDateBySec">تاريخ الدخول</option>
+                <option value="bookDateBySec">تاريخ الدفتر</option>
+              </Form.Select>
+              <Container className="p-0">
+                <Row>
+                  <Col>
+                    <Form.Label>من</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="keyword"
+                      className="rounded"
+                      min="2021-07-01"
+                      max="2023-03-10"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label>الى</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="keyword"
+                      min={startDate}
+                      max="2023-03-31"
+                      className="rounded"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setShow(false)}>
+                إغلاق
+              </Button>
+              <Button variant="primary" type="submit">
+                بحث
+              </Button>
+            </Modal.Footer>{" "}
+          </Form>
         </Modal>
         <Container className="h-100">
           <Row>
@@ -188,7 +186,7 @@ const Customers = () => {
                   </Form>
                 </Row>
                 <Row className="h-100">
-                  {isloading > 0 ? (
+                  {customers.length > 0 ? (
                     <CustomersList customers={customers} />
                   ) : (
                     <Loading />
