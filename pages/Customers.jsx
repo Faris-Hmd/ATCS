@@ -46,7 +46,8 @@ const Customers = () => {
 
   const handleFillterdSearch = (e) => {
     e.preventDefault();
-    // setCustomers([]);
+    setIs;
+    setCustomers([]);
     setIsEnable(true);
   };
 
@@ -187,7 +188,7 @@ const Customers = () => {
                   </Form>
                 </Row>
                 <Row className="h-100">
-                  {customers.length > 0 ? (
+                  {isloading > 0 ? (
                     <CustomersList customers={customers} />
                   ) : (
                     <Loading />
