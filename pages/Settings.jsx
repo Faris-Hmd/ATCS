@@ -22,7 +22,7 @@ function Settings() {
             {user && hasAccess("Users") ? (
               <Users />
             ) : (
-              <h2>لا تمملك صلاحية الوصول </h2>
+              <h2>لا تملك صلاحية الوصول </h2>
             )}
           </Tab>
           <Tab title="الصلاحيات" eventKey={3}>

@@ -46,64 +46,39 @@ export default async function handler(req, res) {
           enteringDate: enteringDate.toISOString().slice(0, 10),
           customerId: querySnapShot.id,
         });
-
-        // console.log({
-        //   ..customer,
-        //   bookDate: bookDate.toISOString().slice(0, 10),
-        //   enteringDate: enteringDate.toISOString().slice(0, 10),
-        //   customerId: querySnapShot.id,
-        // });
       }
       break;
     case "POST":
       {
         const customer = req.body;
         // console.log(customer);
-        const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
-        // console.log({
-        //   ..customer,
-        //   enteringDate: customer.enteringDate === 0 ? 0 : enteringDate,
-        //   sixMonthEx: false,
-        //   threeMonthEx: false,
-        //   leftEx: false,
-        //   enteringDateBySec: enteringDate.getTime(),
-        //   bookDateBySec: bookDate.getTime(),
-        //   bookNumNo: customer.carnetNo.slice(4),
-        //   state: "لم يغادر",
-        //   keywords: [
-        //     ..new Set([
-        //       customer.carnetNo.slice(4),
-        //       customer.ownerSName,
-        //       customer.ownerFName,
-        //       customer.ownerTName,
-        //       customer.ownerFoName,
-        //       customer.carnetNo.trim(),
-        //       customer.bookType !== undefined ? customer.bookType : "عادي",
-        //       "لم يغادر",
-        //     ]),
-        //   ],
-        // });
+
         await addDoc(collection(db, "customers"), {
           ...customer,
-          enteringDate: customer.enteringDate === 0 ? 0 : enteringDate,
           sixMonthEx: false,
           threeMonthEx: false,
           leftEx: false,
-          enteringDateBySec: enteringDate.getTime(),
+          enteringDateBySec: 0,
           bookDateBySec: bookDate.getTime(),
           bookNumNo: customer.carnetNo.slice(4),
-          state: "لم يغادر",
+          state: "دخول جديد",
           keywords: [
             ...new Set([
               customer.carnetNo.slice(4),
               customer.ownerSName,
               customer.ownerFName,
               customer.ownerTName,
-              customer.ownerFoName,
+              customer.ownerFoName && customer.ownerFoName,
+              customer.ownerFName + " " + customer.ownerSName,
+              customer.ownerFName +
+                " " +
+                customer.ownerSName +
+                " " +
+                customer.ownerTName,
               customer.carnetNo.trim(),
               customer.bookType !== undefined ? customer.bookType : "عادي",
-              "لم يغادر",
+              "دخول جديد",
             ]),
           ],
         });
@@ -115,24 +90,6 @@ export default async function handler(req, res) {
         const customer = req.body;
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
-        // console.log({
-        //   ..customer,
-        //   enteringDateBySec: enteringDate.getTime(),
-        //   bookDateBySec: bookDate.getTime(),
-        //   bookNumNo: parseInt(customer.carnetNo.slice(4)),
-        //   keywords: [
-        //     ..new Set([
-        //       customer.carnetNo.slice(4),
-        //       customer.ownerSName,
-        //       customer.ownerFName,
-        //       customer.ownerTName,
-        //       customer.ownerFoName,
-        //       customer.carnetNo.trim(),
-        //       customer.bookType !== undefined ? customer.bookType : "عادي",
-        //       customer.state,
-        //     ]),
-        //   ],
-        // });
 
         await updateDoc(doc(db, "customers", customer.customerId), {
           ...customer,
@@ -145,7 +102,13 @@ export default async function handler(req, res) {
               customer.ownerSName,
               customer.ownerFName,
               customer.ownerTName,
-              customer.ownerFoName,
+              customer.ownerFoName && customer.ownerFoName,
+              customer.ownerFName + " " + customer.ownerSName,
+              customer.ownerFName +
+                " " +
+                customer.ownerSName +
+                " " +
+                customer.ownerTName,
               customer.carnetNo.trim(),
               customer.bookType !== undefined ? customer.bookType : "عادي",
               customer.state,
