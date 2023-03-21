@@ -32,14 +32,21 @@ export default async function handler(req, res) {
     if (state === "ممددين") querys.push(where("threeMonthEx", "==", true));
     if (state === "repeatEntry") querys.push(where("repeatEntry", "==", true));
     if (state === "لم يغادر")
-      querys.push(where("state", "in", ["مغادر قريبا", "لم يغادر"]));
+      querys.push(
+        where("state", "in", [
+          "مغادر قريبا",
+          "مخالف",
+          "لم يغادر",
+          "مخالفة تمديد",
+        ]),
+      );
 
     console.log(querys);
 
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
-        where(searchBy, ">=", fromDateBySec.getTime() ),
+        where(searchBy, ">=", fromDateBySec.getTime()),
         where(searchBy, "<=", toDateBySec.getTime() + 1000 * 60 * 60 * 24),
         ...querys,
         orderBy(searchBy),

@@ -16,37 +16,61 @@ import {
 import Loading from "../component/Loading";
 import { CustomerContext } from "../context/customersContext";
 import { useReactToPrint } from "react-to-print";
-import { useQuery } from "react-query";
 import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
 import CustomersReport from "../component/CustomersReport";
+import { toast } from "react-toastify";
 const Customers = () => {
   const reportRef = useRef();
 
   const { user, hasAccess } = useContext(AuthContext);
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2023-02-01");
+  const [startDate, setStartDate] = useState("2022-11-21");
   const [endDate, setEndDate] = useState("2023-02-28");
   const [repeatEntry, setRepeatEntry] = useState(true);
   const [state, setState] = useState("null");
   const [keyword, setKeyword] = useState("null");
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
   const [show, setShow] = useState(false);
-  const [isEnable, setIsEnable] = useState(false);
+  const [error, setError] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
 
-  const { data, isloading, error } = useQuery(
-    "customers",
-    async () =>
-      await fetch(
+  async function getCustomers() {
+    toast.promise(
+      fetch(
         `${baseUrl}/api/getCustomers?startDate=${startDate}&&endDate=${endDate}&&repeatEntry=${repeatEntry}&&state=${state}&&searchBy=${searchBy}&&keyword=${keyword}`,
-      ).then((res) => res.json()),
-    { enabled: isEnable },
-  );
+      )
+        .then((res) => {
+          if (!res.ok) {
+            setError(true);
+            toast.error("حصل خطأ في العملية", { toastId: "errormsg" });
+            return false;
+          } else return res.json();
+        })
+        .then((data) => {
+          data && (setCustomers(data), setError(false));
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          setError(true);
+          return e;
+        }),
+      {
+        toastId: "msg",
+        error: "حصل خطأ",
+        pending: "جاري التحميل",
+        success: "تم التحميل",
+      },
+    );
+  }
+  useEffect(() => {
+    getCustomers();
+  }, []);
 
   const handleFillterdSearch = (e) => {
     e.preventDefault();
     setCustomers([]);
-    setIsEnable(true);
+    getCustomers();
   };
 
   const handlePrint = useReactToPrint({
@@ -54,15 +78,9 @@ const Customers = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      setCustomers(data);
-      setIsEnable(false);
-    } else {
-      setIsEnable(true);
-    }
-  }, [data]);
-  useEffect(() => {
     if (state === "repeatEntry") setRepeatEntry(true);
+    if (state === "مخلص") setRepeatEntry(false);
+    if (state === "دخول جديد") setSearchBy("bookDateBySec");
   }, [state]);
   if (!(user && hasAccess("Customers")))
     return <h3>لا تملك صلاحية الوصول لهذه الصفحة</h3>;
@@ -76,6 +94,7 @@ const Customers = () => {
           </Modal.Header>{" "}
           <Form
             onSubmit={(e) => {
+              setKeyword("null");
               handleFillterdSearch(e);
               setShow(false);
             }}>
@@ -85,17 +104,26 @@ const Customers = () => {
                 value={state}
                 onChange={(e) => setState(e.target.value)}>
                 <option value={"null"}>الكل</option>
-                <option value="repeatEntry">دخول متكرر</option>
+                <option value="دخول جديد">دخول جديد</option>
                 <option value="لم يغادر">داخل البلاد</option>
                 <option value="مخلص">مخلصين</option>
                 <option value="غادر">مغادرين</option>
                 <option value="ممددين">ممددين</option>
                 <option value="مغادر قريبا"> متبقي 15 يوم او اقل </option>
+                <option value="مخالفة تمديد">مخالفة تمديد </option>
                 <option value="مخالف">مخالفين</option>
+                <option value="repeatEntry">دخول متكرر</option>
               </Form.Select>
               <Form.Label>الدخول المتكرر</Form.Label>
               <Form.Select
-                disabled={state === "repeatEntry" && true}
+                disabled={
+                  state === "repeatEntry" ||
+                  state === "مخلص" ||
+                  state === "دخول جديد" ||
+                  state === "مخالف"
+                    ? true
+                    : false
+                }
                 value={repeatEntry}
                 onChange={(e) => setRepeatEntry(e.target.value)}>
                 <option value={true}>عرض</option>
@@ -103,6 +131,7 @@ const Customers = () => {
               </Form.Select>
               <Form.Label>الحصر حسب </Form.Label>
               <Form.Select
+                disabled={state === "دخول جديد" ? true : false}
                 value={searchBy}
                 onChange={(e) => setSearchBy(e.target.value)}>
                 <option value="enteringDateBySec">تاريخ الدخول</option>
@@ -130,7 +159,7 @@ const Customers = () => {
                       min={startDate}
                       max="2023-03-31"
                       className="rounded"
-                      value={endDate}
+                      value={startDate < endDate ? endDate : startDate}
                       onChange={(e) => setEndDate(e.target.value)}
                     />
                   </Col>
@@ -163,13 +192,19 @@ const Customers = () => {
                     }>
                     <InputGroup className="w-100 border overflow-hidden rounded">
                       <Button
+                        disabled={keyword === "null" || keyword === ""}
                         variant="outline-secondary"
-                        onClick={handleFillterdSearch}>
+                        onClick={(e) => {
+                          handleFillterdSearch(e);
+                        }}>
                         <FaSearch />
                       </Button>
                       <Button
                         variant="outline-secondary"
-                        onClick={() => setShow(true)}>
+                        onClick={() => {
+                          setShow(true);
+                          setKeyword("null");
+                        }}>
                         <FaFilter />
                       </Button>
                       <Form.Control
@@ -186,10 +221,10 @@ const Customers = () => {
                   </Form>
                 </Row>
                 <Row className="h-100">
-                  {customers.length > 0 ? (
+                  {isloading && <Loading />}
+                  {error && <h2>error</h2>}
+                  {!isloading && !error && (
                     <CustomersList customers={customers} />
-                  ) : (
-                    <Loading />
                   )}
                 </Row>
               </Container>

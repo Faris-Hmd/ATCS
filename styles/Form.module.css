@@ -1,12 +1,11 @@
 /** @format */
 .fillter {
   background-color: var(--sec-clr);
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .fillter button {
   border: none;
-  border-radius: 50%;
   transition: all 250ms;
 }
 

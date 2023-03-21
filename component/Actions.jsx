@@ -30,11 +30,13 @@ function Actions({ handleChange, customer, isEditing }) {
           placeholder="الحالة"
           name="state"
           onChange={handleChange}
-          disabled={!isEditing}
+          disabled={!isEditing || customer.state === "دخول جديد"}
           required>
           <option value="لم يغادر">لم يغادر</option>
           <option value="غادر">غادر</option>
           <option value="مخلص">مخلص</option>
+          <option value="مخالفة تمديد">مخالفة تمديد</option>
+          <option value="دخول جديد">دخول جديد</option>
           <option disabled value="مغادر قريبا">
             متبقي 15 يوم او اقل
           </option>
@@ -43,7 +45,7 @@ function Actions({ handleChange, customer, isEditing }) {
           </option>
         </Form.Select>
       </FloatingLabel>
-      {customer.enteringDateBySec && (
+      {customer.enteringDateBySec ? (
         <>
           <FloatingLabel
             controlId="enteringRec"
@@ -74,6 +76,8 @@ function Actions({ handleChange, customer, isEditing }) {
             />
           </FloatingLabel>
         </>
+      ) : (
+        ""
       )}
       {customer.threeMonthEx && (
         <>

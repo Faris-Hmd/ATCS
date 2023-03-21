@@ -18,7 +18,9 @@ export default async function handler(req, res) {
     const clearDate = customer.clearDate ? new Date(customer.clearDate) : 0;
 
     const stayingTime =
-      customer.state === "غادر" && leftDate !== 0
+      customer.enteringDateBySec === 0
+        ? 0
+        : customer.state === "غادر" && leftDate !== 0
         ? (leftDate.getTime() - customer.enteringDateBySec) /
           (1000 * 60 * 60 * 24)
         : customer.state === "مخلص" && clearDate !== 0
@@ -27,8 +29,10 @@ export default async function handler(req, res) {
         : (currentDate.getTime() - customer.enteringDateBySec) /
           (1000 * 60 * 60 * 24);
 
-    const isLessThan15 = Math.ceil(stayingTime) > availableTime - 15;
-    const nearLefting = isLessThan15 < availableTime ? true : false;
+    // const isLessThan15 = Math.ceil(stayingTime) > availableTime - 15;
+    const nearLefting =
+      Math.ceil(stayingTime) > availableTime - 15 &&
+      Math.ceil(stayingTime) < availableTime;
 
     const isGreaterThanAvialTime =
       Math.ceil(stayingTime) > availableTime ? true : false;
@@ -40,7 +44,9 @@ export default async function handler(req, res) {
       ) > 365;
 
     const state = () => {
-      if (moreThanYear) {
+      if (customer.enteringDateBySec === 0) {
+        return "دخول جديد";
+      } else if (moreThanYear) {
         if (customer.state === "غادر" || customer.state === "مخلص") {
           return customer.state;
         } else {
@@ -67,6 +73,24 @@ export default async function handler(req, res) {
       repeatEntry: customer.repeatEntry ? customer.repeatEntry : false,
       enteringDate: enteringDate.toISOString().slice(0, 10),
       bookDate: bookDate.toISOString().slice(0, 10),
+      keywords: [
+        ...new Set([
+          customer.carnetNo.slice(4),
+          customer.ownerSName,
+          customer.ownerFName,
+          customer.ownerTName,
+          customer.ownerFoName && customer.ownerFoName,
+          customer.ownerFName + " " + customer.ownerSName,
+          customer.ownerFName +
+            " " +
+            customer.ownerSName +
+            " " +
+            customer.ownerTName,
+          customer.carnetNo.trim(),
+          customer.bookType !== undefined ? customer.bookType : "عادي",
+          state(),
+        ]),
+      ],
     };
 
     return newCustomer;
@@ -76,7 +100,7 @@ export default async function handler(req, res) {
     async function u() {
       await updateDoc(doc(db, "customers", customer.customerId), customer);
     }
-    // u();
+    u();
   });
   // console.log(customers);
   res.status(200).json(customers);

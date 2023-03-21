@@ -27,14 +27,12 @@ function CustomersList({ customers }) {
                   color: "black",
                   textDecoration: "none",
                 }}
-                className="bg-w fos-lg m-0"
-              >
+                className="bg-w fos-lg m-0">
                 <Container
                   className={`d-flex mt-1 border rounded p-2 align-items-center justify-content-between bg-w position-relative overflow-hidden 
                   ${customer.state === "مخلص" && "border-warning opacity-75"}
                   ${customer.state === "غادر" && "opacity-75"}
-                  ${customer.state === "مخالف" && "border-danger"}`}
-                >
+                  ${customer.state === "مخالف" && "border-danger"}`}>
                   <Col xs={1}>{index + 1}</Col>
                   <Col xs={5} className="text-start text-nowrap">
                     <Container>
@@ -68,11 +66,12 @@ function CustomersList({ customers }) {
                   <Col xs={2} className="text-center rounded fos-m">
                     <span
                       className={` ${
-                        customer.stayingTime <= customer.availableTime
+                        customer.stayingTime <= customer.availableTime - 15
                           ? "text-success"
+                          : customer.stayingTime <= customer.availableTime
+                          ? "text-warning"
                           : "text-danger"
-                      }`}
-                    >
+                      }`}>
                       {customer.stayingTime}
                     </span>
                     <span> / {customer.availableTime}</span>
@@ -90,16 +89,14 @@ function CustomersList({ customers }) {
                       0
                     </Col>
                   )}
-                  {customer.state === "لم يغادر" && (
+                  {["لم يغادر", "مغادر قريبا", "مخالفة تمديد"].includes(
+                    customer.state,
+                  ) && (
                     <Col className="floating-badge-2 floating-badge-green">
                       0
                     </Col>
                   )}
-                  {customer.state === "مغادر قريبا" && (
-                    <Col className="floating-badge-2 floating-badge-yellow">
-                      0
-                    </Col>
-                  )}
+
                   {customer.state === "مخالف" && (
                     <Col className="floating-badge-2 floating-badge-red">0</Col>
                   )}
