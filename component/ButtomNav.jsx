@@ -1,7 +1,6 @@
 /** @format */
 import styles from "../styles/ButtomNav.module.css";
-import { FaHome } from "react-icons/fa";
-import { BiBook, BiHome, BiPlusCircle } from "react-icons/bi";
+import { BiBook,  BiPlusCircle, BiStats } from "react-icons/bi";
 import Link from "next/link";
 import { BsGear, BsReceipt } from "react-icons/bs";
 const ButtomNav = () => {
@@ -20,14 +19,14 @@ const ButtomNav = () => {
         <BiPlusCircle size={"25px"} />
         اضافة
       </Link>{" "}
+      <Link href="/" className={styles.page}>
+        <BiStats size={"25px"} />
+        احصائيات
+      </Link>
       <Link href="/Customers" className={styles.page}>
         <BiBook size={"25px"} />
         السجلات
       </Link>{" "}
-      <Link href="/" className={styles.page}>
-        <BiHome size={"25px"} />
-        الرئيسية
-      </Link>
     </div>
   );
 };

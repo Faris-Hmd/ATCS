@@ -8,7 +8,7 @@ const CustomersReport = React.forwardRef(
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className="ltr fos-m  w-1200 text-start" ref={ref}>
+      <Container className="ltr fos-m m-6  w-1200 text-start" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
             {(state === "لم يغادر" || state === "null") &&
@@ -74,7 +74,9 @@ const CustomersReport = React.forwardRef(
                     {bDate.toISOString().slice(0, 10)}
                   </td>
                   <td>{customer.chaseNum}</td>
-                  <td className="text-nowrap">{customer.carType}</td>
+                  <td className="text-nowrap">
+                    {customer.carType + " " + customer.carModel}
+                  </td>
                   <td className="text-nowrap">
                     {customer.ownerFName + "  "}
                     {customer.ownerSName + "  "}

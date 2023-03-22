@@ -85,7 +85,7 @@ function Login() {
           <Col className="p-3 header">تسجيل الدخول لنظام نادي السيارات</Col>
         </Row>
         <Row className="justify-content-center align-content-center h-75">
-          <Col xs={9} lg={4}>
+          <Col xs={10} lg={4}>
             <Form
               className="w-100 bg-w rounded shadow-lg border p-2"
               onSubmit={handleSubmit}>

@@ -1,11 +1,12 @@
 /** @format */
 import { IconContext } from "react-icons";
-import { BsCash, BsGear, BsHouseDoor, BsReceipt } from "react-icons/bs";
+import { BsGear, BsReceipt } from "react-icons/bs";
 import {
   BiBook,
   BiLogIn,
   BiLogOut,
   BiPlusCircle,
+  BiStats,
   BiUser,
 } from "react-icons/bi";
 import styles from "../styles/Menu.module.css";
@@ -37,10 +38,6 @@ function SideMenu() {
         </div>
 
         <div className={styles.optCon}>
-          <Link href="/" className={styles.opt}>
-            <BsHouseDoor />
-            الرئيسة
-          </Link>
           <Link href="/Customers" className={styles.opt} prefetch={false}>
             <BiBook />
             قائمة العملاء
@@ -50,7 +47,7 @@ function SideMenu() {
             اضافة عميل
           </Link>
           <Link href="/#" className={styles.opt}>
-            <BsCash /> الحسابات
+            <BiStats /> احصائيات
           </Link>
           <Link href="/Receipt" className={styles.opt}>
             <BsReceipt /> استخراج ايصال

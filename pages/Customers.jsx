@@ -180,7 +180,7 @@ const Customers = () => {
             </Modal.Footer>{" "}
           </Form>
         </Modal>
-        <Container className="h-100">
+        <Container className="h-100 position-sticky">
           <Row>
             <Col className="header p-3">سجلات العملاء</Col>
           </Row>
@@ -192,7 +192,7 @@ const Customers = () => {
                     onSubmit={handleFillterdSearch}
                     className={
                       formStyles.fillter +
-                      " w-100 shadow p-2 rounded-bottom bg-clr "
+                      " w-100 shadow p-2 rounded-bottom bg-clr position-sticky"
                     }>
                     <InputGroup className="w-100 border overflow-hidden rounded">
                       <Button

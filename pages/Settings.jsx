@@ -1,15 +1,23 @@
 /** @format */
 
 import { useContext } from "react";
-import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Container,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
 import Premessions from "../component/Premmisions";
 import Users from "../component/Users";
 import { AuthContext } from "../context/authContext";
 import UserProfile from "../component/UserProfile";
 import Head from "next/head";
+import { BiLogOut } from "react-icons/bi";
 
 function Settings() {
-  const { user, hasAccess } = useContext(AuthContext);
+  const { user, hasAccess, handleSignOut } = useContext(AuthContext);
 
   return (
     <>
@@ -17,7 +25,14 @@ function Settings() {
         <title>الاعدادات</title>
       </Head>
       <Container className="p-0 m-0 ">
-        <Col className="header p-3">الاعدادات</Col>
+        <Col className="header p-3">
+          الاعدادات
+          <ButtonGroup>
+            <Button variant="light" onClick={handleSignOut}>
+              خروج <BiLogOut size={"22px"} />
+            </Button>
+          </ButtonGroup>
+        </Col>
         <Col>
           <Tabs className="bg-clr  w-100">
             <Tab title="حسابي" eventKey={1}>

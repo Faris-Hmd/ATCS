@@ -54,7 +54,7 @@ function CustomersList({ customers }) {
                   </Col>
                   <Col className="text-start text-nowrap">
                     <Container>
-                      <Row>{customer.carType}</Row>
+                      <Row>{customer.carType + " " + customer.carModel}</Row>
                       <Row className="fos-sm opacity-75 text-nowrap">
                         {customer.carnetNo}
                       </Row>

@@ -40,14 +40,18 @@ export default async function handler(req, res) {
           "مخالفة تمديد",
         ]),
       );
+    if (state !== "دخول جديد")
+      querys.push(
+        where(searchBy, ">=", fromDateBySec.getTime()),
+        where(searchBy, "<=", toDateBySec.getTime() + 1000 * 60 * 60 * 24),
+      );
 
     console.log(querys);
 
     querySnapShot = await getDocs(
       query(
         collection(db, "customers"),
-        where(searchBy, ">=", fromDateBySec.getTime()),
-        where(searchBy, "<=", toDateBySec.getTime() + 1000 * 60 * 60 * 24),
+
         ...querys,
         orderBy(searchBy),
       ),

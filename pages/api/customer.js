@@ -23,25 +23,12 @@ export default async function handler(req, res) {
       {
         const querySnapShot = await getDoc(doc(db, "customers", customerId));
         const customer = querySnapShot.data();
-        const bookDate = new Date(customer.bookDateBySec);
-        const enteringDate = new Date(customer.enteringDateBySec);
-        const leftDate = customer.leftDate ? new Date(customer.leftDate) : 0;
-        const clearDate = customer.clearDate ? new Date(customer.clearDate) : 0;
-
-        const stayingTime =
-          customer.state === "غادر" && leftDate !== 0
-            ? (leftDate.getTime() - customer.enteringDateBySec) /
-              (1000 * 60 * 60 * 24)
-            : customer.state === "مخلص" && clearDate !== 0
-            ? (clearDate.getTime() - customer.enteringDateBySec) /
-              (1000 * 60 * 60 * 24)
-            : (currentDate.getTime() - customer.enteringDateBySec) /
-              (1000 * 60 * 60 * 24);
+        const bookDate = new Date(customer.bookDate);
+        const enteringDate = new Date(customer.enteringDate);
 
         res.status(200).json({
           ...customer,
-          stayingTime,
-          leftDateBySec: leftDate ? leftDate.getTime() : 0,
+          bookNumNo: parseInt(customer.carnetNo.slice(4)),
           bookDate: bookDate.toISOString().slice(0, 10),
           enteringDate: enteringDate.toISOString().slice(0, 10),
           customerId: querySnapShot.id,
@@ -53,15 +40,17 @@ export default async function handler(req, res) {
         const customer = req.body;
         // console.log(customer);
         const bookDate = new Date(customer.bookDate);
+        const enteringDate = new Date(customer.enteringDate);
 
         await addDoc(collection(db, "customers"), {
           ...customer,
-          sixMonthEx: false,
           threeMonthEx: false,
           leftEx: false,
+          bookDate: bookDate.toISOString().slice(0, 10),
+          enteringDate: enteringDate.toISOString().slice(0, 10),
           enteringDateBySec: 0,
           bookDateBySec: bookDate.getTime(),
-          bookNumNo: customer.carnetNo.slice(4),
+          bookNumNo: parseInt(customer.carnetNo.slice(4)),
           state: "دخول جديد",
           keywords: [
             ...new Set([
@@ -88,11 +77,65 @@ export default async function handler(req, res) {
     case "PATCH":
       {
         const customer = req.body;
+
         const enteringDate = new Date(customer.enteringDate);
         const bookDate = new Date(customer.bookDate);
+        const leftDate = customer.leftDate ? new Date(customer.leftDate) : 0;
+        const clearDate = customer.clearDate ? new Date(customer.clearDate) : 0;
 
+        const availableTime = customer.threeMonthEx ? 180 : 90;
+
+        const stayingTime =
+          customer.enteringDateBySec === 0
+            ? 0
+            : customer.state === "غادر" && leftDate !== 0
+            ? (leftDate.getTime() - enteringDate.getTime()) /
+              (1000 * 60 * 60 * 24)
+            : customer.state === "مخلص" && clearDate !== 0
+            ? (clearDate.getTime() - enteringDate.getTime()) /
+              (1000 * 60 * 60 * 24)
+            : (currentDate.getTime() - enteringDate.getTime()) /
+              (1000 * 60 * 60 * 24);
+
+        const nearLefting =
+          Math.ceil(stayingTime) > availableTime - 15 &&
+          Math.ceil(stayingTime) < availableTime;
+
+        const isGreaterThanAvialTime =
+          Math.ceil(stayingTime) > availableTime ? true : false;
+
+        const moreThanYear =
+          Math.ceil(
+            (currentDate.getTime() - bookDate.getTime()) /
+              (1000 * 60 * 60 * 24),
+          ) > 365;
+
+        const state = () => {
+          if (customer.enteringDateBySec === 0) {
+            return "دخول جديد";
+          } else if (moreThanYear) {
+            if (customer.state === "غادر" || customer.state === "مخلص") {
+              return customer.state;
+            } else {
+              return "مخالف";
+            }
+          } else if (nearLefting) {
+            return "مغادر قريبا";
+          } else if (isGreaterThanAvialTime) {
+            return "مخالفة تمديد";
+          } else {
+            return "لم يغادر";
+          }
+        };
+        console.clear();
+        console.count("upda");
         await updateDoc(doc(db, "customers", customer.customerId), {
           ...customer,
+          stayingTime: Math.ceil(stayingTime),
+          availableTime: availableTime,
+          state: state(),
+          bookDate: bookDate.toISOString().slice(0, 10),
+          enteringDate: enteringDate.toISOString().slice(0, 10),
           enteringDateBySec: enteringDate.getTime(),
           bookDateBySec: bookDate.getTime(),
           bookNumNo: parseInt(customer.carnetNo.slice(4)),
@@ -111,7 +154,7 @@ export default async function handler(req, res) {
                 customer.ownerTName,
               customer.carnetNo.trim(),
               customer.bookType !== undefined ? customer.bookType : "عادي",
-              customer.state,
+              state(),
             ]),
           ],
         });

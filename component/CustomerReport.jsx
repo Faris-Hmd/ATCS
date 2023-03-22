@@ -119,7 +119,7 @@ const CustomerReport = React.forwardRef(({ customer, reportType }, ref) => {
           </tr>
           <tr>
             <td>مـــوديل المركبة :</td>
-            <td>{customer.carModel}</td>
+            <td>{customer.carType + " " + customer.carModel}</td>
           </tr>
           <tr>
             <td>رقــــــــم الـــهيكل :</td>
