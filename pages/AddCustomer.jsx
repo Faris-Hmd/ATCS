@@ -1,5 +1,6 @@
 /** @format */
 import axios from "axios";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
@@ -52,19 +53,24 @@ const AddCar = () => {
 
   if (user && hasAccess("AddCustomer"))
     return (
-      <Container className="p-0">
-        <Col className="header p-3">استمارة اضافة عميل</Col>
-        <Col>
-          <CustomerForm
-            customer={customer}
-            handleChange={handleChange}
-            isEditing={true}
-            isForm={true}
-            handleSubmit={handleSubmit}
-            isLoading={isLoading}
-          />
-        </Col>
-      </Container>
+      <>
+        <Head>
+          <title>اضافة عميل</title>
+        </Head>
+        <Container className="p-0">
+          <Col className="header p-3">استمارة اضافة عميل</Col>
+          <Col>
+            <CustomerForm
+              customer={customer}
+              handleChange={handleChange}
+              isEditing={true}
+              isForm={true}
+              handleSubmit={handleSubmit}
+              isLoading={isLoading}
+            />
+          </Col>
+        </Container>
+      </>
     );
 };
 export default AddCar;

@@ -57,6 +57,10 @@ a:hover {
 .m-auto {
   margin: 0 auto;
 }
+.w-1200 {
+  max-width: 1100px;
+  min-width: 1100px;
+}
 .bg-w {
   color: #020202;
   background-color: var(--sec-clr);

@@ -20,15 +20,9 @@ const Layout = ({ children }) => {
           type="image/x-icon"
           href="/icons/atcs-logo.png"
         />
-        {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-        {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> */}
-        {/* <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"
-          rel="stylesheet"
-        /> */}
       </Head>
       {!user ? (
-        <Container className="full p-0 vh-100 rtl">
+        <Container className="full p-0 vh-100 rtl w-100">
           <Login />
         </Container>
       ) : (
@@ -46,34 +40,5 @@ const Layout = ({ children }) => {
       )}
     </>
   );
-
-  // if (user)
-  //   return (
-  //     <ThemeProvider>
-  //       <div className={`App`}>
-  //         {" "}
-  //         <Head>
-  //           <link rel="manifest" href="./manifest.json" />
-  //           <link rel="preconnect" href="https://fonts.googleapis.com" />
-  //           <link
-  //             rel="preconnect"
-  //             href="https://fonts.gstatic.com"
-  //             crossorigin
-  //           />
-  //           <link
-  //             href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@600&display=swap"
-  //             rel="stylesheet"
-  //           />
-  //         </Head>
-  //         <div className="rightSide"></div>
-  //         <div className="leftSide">
-  //           <Menu />
-  //         </div>
-  //         <Navbar />
-  //         <ButtomNav />
-  //         <main className="main">{children}</main>
-  //       </div>
-  //     </ThemeProvider>
-  //   );
 };
 export default Layout;

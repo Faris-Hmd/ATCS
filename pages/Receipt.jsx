@@ -1,6 +1,7 @@
 /** @format */
 
 import axios from "axios";
+import Head from "next/head";
 import React, { useContext, useState } from "react";
 import {
   Button,
@@ -89,169 +90,164 @@ function Receipt() {
 
   if (user && hasAccess("Receipt"))
     return (
-      <Container className="h-100 ">
-        <Row>
-          <Col xs={12} className="p-3 header">
-            استخراج إيصال دخول
-          </Col>
-        </Row>
-        <Row className="full">
-          <Container className="full">
-            <Col xs={12} lg={6}>
-              <Form
-                id="receipt-form"
-                className="p-2 bg-w shadow rounded"
-                onSubmit={getCustomer}
-              >
-                <InputGroup
-                  label="رقم الدفتر"
-                  controlId="carnetNo"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    type="text"
-                    name="carnetNo"
-                    placeholder="رقم الدفتر"
-                    className="p-2"
-                    onChange={(e) => {
-                      setBookNum(e.currentTarget.value);
-                    }}
-                  />
-                  <Button type="submit">
-                    {isLoading ? <Loading /> : <BiSearch size="30px" />}
-                  </Button>
-                </InputGroup>
-                <FloatingLabel
-                  label="اسم المالك"
-                  controlId="ownerName"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="text"
-                    name="ownerName"
-                    placeholder="اسم المالك"
-                    value={
-                      customer?.ownerFName
-                        ? customer?.ownerFName +
-                          " " +
-                          customer?.ownerSName +
-                          " " +
-                          customer?.ownerTName
-                        : ""
-                    }
-                  />
-                </FloatingLabel>
-                <div className="flex-r justify-content-between">
-                  {" "}
-                  <FloatingLabel
-                    label="نوع المركبة"
-                    controlId="ownerName"
-                    className="mb-2 w-50"
-                  >
-                    <Form.Control
-                      disabled
-                      type="text"
-                      name="ownerName"
-                      placeholder="نوع المركبة"
-                      value={customer?.carType ? customer?.carType : ""}
-                    />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    label="موديل المركبة"
-                    controlId="ownerName"
-                    className="mb-2 w-50"
-                  >
-                    <Form.Control
-                      disabled
-                      type="text"
-                      name="ownerName"
-                      placeholder="نوع المركبة"
-                      value={customer?.carModel ? customer?.carModel : ""}
-                    />{" "}
-                  </FloatingLabel>
-                </div>
-
-                <FloatingLabel
-                  label="رقم الهيكل"
-                  controlId="ownerName"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="text"
-                    name="ownerName"
-                    placeholder="نوع المركبة"
-                    value={customer?.chaseNum ? customer?.chaseNum : ""}
-                  />
-                </FloatingLabel>
-                <FloatingLabel
-                  label="نوع الدخول"
-                  controlId="repeatEntery"
-                  className="mb-2"
-                >
-                  <Form.Control
-                    disabled
-                    type="text"
-                    name="ownerName"
-                    placeholder="اسم المالك"
-                    value={
-                      customer?.repeatEntry === true
-                        ? "دخول متكرر"
-                        : "دخول جديد"
-                    }
-                  />
-                </FloatingLabel>
-
-                <div className="flex-r justify-content-between">
-                  <FloatingLabel
-                    label="تاريخ الدفتر"
-                    controlId="enteringDate"
-                    className="mb-2 w-50"
-                  >
-                    <Form.Control
-                      disabled
-                      type="date"
-                      name="carnetNo"
-                      placeholder="تاريخ الدفتر"
-                      value={customer.bookDate}
-                      onChange={(e) => {
-                        setEnteringDate(e.target.value);
-                      }}
-                      required
-                    />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    label="تاريخ الدخول"
-                    controlId="enteringDate"
-                    className="mb-2 w-50"
-                  >
-                    <Form.Control
-                      type="date"
-                      name="carnetNo"
-                      placeholder="تاريخ الدخول"
-                      value={enteringDate}
-                      onChange={(e) => {
-                        setEnteringDate(e.target.value);
-                      }}
-                      required
-                    />
-                  </FloatingLabel>
-                </div>
-
-                {customer && (
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={isLoading || !customer.ownerFName}
-                  >
-                    استخراج
-                  </Button>
-                )}
-              </Form>
+      <>
+        <Head>
+          <title>استخراج ايصال</title>
+        </Head>
+        <Container className="h-100 ">
+          <Row>
+            <Col xs={12} className="p-3 header">
+              استخراج إيصال دخول
             </Col>
-          </Container>
-        </Row>
-      </Container>
+          </Row>
+          <Row className="full">
+            <Container className="full">
+              <Col xs={12} lg={6}>
+                <Form
+                  id="receipt-form"
+                  className="p-2 bg-w shadow rounded"
+                  onSubmit={getCustomer}>
+                  <InputGroup
+                    label="رقم الدفتر"
+                    controlId="carnetNo"
+                    className="mb-2">
+                    <Form.Control
+                      type="text"
+                      name="carnetNo"
+                      placeholder="رقم الدفتر"
+                      className="p-2"
+                      onChange={(e) => {
+                        setBookNum(e.currentTarget.value);
+                      }}
+                    />
+                    <Button type="submit">
+                      {isLoading ? <Loading /> : <BiSearch size="30px" />}
+                    </Button>
+                  </InputGroup>
+                  <FloatingLabel
+                    label="اسم المالك"
+                    controlId="ownerName"
+                    className="mb-2">
+                    <Form.Control
+                      disabled
+                      type="text"
+                      name="ownerName"
+                      placeholder="اسم المالك"
+                      value={
+                        customer?.ownerFName
+                          ? customer?.ownerFName +
+                            " " +
+                            customer?.ownerSName +
+                            " " +
+                            customer?.ownerTName
+                          : ""
+                      }
+                    />
+                  </FloatingLabel>
+                  <div className="flex-r justify-content-between">
+                    {" "}
+                    <FloatingLabel
+                      label="نوع المركبة"
+                      controlId="ownerName"
+                      className="mb-2 w-50">
+                      <Form.Control
+                        disabled
+                        type="text"
+                        name="ownerName"
+                        placeholder="نوع المركبة"
+                        value={customer?.carType ? customer?.carType : ""}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      label="موديل المركبة"
+                      controlId="ownerName"
+                      className="mb-2 w-50">
+                      <Form.Control
+                        disabled
+                        type="text"
+                        name="ownerName"
+                        placeholder="نوع المركبة"
+                        value={customer?.carModel ? customer?.carModel : ""}
+                      />{" "}
+                    </FloatingLabel>
+                  </div>
+
+                  <FloatingLabel
+                    label="رقم الهيكل"
+                    controlId="ownerName"
+                    className="mb-2">
+                    <Form.Control
+                      disabled
+                      type="text"
+                      name="ownerName"
+                      placeholder="نوع المركبة"
+                      value={customer?.chaseNum ? customer?.chaseNum : ""}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    label="نوع الدخول"
+                    controlId="repeatEntery"
+                    className="mb-2">
+                    <Form.Control
+                      disabled
+                      type="text"
+                      name="ownerName"
+                      placeholder="اسم المالك"
+                      value={
+                        customer?.repeatEntry === true
+                          ? "دخول متكرر"
+                          : "دخول جديد"
+                      }
+                    />
+                  </FloatingLabel>
+
+                  <div className="flex-r justify-content-between">
+                    <FloatingLabel
+                      label="تاريخ الدفتر"
+                      controlId="enteringDate"
+                      className="mb-2 w-50">
+                      <Form.Control
+                        disabled
+                        type="date"
+                        name="carnetNo"
+                        placeholder="تاريخ الدفتر"
+                        value={customer.bookDate}
+                        onChange={(e) => {
+                          setEnteringDate(e.target.value);
+                        }}
+                        required
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      label="تاريخ الدخول"
+                      controlId="enteringDate"
+                      className="mb-2 w-50">
+                      <Form.Control
+                        type="date"
+                        name="carnetNo"
+                        placeholder="تاريخ الدخول"
+                        value={enteringDate}
+                        onChange={(e) => {
+                          setEnteringDate(e.target.value);
+                        }}
+                        required
+                      />
+                    </FloatingLabel>
+                  </div>
+
+                  {customer && (
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={isLoading || !customer.ownerFName}>
+                      استخراج
+                    </Button>
+                  )}
+                </Form>
+              </Col>
+            </Container>
+          </Row>
+        </Container>
+      </>
     );
 }
 

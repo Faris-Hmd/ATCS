@@ -24,6 +24,7 @@ import Actions from "../../component/Actions";
 import Loading from "../../component/Loading";
 import { CustomerContext } from "../../context/customersContext";
 import { toast } from "react-toastify";
+import Head from "next/head";
 const currentDate = new Date();
 const Customer = () => {
   const { customers } = useContext(CustomerContext);
@@ -125,11 +126,16 @@ const Customer = () => {
   if (customer)
     return (
       <>
+        <Head>
+          <title>
+            بيانات العميل {customer.ownerFName + " " + customer.ownerSName}
+          </title>
+        </Head>
+
         <Modal
           centered
           show={showDltModal}
-          onHide={() => setShowDltModal(false)}
-        >
+          onHide={() => setShowDltModal(false)}>
           <Modal.Header>
             <Modal.Title>
               هل انت متأكد من حذف
@@ -152,8 +158,7 @@ const Customer = () => {
           show={showRepModal}
           onHide={handleClose}
           // backdrop="static"
-          keyboard={false}
-        >
+          keyboard={false}>
           <Modal.Header>
             <Modal.Title>خطابات</Modal.Title>
           </Modal.Header>
@@ -164,8 +169,7 @@ const Customer = () => {
                 handleCustReportPrint();
               }}
               disabled={!customer.threeMonthEx}
-              className="w-100 mb-2"
-            >
+              className="w-100 mb-2">
               <div>تمديد</div>
             </Button>
             <Button
@@ -174,8 +178,7 @@ const Customer = () => {
                 handleCustReportPrint();
               }}
               disabled={!customer.leftEx}
-              className="w-100 mb-2"
-            >
+              className="w-100 mb-2">
               <div>تمديد مغادرة</div>
             </Button>
             <Button
@@ -184,8 +187,7 @@ const Customer = () => {
                 handleCustReportPrint();
               }}
               disabled={customer.state !== "غادر"}
-              className="w-100 mb-1"
-            >
+              className="w-100 mb-1">
               <div>مغادرة</div>
             </Button>
             <Button
@@ -194,8 +196,7 @@ const Customer = () => {
                 handleCustReportPrint();
               }}
               disabled={customer.state !== "مخلص"}
-              className="w-100 mb-1"
-            >
+              className="w-100 mb-1">
               <div>تخليص</div>
             </Button>
           </Modal.Body>
@@ -213,8 +214,7 @@ const Customer = () => {
             <ButtonGroup className="rounded overflow-hidden">
               <Button
                 variant="light"
-                onClick={() => setIsEditing((prev) => !prev)}
-              >
+                onClick={() => setIsEditing((prev) => !prev)}>
                 <BsPencil size={"25px"} />
               </Button>
               {!isEditing && (
@@ -227,14 +227,12 @@ const Customer = () => {
                   <Button
                     onClick={handleUpdate}
                     variant="light"
-                    disabled={!isEditing}
-                  >
+                    disabled={!isEditing}>
                     <BsSave size={"25px"} />
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => setShowDltModal(true)}
-                  >
+                    onClick={() => setShowDltModal(true)}>
                     <ImBin size={"25px"} />
                   </Button>
                 </>

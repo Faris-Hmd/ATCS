@@ -20,6 +20,7 @@ import { BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
 import CustomersReport from "../component/CustomersReport";
 import { toast } from "react-toastify";
+import Head from "next/head";
 const Customers = () => {
   const reportRef = useRef();
 
@@ -88,6 +89,9 @@ const Customers = () => {
   if (user && hasAccess("Customers"))
     return (
       <>
+        <Head>
+          <title>بيانات العملاء</title>
+        </Head>
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>قائمة الفرز</Modal.Title>

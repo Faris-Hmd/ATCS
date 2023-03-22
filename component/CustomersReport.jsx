@@ -8,7 +8,7 @@ const CustomersReport = React.forwardRef(
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     return (
-      <Container className="ltr fos-m w-100 text-start" ref={ref}>
+      <Container className="ltr fos-m  w-1200 text-start" ref={ref}>
         <div className={reportStyles.header}>
           <div className={reportStyles.title}>
             {(state === "لم يغادر" || state === "null") &&
@@ -19,6 +19,12 @@ const CustomersReport = React.forwardRef(
             {state === "غادر" && "تقرير المركبات المغادرة "}
             {state === "مخالف" && "تقرير المركبات المخالفة"}
             {state === "مخلص" && "تقرير المركبات المخلصة"}
+            {state === "دخول جديد" && "تقرير المركبات الجديدة"}
+            {state === "ممددين" && "تقرير المركبات الممددة"}
+            {state === "مخالفة تمديد" && "تقرير المركبات مخالفة التمديد"}
+            {state === "مغادر قريبا" &&
+              "تقرير المركبات المتبقي لها 15 يوم او اقل"}
+            {state === "ممددين" && "تقرير المركبات الممددة"}
           </div>
           <div className="fs-6">
             الفترة من{" "}
@@ -59,7 +65,7 @@ const CustomersReport = React.forwardRef(
                       ? customer.phone2
                       : customer.phone1
                       ? customer.phone1
-                      : 0}
+                      : "لا يوجد"}
                   </td>
                   <td className="text-nowrap">
                     {eDate.toISOString().slice(0, 10)}
