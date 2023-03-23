@@ -17,13 +17,15 @@ import { toast } from "react-toastify";
 import Loading from "../component/Loading";
 import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
-
+const currentDate = new Date();
 function Receipt() {
   const { user, hasAccess } = useContext(AuthContext);
   const [customer, setCustomer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [carnetNo, setBookNum] = useState("");
-  const [enteringDate, setEnteringDate] = useState("2023-02-24");
+  const [enteringDate, setEnteringDate] = useState(
+    currentDate.toISOString().slice(0, 10),
+  );
 
   function getCustomer(e) {
     e.preventDefault();
@@ -57,7 +59,7 @@ function Receipt() {
         url: `${baseUrl}/api/customer`,
         data: {
           ...customer,
-          enteringDate,
+          enteringDate: enteringDate,
         },
       })
         .then(() => {
@@ -75,13 +77,18 @@ function Receipt() {
         url: `${baseUrl}/api/customer`,
         data: {
           ...customer,
-          enteringDate,
+          enteringDate: enteringDate,
         },
       })
         .then(() => {
+          setCustomer({});
+          setIsLoading(false);
           toast.success("تم استخراج الايصال بنجاح");
         })
-        .catch(() => toast.error("العملية لم تتم بنجاح"));
+        .catch(() => {
+          toast.error("العملية لم تتم بنجاح");
+          setIsLoading(false);
+        });
     }
   }
 
@@ -106,7 +113,7 @@ function Receipt() {
                 <Form
                   id="receipt-form"
                   className="p-2 bg-w shadow rounded"
-                  onSubmit={getCustomer}>
+                  onSubmit={handleSubmit}>
                   <InputGroup
                     label="رقم الدفتر"
                     controlId="carnetNo"
@@ -120,7 +127,7 @@ function Receipt() {
                         setBookNum(e.currentTarget.value);
                       }}
                     />
-                    <Button type="submit">
+                    <Button onClick={getCustomer}>
                       {isLoading ? <Loading /> : <BiSearch size="30px" />}
                     </Button>
                   </InputGroup>
@@ -204,7 +211,7 @@ function Receipt() {
                   <div className="flex-r justify-content-between">
                     <FloatingLabel
                       label="تاريخ الدفتر"
-                      controlId="enteringDate"
+                      controlId="bookDate"
                       className="mb-2 w-50">
                       <Form.Control
                         disabled
@@ -225,6 +232,8 @@ function Receipt() {
                       <Form.Control
                         type="date"
                         name="carnetNo"
+                        min={customer.bookDate}
+                        max={currentDate.toISOString().slice(0, 10)}
                         placeholder="تاريخ الدخول"
                         value={enteringDate}
                         onChange={(e) => {
@@ -237,7 +246,7 @@ function Receipt() {
 
                   {customer && (
                     <Button
-                      onClick={handleSubmit}
+                      type="submit"
                       disabled={isLoading || !customer.ownerFName}>
                       استخراج
                     </Button>

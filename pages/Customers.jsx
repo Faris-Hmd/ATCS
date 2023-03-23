@@ -16,23 +16,28 @@ import {
 import Loading from "../component/Loading";
 import { CustomerContext } from "../context/customersContext";
 import { useReactToPrint } from "react-to-print";
-import { BsPrinter } from "react-icons/bs";
+import { BsFillFileEarmarkPdfFill, BsPrinter } from "react-icons/bs";
 import { AuthContext } from "../context/authContext";
 import CustomersReport from "../component/CustomersReport";
 import { toast } from "react-toastify";
 import Head from "next/head";
+import Exel from "../component/exel";
+const currentDate = new Date();
 const Customers = () => {
   const reportRef = useRef();
 
   const { user, hasAccess } = useContext(AuthContext);
   const { customers, setCustomers } = useContext(CustomerContext);
-  const [startDate, setStartDate] = useState("2022-11-21");
-  const [endDate, setEndDate] = useState("2023-02-28");
+  const [startDate, setStartDate] = useState("2023-01-01");
+  const [endDate, setEndDate] = useState(
+    currentDate.toISOString().slice(0, 10),
+  );
   const [repeatEntry, setRepeatEntry] = useState(true);
   const [state, setState] = useState("null");
   const [keyword, setKeyword] = useState("null");
   const [searchBy, setSearchBy] = useState("enteringDateBySec");
   const [show, setShow] = useState(false);
+  const [showPrintModal, setShowPrintModal] = useState(false);
   const [error, setError] = useState(false);
   const [isloading, setIsLoading] = useState(false);
 
@@ -60,12 +65,14 @@ const Customers = () => {
         toastId: "msg",
         error: "حصل خطأ",
         pending: "جاري التحميل",
-        success: "تم التحميل",
+        success: " تم التحميل  ",
       },
     );
   }
   useEffect(() => {
-    getCustomers();
+    if (isloading) return;
+    if (customers.length > 0) return;
+    // getCustomers();
   }, []);
 
   const handleFillterdSearch = (e) => {
@@ -92,6 +99,33 @@ const Customers = () => {
         <Head>
           <title>بيانات العملاء</title>
         </Head>
+        <Modal
+          centered
+          show={showPrintModal}
+          onHide={() => setShowPrintModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title> اختر صيغة التقرير المطبوع</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="justify-content-between align-items-center d-flex">
+            <Exel
+              exelData={customers}
+              state={state}
+              startDate={startDate}
+              endDate={endDate}
+            />
+            <Button onClick={handlePrint} className="w-50 ">
+              صيغة pdf <BsFillFileEarmarkPdfFill size={"20px"} />
+            </Button>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowPrintModal(false)}>
+              إغلاق
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>قائمة الفرز</Modal.Title>
@@ -150,7 +184,7 @@ const Customers = () => {
                       name="keyword"
                       className="rounded"
                       min="2021-07-01"
-                      max="2023-03-10"
+                      max="2023-12-10"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
                     />
@@ -218,13 +252,16 @@ const Customers = () => {
                         onChange={(e) => setKeyword(e.target.value)}
                         className="p-2 rounded border-0"
                       />
-                      <Button variant="outline-secondary" onClick={handlePrint}>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => setShowPrintModal(true)}>
                         <BsPrinter size={"22px"} />
                       </Button>
                     </InputGroup>
                   </Form>
                 </Row>
                 <Row className="h-100">
+                  {customers.length === 0 && "لا توجد بيانات لعرضها"}
                   {isloading && <Loading />}
                   {error && <h2>error</h2>}
                   {!isloading && !error && (

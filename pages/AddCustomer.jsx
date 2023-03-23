@@ -36,6 +36,7 @@ const AddCar = () => {
       url: `${baseUrl}/api/customer`,
       data: {
         ...customer,
+        enteringDate: new Date(0).toISOString().slice(0, 10),
       },
     })
       .then(() => {

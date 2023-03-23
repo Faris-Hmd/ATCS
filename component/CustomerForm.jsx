@@ -43,7 +43,7 @@ const ownerDetail = [
     placeholder: "الرقم الوطني",
     class: "w-50",
     type: "text",
-    isRequired: true,
+    isRequired: false,
   },
 
   {

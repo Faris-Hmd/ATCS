@@ -38,6 +38,7 @@ a {
   --hover-clr: #dedede;
 }
 .dark {
+  padding: 100px;
   --theme-clr: rgb(101, 128, 208);
   --prime-clr: #121212;
   --sec-clr: #222;
