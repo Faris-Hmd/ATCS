@@ -15,6 +15,7 @@ import { AuthContext } from "../context/authContext";
 import UserProfile from "../component/UserProfile";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
+import NoAccess from "../component/NoAccess";
 
 function Settings() {
   const { user, hasAccess, handleSignOut } = useContext(AuthContext);
@@ -39,20 +40,12 @@ function Settings() {
               <UserProfile />
             </Tab>
             <Tab title="المستخدمين" eventKey={2}>
-              {user && hasAccess("Users") ? (
-                <Users />
-              ) : (
-                <h2>لا تملك صلاحية الوصول </h2>
-              )}
+              {user && hasAccess("Users") ? <Users /> : <NoAccess />}
             </Tab>
             <Tab title="الصلاحيات" eventKey={3}>
               <Container className="mt-3 d-flex justify-content-center align-content-center">
                 <Col xs={12} lg={9}>
-                  {user && hasAccess("Premm") ? (
-                    <Premessions />
-                  ) : (
-                    <h2>لا تملك صلاحية الوصول </h2>
-                  )}
+                  {user && hasAccess("Premm") ? <Premessions /> : <NoAccess />}
                 </Col>
               </Container>
             </Tab>

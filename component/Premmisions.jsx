@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 function Premessions() {
   const [premessions, setPremessions] = useState();
   const [userChangeLoading, setUserChangeLoading] = useState(true);
-  const [userType, setUserType] = useState("admin");
+  const [userType, setUserType] = useState("khUser");
 
   const premessionsList = [
     { route: "Home", name: "الرئيسة" },
@@ -74,34 +74,31 @@ function Premessions() {
         <Row>
           <Col lg={5} className="justify-content-center h-600">
             <ListGroup>
-              <ListGroup.Item
+              {/* <ListGroup.Item
                 action
                 href="#1"
                 // className={`${hre && "fc-w"}`}
                 onClick={() => setUserType("admin")}
               >
                 مشرف
-              </ListGroup.Item>
+              </ListGroup.Item> */}
               <ListGroup.Item
                 action
-                href="#4"
-                // className={`${hre && "fc-w"}`}
-                onClick={() => setUserType("khUser")}
-              >
+                href="#1"
+                className={`${userType === "khUser" && "fc-w"}`}
+                onClick={() => setUserType("khUser")}>
                 مكتب الخرطوم
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#2"
-                onClick={() => setUserType("swakinUser")}
-              >
+                onClick={() => setUserType("swakinUser")}>
                 مكتب سواكن
               </ListGroup.Item>
               <ListGroup.Item
                 action
                 href="#3"
-                onClick={() => setUserType("ksaUser")}
-              >
+                onClick={() => setUserType("ksaUser")}>
                 مكتب السعودية
               </ListGroup.Item>
             </ListGroup>
@@ -119,8 +116,7 @@ function Premessions() {
                               ? "checkBoxChecked"
                               : "checkBox"
                           }`}
-                          onClick={() => handlePremChange(item.route)}
-                        >
+                          onClick={() => handlePremChange(item.route)}>
                           {item.name}
                         </div>
                       </div>

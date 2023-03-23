@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import CustomerForm from "../component/CustomerForm";
+import NoAccess from "../component/NoAccess";
 import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
 
@@ -49,8 +50,7 @@ const AddCar = () => {
   useEffect(() => {
     console.log(customer);
   }, [customer]);
-  if (!(user && hasAccess("AddCustomer")))
-    return <h3>لا تملك صلاحية الوصول لهذه الصفحة</h3>;
+  if (!(user && hasAccess("AddCustomer"))) return <NoAccess />;
 
   if (user && hasAccess("AddCustomer"))
     return (

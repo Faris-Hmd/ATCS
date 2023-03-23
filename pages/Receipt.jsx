@@ -15,6 +15,7 @@ import {
 import { BiSearch } from "react-icons/bi";
 import { toast } from "react-toastify";
 import Loading from "../component/Loading";
+import NoAccess from "../component/NoAccess";
 import { AuthContext } from "../context/authContext";
 import { baseUrl } from "./_app";
 const currentDate = new Date();
@@ -92,8 +93,7 @@ function Receipt() {
     }
   }
 
-  if (!(user && hasAccess("Receipt")))
-    return <h3>لا تملك صلاحية الوصول لهذه الصفحة</h3>;
+  if (!(user && hasAccess("Receipt"))) return <NoAccess />;
 
   if (user && hasAccess("Receipt"))
     return (

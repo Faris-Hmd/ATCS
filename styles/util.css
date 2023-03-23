@@ -20,7 +20,7 @@ a:hover {
   direction: ltr !important;
 }
 .full {
-  min-height: 90%;
+  min-height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,6 +45,9 @@ a:hover {
 }
 .fos-sm {
   font-size: 12px !important;
+}
+.fc-w {
+  color: #eee !important;
 }
 .w-50 {
   min-width: 45%;

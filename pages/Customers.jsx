@@ -22,6 +22,8 @@ import CustomersReport from "../component/CustomersReport";
 import { toast } from "react-toastify";
 import Head from "next/head";
 import Exel from "../component/exel";
+import NoAccess from "../component/NoAccess";
+import { BiErrorAlt } from "react-icons/bi";
 const currentDate = new Date();
 const Customers = () => {
   const reportRef = useRef();
@@ -90,8 +92,7 @@ const Customers = () => {
     if (state === "مخلص") setRepeatEntry(false);
     if (state === "دخول جديد") setSearchBy("bookDateBySec");
   }, [state]);
-  if (!(user && hasAccess("Customers")))
-    return <h3>لا تملك صلاحية الوصول لهذه الصفحة</h3>;
+  if (!(user && hasAccess("Customers"))) return <NoAccess />;
 
   if (user && hasAccess("Customers"))
     return (
@@ -129,7 +130,7 @@ const Customers = () => {
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>قائمة الفرز</Modal.Title>
-          </Modal.Header>{" "}
+          </Modal.Header>
           <Form
             onSubmit={(e) => {
               setKeyword("null");
@@ -253,6 +254,7 @@ const Customers = () => {
                         className="p-2 rounded border-0"
                       />
                       <Button
+                        disabled={customers.length === 0}
                         variant="outline-secondary"
                         onClick={() => setShowPrintModal(true)}>
                         <BsPrinter size={"22px"} />
@@ -261,7 +263,12 @@ const Customers = () => {
                   </Form>
                 </Row>
                 <Row className="h-100">
-                  {customers.length === 0 && "لا توجد بيانات لعرضها"}
+                  {customers.length === 0 && (
+                    <div className="full">
+                      <BiErrorAlt size={"50px"} />
+                      لا توجد بيانات لعرضها
+                    </div>
+                  )}
                   {isloading && <Loading />}
                   {error && <h2>error</h2>}
                   {!isloading && !error && (
