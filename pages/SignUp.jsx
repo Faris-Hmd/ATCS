@@ -127,6 +127,8 @@ function SignUp() {
                   <option value="admin">مشرف</option>
                   <option value="khUser">مكتب الخرطوم</option>
                   <option value="swakinUser">مكتب سواكن</option>
+                  <option value="argUser">مكتب ارقين</option>
+                  <option value="aoshUser">مكتب اوشكيت</option>
                   <option value="ksaUser">مكتب السعودية</option>
                 </Form.Select>
               </FloatingLabel>

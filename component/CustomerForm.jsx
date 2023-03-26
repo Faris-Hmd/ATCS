@@ -161,7 +161,13 @@ const bookDetail = [
     name: "shippingPort",
     placeholder: "ميناء الشحن",
     class: "w-50",
-    type: "text",
+    type: "select",
+    opt: [
+      { value: "ارقين" },
+      { value: "سواكن" },
+      { value: "اوشكيت" },
+      { value: "جدة" },
+    ],
     isRequired: false,
   },
   {
@@ -175,7 +181,13 @@ const bookDetail = [
     name: "portAccess",
     placeholder: "ميناء الوصول",
     class: "w-50",
-    type: "text",
+    type: "select",
+    opt: [
+      { value: "ارقين" },
+      { value: "سواكن" },
+      { value: "اوشكيت" },
+      { value: "جدة" },
+    ],
     isRequired: false,
   },
   {

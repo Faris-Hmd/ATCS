@@ -98,12 +98,24 @@ function Premessions() {
               <ListGroup.Item
                 action
                 href="#3"
+                onClick={() => setUserType("argUser")}>
+                مكتب ارقين
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
+                href="#4"
+                onClick={() => setUserType("aoshUser")}>
+                مكتب اوشكيت
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
+                href="#5"
                 onClick={() => setUserType("ksaUser")}>
                 مكتب السعودية
               </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col lg={7} className="justify-content-center ">
+          <Col lg={7} className="justify-content-center">
             {!userChangeLoading ? (
               <Tab.Content>
                 {premessionsList.map((item, index) => {

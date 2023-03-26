@@ -31,6 +31,11 @@ function Users() {
                     className="rounded shadow bg-clr p-2 text-decoration-none justify-content-between align-content-center">
                     اضافة <BiUserPlus size={"25px"} />
                   </Link>
+                  {/* <Link
+                    href="/UserType"
+                    className="rounded shadow bg-clr p-2 m-3 text-decoration-none justify-content-between align-content-center">
+                    اضافة نوع مستخدم <BiUserPlus size={"25px"} />
+                  </Link> */}
                 </th>
               </tr>
               <tr>

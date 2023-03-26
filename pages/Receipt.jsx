@@ -24,6 +24,7 @@ function Receipt() {
   const [customer, setCustomer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [carnetNo, setBookNum] = useState("");
+  const [portAccess, setPortAccess] = useState("سواكن");
   const [enteringDate, setEnteringDate] = useState(
     currentDate.toISOString().slice(0, 10),
   );
@@ -54,43 +55,25 @@ function Receipt() {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    if (customer.repeatEntry === true) {
-      axios({
-        method: "post",
-        url: `${baseUrl}/api/customer`,
-        data: {
-          ...customer,
-          enteringDate: enteringDate,
-        },
+
+    axios({
+      method: `${customer.repeatEntry === true ? "post" : "patch"}`,
+      url: `${baseUrl}/api/customer`,
+      data: {
+        ...customer,
+        enteringDate: enteringDate,
+        portAccess: portAccess,
+      },
+    })
+      .then(() => {
+        setIsLoading(false);
+        setCustomer({});
+        toast.success("تم استخراج الايصال بنجاح");
       })
-        .then(() => {
-          setIsLoading(false);
-          setCustomer({});
-          toast.success("تم استخراج الايصال بنجاح");
-        })
-        .catch(() => {
-          setIsLoading(false);
-          toast.error("حصل خطأ في العملية");
-        });
-    } else {
-      axios({
-        method: "patch",
-        url: `${baseUrl}/api/customer`,
-        data: {
-          ...customer,
-          enteringDate: enteringDate,
-        },
-      })
-        .then(() => {
-          setCustomer({});
-          setIsLoading(false);
-          toast.success("تم استخراج الايصال بنجاح");
-        })
-        .catch(() => {
-          toast.error("العملية لم تتم بنجاح");
-          setIsLoading(false);
-        });
-    }
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("حصل خطأ في العملية");
+      });
   }
 
   if (!(user && hasAccess("Receipt"))) return <NoAccess />;
@@ -101,13 +84,13 @@ function Receipt() {
         <Head>
           <title>استخراج ايصال</title>
         </Head>
-        <Container className="h-100 ">
+        <Container className="h-100">
           <Row>
             <Col xs={12} className="p-3 header">
               استخراج إيصال دخول
             </Col>
           </Row>
-          <Row className="full">
+          <Row className="full mt-4">
             <Container className="full">
               <Col xs={12} lg={6}>
                 <Form
@@ -191,24 +174,23 @@ function Receipt() {
                       value={customer?.chaseNum ? customer?.chaseNum : ""}
                     />
                   </FloatingLabel>
-                  <FloatingLabel
-                    label="نوع الدخول"
-                    controlId="repeatEntery"
-                    className="mb-2">
-                    <Form.Control
-                      disabled
-                      type="text"
-                      name="ownerName"
-                      placeholder="اسم المالك"
-                      value={
-                        customer?.repeatEntry === true
-                          ? "دخول متكرر"
-                          : "دخول جديد"
-                      }
-                    />
-                  </FloatingLabel>
-
                   <div className="flex-r justify-content-between">
+                    <FloatingLabel
+                      label="نوع الدخول"
+                      controlId="repeatEntery"
+                      className="mb-2 w-50">
+                      <Form.Control
+                        disabled
+                        type="text"
+                        name="ownerName"
+                        placeholder="اسم المالك"
+                        value={
+                          customer?.repeatEntry === true
+                            ? "دخول متكرر"
+                            : "دخول جديد"
+                        }
+                      />
+                    </FloatingLabel>
                     <FloatingLabel
                       label="تاريخ الدفتر"
                       controlId="bookDate"
@@ -219,11 +201,26 @@ function Receipt() {
                         name="carnetNo"
                         placeholder="تاريخ الدفتر"
                         value={customer.bookDate}
-                        onChange={(e) => {
-                          setEnteringDate(e.target.value);
-                        }}
+                        onChange={(e) => setEnteringDate(e.target.value)}
                         required
                       />
+                    </FloatingLabel>
+                  </div>
+                  <div className="flex-r justify-content-between">
+                    <FloatingLabel
+                      label="ميناء الوصول"
+                      controlId="portAccess"
+                      className="mb-2 w-50">
+                      <Form.Select
+                        required
+                        name="portAccess"
+                        placeholder="ميناء الوصول"
+                        onChange={(e) => setPortAccess(e.target.value)}
+                        value={customer?.portAccess}>
+                        <option value="سواكن">سواكن</option>
+                        <option value="ارقين">ارقين</option>
+                        <option value="اوشكيت">اوشكيت</option>
+                      </Form.Select>
                     </FloatingLabel>
                     <FloatingLabel
                       label="تاريخ الدخول"
