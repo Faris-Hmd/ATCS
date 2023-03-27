@@ -46,7 +46,7 @@ function SideMenu() {
             <BiPlusCircle />
             اضافة عميل
           </Link>
-          <Link href="/#" className={styles.opt}>
+          <Link href="/Customers" className={styles.opt}>
             <BiStats /> احصائيات
           </Link>
           <Link href="/Receipt" className={styles.opt}>
