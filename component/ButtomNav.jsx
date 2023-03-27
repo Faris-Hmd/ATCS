@@ -26,7 +26,7 @@ const ButtomNav = () => {
       <Link href="/Customers" className={styles.page}>
         <BiBook size={"25px"} />
         السجلات
-      </Link>{" "}
+      </Link>
     </div>
   );
 };
