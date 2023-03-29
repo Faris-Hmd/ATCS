@@ -61,10 +61,10 @@ const CustomersReport = React.forwardRef(
               return (
                 <tr key={index}>
                   <td className="text-nowrap">
-                    {customer.phone2
-                      ? customer.phone2
-                      : customer.phone1
-                      ? customer.phone1
+                    {customer.ownerSdPhone1
+                      ? customer.ownerSdPhone1
+                      : customer.ownerSdPhone2
+                      ? customer.ownerSdPhone2
                       : "لا يوجد"}
                   </td>
                   <td className="text-nowrap">

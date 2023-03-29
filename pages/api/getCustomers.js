@@ -70,6 +70,13 @@ export default async function handler(req, res) {
     return {
       ...customer.data(),
       customerId: customer.id,
+      ownerSName: "فارس",
+      ownerTName: "حمد",
+      passport: "P0123456",
+      chaseNum: "ABCD12345678",
+      carnetNo: "Det0123456",
+      ownerSdPhone1: "0966626693",
+      ownerSdPhone2: "0966626693",
     };
   });
   // console.log(customers);
