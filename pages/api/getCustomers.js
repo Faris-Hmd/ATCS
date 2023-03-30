@@ -76,6 +76,7 @@ export default async function handler(req, res) {
       chaseNum: "ABCD12345678",
       carnetNo: "Det0123456",
       ownerSdPhone1: "0966626693",
+      
       ownerSdPhone2: "0966626693",
     };
   });
