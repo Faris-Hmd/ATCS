@@ -196,7 +196,7 @@ const Customers = () => {
                       type="date"
                       name="keyword"
                       min={startDate}
-                      max="2023-03-31"
+                      max={currentDate.toISOString().slice(0,10)}
                       className="rounded"
                       value={startDate < endDate ? endDate : startDate}
                       onChange={(e) => setEndDate(e.target.value)}
