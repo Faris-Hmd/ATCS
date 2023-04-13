@@ -185,7 +185,7 @@ const Customers = () => {
                       name="keyword"
                       className="rounded"
                       min="2021-07-01"
-                      max="2023-12-10"
+                      max={currentDate.toISOString().slice(0,10)}
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
                     />
