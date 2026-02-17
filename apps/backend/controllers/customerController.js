@@ -17,38 +17,65 @@ exports.createCustomer = async (req, res) => {
 // @access  Public
 exports.getCustomers = async (req, res) => {
   try {
-    const { startDate, endDate, state, searchBy, keyword } = req.query;
+    const { startDate, endDate, state, searchBy, keyword, violator, extended } =
+      req.query;
 
     let query = {};
 
     // Keyword Search
     if (keyword && keyword !== "null" && keyword !== "") {
-      // Using the pre-generated keywords array
-      query.keywords = { $in: [new RegExp(keyword, "i")] }; // Simple regex match on keywords
-      // Or if exact match is needed for some fields:
-      // query.keywords = keyword;
-    } else {
-      // Date Filtering
-      if (startDate && endDate) {
-        // searchBy is usually 'enteringDate' or 'bookDate'
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        // Add 1 day to end date to include it
-        end.setDate(end.getDate() + 1);
-
-        if (searchBy) {
-          query[searchBy] = { $gte: start, $lte: end };
-        }
-      }
-
-      // State Filtering
-      if (state && state !== "null") {
-        query.state = state;
-      }
+      query.keywords = { $in: [new RegExp(keyword, "i")] };
     }
 
+    // Date Filtering
+    if (startDate && endDate && searchBy) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      // Add 1 day to end date to include it
+      end.setDate(end.getDate() + 1);
+      query[searchBy] = { $gte: start, $lte: end };
+    }
+
+    // State Filtering
+    if (state && state !== "null") {
+      query.state = state;
+    }
+
+    // Violator Filtering
+    if (violator === "true") {
+      query.violator = true;
+    }
+
+    // Extended Filtering
+    if (extended === "true") {
+      query.extended = true;
+    }
+
+    // Projection – only fields needed by the UI
+    const projection = {
+      ownerFName: 1,
+      ownerSName: 1,
+      ownerTName: 1,
+      passport: 1,
+      carType: 1,
+      carModel: 1,
+      chaseNum: 1,
+      plateNum: 1,
+      carnetNo: 1,
+      bookDate: 1,
+      enteringDate: 1,
+      leftDate: 1,
+      state: 1,
+      violator: 1,
+      extended: 1,
+      stayingTime: 1,
+      availableTime: 1,
+    };
+
     // Execution
-    const customers = await Customer.find(query).sort({ createdAt: -1 });
+    const customers = await Customer.find(query, projection).sort({
+      createdAt: -1,
+    });
 
     const count = await Customer.countDocuments(query);
 

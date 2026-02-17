@@ -66,16 +66,7 @@ const importData = async () => {
     "Accord",
     "CX-9",
   ];
-  const states = [
-    "New",
-    "In Sudan",
-    "Cleared",
-    "Left",
-    "Violator",
-    "Leaving Soon",
-    "Extension Violator",
-    "Extended",
-  ];
+  const states = ["In Sudan", "Cleared", "Left"];
   const bookTypes = ["عادي", "سياحي"];
 
   for (let i = 0; i < 50; i++) {
@@ -98,7 +89,6 @@ const importData = async () => {
       ownerFoName: "Customer_" + i,
       passport: "P" + Math.floor(10000000 + Math.random() * 90000000),
       natId: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
-      residNum: Math.floor(2000000000 + Math.random() * 9000000000).toString(),
       ownerEnteringDate: randomDate(new Date(2023, 0, 1), new Date()),
       passportIssueDate: randomDate(
         new Date(2018, 0, 1),
@@ -136,13 +126,40 @@ const importData = async () => {
         city: "Khartoum",
         phone1: "+2499" + Math.floor(10000000 + Math.random() * 90000000),
       },
-
-      state: states[Math.floor(Math.random() * states.length)],
-      enteringDate: randomDate(new Date(2023, 0, 1), new Date()),
-
-      stayingTime: Math.floor(Math.random() * 180),
-      availableTime: Math.random() > 0.5 ? 90 : 180,
     };
+
+    // --- Business logic ---
+
+    // Pick a state
+    const state = states[Math.floor(Math.random() * states.length)];
+    customer.state = state;
+
+    // Extended: ~15% chance → available time becomes 180 days
+    const isExtended = Math.random() < 0.15;
+    customer.extended = isExtended;
+    customer.availableTime = isExtended ? 180 : 90;
+
+    // Entering date: always set (sometime in the past year)
+    const enteringDate = randomDate(
+      new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), // up to 1 year ago
+      new Date(),
+    );
+    customer.enteringDate = enteringDate;
+
+    // Left date: only if state is "Left"
+    if (state === "Left") {
+      // Left sometime between entering and now
+      customer.leftDate = randomDate(enteringDate, new Date());
+    }
+
+    // Staying time: diff in days
+    const endRef = customer.leftDate || new Date(); // left date or today
+    const diffMs = endRef.getTime() - enteringDate.getTime();
+    const stayingDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    customer.stayingTime = stayingDays;
+
+    // Violator: auto-set if staying time exceeds available time
+    customer.violator = stayingDays > customer.availableTime;
 
     // Explicitly add keywords array as requested, matching the hook logic for consistency
     // User requested: Fname, Sname, Carnet, Chase

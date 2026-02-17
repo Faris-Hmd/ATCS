@@ -17,11 +17,14 @@ interface FetchResult {
 async function fetchCustomers(
   searchParams: Record<string, string | undefined>,
 ): Promise<FetchResult> {
-  const { keyword, state, startDate, endDate, searchBy } = searchParams;
+  const { keyword, state, startDate, endDate, searchBy, violator, extended } =
+    searchParams;
 
   const params = new URLSearchParams();
   if (keyword) params.set("keyword", keyword);
   if (state) params.set("state", state);
+  if (violator === "true") params.set("violator", "true");
+  if (extended === "true") params.set("extended", "true");
   if (startDate) params.set("startDate", startDate);
   if (endDate) params.set("endDate", endDate);
   if (searchBy) params.set("searchBy", searchBy);
@@ -64,6 +67,8 @@ export default async function Home({ searchParams }: PageProps) {
   const hasSearch = !!(
     params.keyword ||
     params.state ||
+    params.violator ||
+    params.extended ||
     params.startDate ||
     params.endDate
   );

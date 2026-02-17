@@ -1,122 +1,51 @@
 const mongoose = require("mongoose");
+const { customerSchema, zodToMongoose } = require("@atcs/shared");
 
-const CustomerSchema = new mongoose.Schema(
-  {
-    // Owner Details
-    ownerFName: { type: String, required: true },
-    ownerSName: { type: String, required: true },
-    ownerTName: { type: String, required: true },
-    ownerFoName: { type: String },
-    passport: { type: String, required: true },
-    natId: { type: String },
-    residNum: { type: String },
-    ownerEnteringDate: { type: Date },
-    passportIssueDate: { type: Date },
-    ownerResEndDate: { type: Date },
-    ownerEmail: { type: String },
+// Derive the Mongoose schema definition from the Zod schema
+const definition = zodToMongoose(customerSchema);
 
-    // Car Details
-    carType: { type: String, required: true },
-    carModel: { type: String, required: true },
-    chaseNum: { type: String, required: true },
-    carColor: { type: String },
-    plateNum: { type: String },
-    engineNum: { type: String },
-    carValue: { type: String },
-    carRegCoun: { type: String },
+// The Zod schema uses `z.coerce.date()` which wraps Date in ZodEffects,
+// and `zodToMongoose` handles that. But for `bookDate`, Zod marks it as
+// non-optional while the converter sees it as a plain Date, so `required`
+// is set automatically.
 
-    // Book (Carnet) Details
-    carnetNo: { type: String, required: true },
-    bookDate: { type: Date, required: true },
-    bookType: { type: String, enum: ["عادي", "سياحي"], default: "عادي" },
-    shippingPort: { type: String },
-    arrivalDest: { type: String },
-    portAccess: { type: String },
-    shipName: { type: String },
-    navAgent: { type: String },
-    DeliveryAuthNum: { type: String },
+const CustomerSchema = new mongoose.Schema(definition, {
+  timestamps: true,
+});
 
-    // Addresses
-    addressKsa: {
-      guarantor: { type: String },
-      phone: { type: String },
-      city: { type: String },
-      district: { type: String },
-      street: { type: String },
-      building: { type: String },
-      fullAddress: { type: String },
-      whatsapp: { type: String },
-    },
-    addressSudan: {
-      city: { type: String },
-      district: { type: String },
-      street: { type: String },
-      square: { type: String },
-      houseNum: { type: String },
-      fullAddress: { type: String },
-      phone1: { type: String },
-      phone2: { type: String },
-      whatsapp: { type: String },
-    },
-
-    // Relatives
-    relative1: {
-      name: { type: String },
-      phone: { type: String },
-      workAddress: { type: String },
-      city: { type: String },
-      district: { type: String },
-      square: { type: String },
-      houseNum: { type: String },
-      houseAddress: { type: String },
-    },
-    relative2: {
-      name: { type: String },
-      phone: { type: String },
-      workAddress: { type: String },
-      city: { type: String },
-      district: { type: String },
-      square: { type: String },
-      houseNum: { type: String },
-      houseAddress: { type: String },
-    },
-
-    // System / Interaction Fields
-    state: {
-      type: String,
-      enum: [
-        "New", // دخول جديد
-        "In Sudan", // لم يغادر (Not Left -> In Sudan)
-        "Cleared", // مخلص
-        "Left", // غادر
-        "Violator", // مخالف
-        "Leaving Soon", // مغادر قريبا
-        "Extension Violator", // مخالفة تمديد
-        "Extended", // ممددين
-      ],
-      default: "New",
-    },
-
-    threeMonthEx: { type: Boolean, default: false }, // Extended for 3 months?
-
-    enteringDate: { type: Date },
-    leftDate: { type: Date },
-    clearDate: { type: Date },
-
-    // Calculated Fields (can be virtuals or stored)
-    stayingTime: { type: Number, default: 0 },
-    availableTime: { type: Number, default: 90 }, // 90 or 180
-
-    // Search Optimization
-    keywords: [{ type: String }],
-  },
-  {
-    timestamps: true,
-  },
-);
-
-// Pre-save hook to generate keywords
+// Pre-save hook to generate keywords for search optimization
 CustomerSchema.pre("save", function () {
+  // --- Business Logic ---
+
+  // 1. Set Available Time based on Extended status
+  if (this.extended) {
+    this.availableTime = 180;
+  } else {
+    this.availableTime = 90;
+  }
+
+  // 2. Calculate Staying Time
+  if (this.enteringDate) {
+    const entering = new Date(this.enteringDate);
+    const end = this.leftDate ? new Date(this.leftDate) : new Date();
+    const diffTime = Math.abs(end - entering);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    this.stayingTime = diffDays;
+  } else {
+    this.stayingTime = 0;
+  }
+
+  // 3. Set Violator status
+  // If staying time exceeds available time, they are a violator
+  if (this.stayingTime > this.availableTime) {
+    this.violator = true;
+  }
+  // Note: We don't auto-set it to false here to allow manual overrides if needed,
+  // or we can enforce strictly: this.violator = this.stayingTime > this.availableTime;
+  // Based on user prompt "if ... greater ... will be violator", strict seems appropriate.
+  this.violator = this.stayingTime > this.availableTime;
+
+  // --- Search Keywords ---
   const keywords = new Set(
     [
       this.carnetNo,

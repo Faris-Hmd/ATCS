@@ -1,43 +1,26 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { userSchema, zodToMongoose } = require("@atcs/shared");
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please add a name"],
-  },
-  email: {
-    type: String,
-    required: [true, "Please add an email"],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please add a valid email",
-    ],
-  },
-  password: {
-    type: String,
-    // required: [true, 'Please add a password'], // Not required if using only Google Auth
-    select: false,
-  },
-  googleId: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin", "manager"],
-    default: "user",
-  },
-  permissions: [
-    {
-      type: String, // e.g., 'view_customers', 'edit_customers', 'delete_customers'
-    },
+// Derive base definition from Zod schema
+const definition = zodToMongoose(userSchema);
+
+// Override fields that need Mongoose-specific features
+definition.email = {
+  type: "String",
+  required: [true, "Please add an email"],
+  unique: true,
+  match: [
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    "Please add a valid email",
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+};
+definition.password = {
+  type: "String",
+  select: false, // Don't return password by default
+};
+
+const UserSchema = new mongoose.Schema(definition);
 
 // Encrypt password using bcrypt
 UserSchema.pre("save", async function (next) {

@@ -38,16 +38,7 @@ export const relativeSchema = z.object({
 
 // --- Enums ---
 
-export const customerStateEnum = z.enum([
-  "New",
-  "In Sudan",
-  "Cleared",
-  "Left",
-  "Violator",
-  "Leaving Soon",
-  "Extension Violator",
-  "Extended",
-]);
+export const customerStateEnum = z.enum(["In Sudan", "Cleared", "Left"]);
 
 export const bookTypeEnum = z.enum(["عادي", "سياحي"]);
 
@@ -97,7 +88,9 @@ export const customerSchema = z.object({
   relative2: relativeSchema.optional(),
 
   // System Fields
-  state: customerStateEnum.default("New"),
+  state: customerStateEnum.default("In Sudan"),
+  violator: z.boolean().default(false),
+  extended: z.boolean().default(false),
   threeMonthEx: z.boolean().default(false),
   enteringDate: z.coerce.date().optional(),
   leftDate: z.coerce.date().optional(),

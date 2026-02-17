@@ -1,3 +1,6 @@
+// Utilities
+export { zodToMongoose } from "./utils/zodToMongoose";
+
 // Schemas
 export {
   customerSchema,

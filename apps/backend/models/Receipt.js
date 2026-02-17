@@ -1,47 +1,26 @@
 const mongoose = require("mongoose");
+const { receiptSchema, zodToMongoose } = require("@atcs/shared");
 
-const ReceiptSchema = new mongoose.Schema(
-  {
-    customer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Customer",
-      required: true,
-    },
-    amount: {
-      type: Number,
-      required: true,
-    },
-    currency: {
-      type: String,
-      enum: ["SDG", "SAR", "USD"],
-      default: "SDG",
-    },
-    paymentMethod: {
-      type: String,
-      enum: ["Cash", "Bank Transfer", "Cheque"],
-      default: "Cash",
-    },
-    description: {
-      type: String,
-    },
-    issuedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    receiptDate: {
-      type: Date,
-      default: Date.now,
-    },
-    receiptNumber: {
-      type: String,
-      unique: true,
-    },
-  },
-  {
-    timestamps: true,
-  },
-);
+// Derive base definition from Zod schema
+const definition = zodToMongoose(receiptSchema);
+
+// Override fields that need Mongoose-specific features (ObjectId refs, unique, etc.)
+definition.customer = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Customer",
+  required: true,
+};
+definition.issuedBy = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
+  required: true,
+};
+definition.receiptDate = { type: "Date", default: Date.now };
+definition.receiptNumber = { type: "String", unique: true };
+
+const ReceiptSchema = new mongoose.Schema(definition, {
+  timestamps: true,
+});
 
 // Auto-generate receipt number
 ReceiptSchema.pre("save", async function (next) {

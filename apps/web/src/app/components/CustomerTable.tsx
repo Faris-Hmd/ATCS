@@ -2,21 +2,12 @@ import type { Customer } from "@atcs/shared";
 
 function getStateBadgeClass(state: string): string {
   switch (state) {
-    case "New":
-      return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
     case "In Sudan":
       return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300";
     case "Cleared":
       return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
     case "Left":
       return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
-    case "Violator":
-    case "Extension Violator":
-      return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
-    case "Leaving Soon":
-      return "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300";
-    case "Extended":
-      return "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300";
     default:
       return "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400";
   }
@@ -49,7 +40,7 @@ export default function CustomerTable({
 }: CustomerTableProps) {
   if (error) {
     return (
-      <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-300">
+      <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-300">
         <svg
           className="h-5 w-5 shrink-0"
           fill="none"
@@ -93,9 +84,9 @@ export default function CustomerTable({
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-surface shadow-[var(--shadow-md)]">
+    <div>
       {/* Results header */}
-      <div className="flex items-center justify-between border-b border-border px-6 py-4">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5 text-text-muted"
@@ -118,7 +109,7 @@ export default function CustomerTable({
       </div>
 
       {customers.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-text-muted">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-surface py-16 text-text-muted shadow-[var(--shadow)]">
           <svg
             className="mb-3 h-12 w-12 opacity-40"
             fill="none"
@@ -136,96 +127,133 @@ export default function CustomerTable({
           <p className="mt-1 text-xs">Try adjusting your search criteria</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-surface-alt/50">
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Name
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Passport
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Car
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Carnet No.
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Book Date
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  State
-                </th>
-                <th className="px-4 py-3 text-left font-semibold text-text-secondary">
-                  Days
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {customers.map((c) => (
-                <tr
-                  key={c._id}
-                  className="transition-colors hover:bg-surface-alt/40"
-                >
-                  <td className="whitespace-nowrap px-4 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
-                        {c.ownerFName?.[0]}
-                        {c.ownerSName?.[0]}
-                      </div>
-                      <div>
-                        <p className="font-medium text-foreground">
-                          {c.ownerFName} {c.ownerSName} {c.ownerTName}
-                        </p>
-                        {c.residNum && (
-                          <p className="text-xs text-text-muted">
-                            Res: {c.residNum}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5 font-mono text-xs text-text-secondary">
-                    {c.passport}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5">
-                    <p className="text-foreground">
-                      {c.carType} {c.carModel}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {customers.map((c) => (
+            <div
+              key={c._id}
+              className="group rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow)] transition-all hover:shadow-[var(--shadow-md)] hover:border-primary/30"
+            >
+              {/* Top: Name + State badge */}
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                    {c.ownerFName?.[0]}
+                    {c.ownerSName?.[0]}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate font-semibold text-foreground">
+                      {c.ownerFName} {c.ownerSName} {c.ownerTName}
                     </p>
-                    {c.plateNum && (
-                      <p className="text-xs text-text-muted">{c.plateNum}</p>
+                    <p className="font-mono text-xs text-text-muted">
+                      {c.passport}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <span
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${getStateBadgeClass(c.state)}`}
+                  >
+                    {c.state}
+                  </span>
+                  {/* Violator / Extended flags */}
+                  <div className="flex gap-1">
+                    {c.violator && (
+                      <span className="inline-flex items-center gap-0.5 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                        <svg
+                          className="h-2.5 w-2.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 9v2m0 4h.01"
+                          />
+                        </svg>
+                        Violator
+                      </span>
                     )}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5 font-mono text-xs text-text-secondary">
+                    {c.extended && (
+                      <span className="inline-flex items-center gap-0.5 rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+                        <svg
+                          className="h-2.5 w-2.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 8v4l3 3"
+                          />
+                        </svg>
+                        Extended
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="mb-3 border-t border-border" />
+
+              {/* Info grid */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <div>
+                  <p className="text-xs text-text-muted">Chassis No.</p>
+                  <p className="font-mono text-xs font-medium text-foreground">
+                    {c.chaseNum}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-text-muted">Carnet No.</p>
+                  <p className="font-mono text-xs font-medium text-foreground">
                     {c.carnetNo}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5 text-text-secondary">
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-text-muted">Car</p>
+                  <p className="text-sm text-foreground">
+                    {c.carType} {c.carModel}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-text-muted">Carnet Date</p>
+                  <p className="text-sm text-foreground">
                     {formatDate(c.bookDate)}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5">
-                    <span
-                      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${getStateBadgeClass(c.state)}`}
-                    >
-                      {c.state}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3.5">
-                    <div className="text-xs">
-                      <span className="font-medium text-foreground">
-                        {c.stayingTime ?? 0}
-                      </span>
-                      <span className="text-text-muted">
-                        {" "}
-                        / {c.availableTime ?? 90}d
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-text-muted">Entering Date</p>
+                  <p className="text-sm text-foreground">
+                    {formatDate(c.enteringDate)}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-text-muted">Left Date</p>
+                  <p className="text-sm text-foreground">
+                    {formatDate(c.leftDate)}
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom: Days bar */}
+              <div className="mt-3 flex items-center justify-between rounded-lg bg-surface-alt px-3 py-2">
+                <span className="text-xs text-text-muted">Staying</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-semibold text-foreground">
+                    {c.stayingTime ?? 0}
+                  </span>
+                  <span className="text-xs text-text-muted">
+                    / {c.availableTime ?? 90} days
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
