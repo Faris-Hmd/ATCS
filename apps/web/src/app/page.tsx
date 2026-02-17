@@ -3,7 +3,7 @@ import SearchForm from "./components/SearchForm";
 import CustomerTable from "./components/CustomerTable";
 import type { Customer } from "@atcs/shared";
 
-const API_BASE = process.env.API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 // Extend with MongoDB _id field since shared type doesn't include it
 type CustomerWithId = Customer & { _id: string };

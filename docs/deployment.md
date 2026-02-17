@@ -18,7 +18,7 @@ If you prefer not to use Blueprints, here are the settings for a new Web Service
 - **Name**: `atcs-backend`
 - **Root Directory**: `.` (Leave empty / default)
 - **Environment**: `Node`
-- **Build Command**: `npm install && npm run build` (This builds the shared package)
+- **Build Command**: `npm install && npm run build -w @atcs/shared` (Builds only the shared package)
 - **Start Command**: `npm start -w @atcs/backend`
 - **Environment Variables**:
   - `MONGO_URI`: Your MongoDB connection string
@@ -28,7 +28,7 @@ If you prefer not to use Blueprints, here are the settings for a new Web Service
 ## Notes
 
 - The backend runs on the port provided by Render automatically.
-- The build step compiles `@atcs/shared` so the backend can use it.
+- The build step compiles `@atcs/shared` so the backend can use it. It skips the frontend build.
 - **Seeding**: The seeder does not run automatically on deploy. To seed the database, use the Render Shell tab after deployment:
   ```bash
   node apps/backend/seeder.js
