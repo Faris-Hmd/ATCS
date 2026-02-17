@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: atcs-backend
+    env: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install && npm run build
+    startCommand: npm start -w @atcs/backend
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: NODE_ENV
+        value: production
