@@ -1,0 +1,190 @@
+const express = require("express");
+const router = express.Router();
+const {
+  createCustomer,
+  getCustomers,
+  getCustomer,
+  updateCustomer,
+  deleteCustomer,
+} = require("../controllers/customerController");
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Customer:
+ *       type: object
+ *       required:
+ *         - ownerFName
+ *         - ownerSName
+ *         - ownerTName
+ *         - passport
+ *         - carType
+ *         - carModel
+ *         - chaseNum
+ *         - carnetNo
+ *         - bookDate
+ *       properties:
+ *         ownerFName:
+ *           type: string
+ *         ownerSName:
+ *           type: string
+ *         ownerTName:
+ *           type: string
+ *         passport:
+ *           type: string
+ *         carType:
+ *           type: string
+ *         carModel:
+ *           type: string
+ *         chaseNum:
+ *           type: string
+ *         carnetNo:
+ *           type: string
+ *         bookDate:
+ *           type: string
+ *           format: date
+ *         state:
+ *           type: string
+ *           enum: [New, In Sudan, Cleared, Left, Violator, Leaving Soon, Extension Violator, Extended]
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Customers
+ *   description: The customer managing API
+ */
+
+/**
+ * @swagger
+ * /api/customers:
+ *   get:
+ *     summary: Returns the list of all customers
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: query
+ *         name: keyword
+ *         schema:
+ *           type: string
+ *         description: Search keyword
+ *       - in: query
+ *         name: state
+ *         schema:
+ *           type: string
+ *           enum: [New, In Sudan, Cleared, Left, Violator, Leaving Soon, Extension Violator, Extended]
+ *         description: Filter by state
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Start date for range search (YYYY-MM-DD)
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: End date for range search (YYYY-MM-DD)
+ *       - in: query
+ *         name: searchBy
+ *         schema:
+ *           type: string
+ *           enum: [enteringDate, bookDate, passportIssueDate, ownerResEndDate]
+ *         description: Date field to search range by (e.g., enteringDate, bookDate)
+ *     responses:
+ *       200:
+ *         description: The list of customers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Customer'
+ *   post:
+ *     summary: Create a new customer
+ *     tags: [Customers]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Customer'
+ *     responses:
+ *       201:
+ *         description: The created customer
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Customer'
+ */
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   get:
+ *     summary: Get the customer by id
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The customer id
+ *     responses:
+ *       200:
+ *         description: The customer description by id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Customer'
+ *       404:
+ *         description: The customer was not found
+ *   patch:
+ *     summary: Update the customer by the id
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The customer id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Customer'
+ *     responses:
+ *       200:
+ *         description: The customer was updated
+ *       404:
+ *         description: The customer was not found
+ *   delete:
+ *     summary: Remove the customer by id
+ *     tags: [Customers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The customer id
+ *     responses:
+ *       200:
+ *         description: The customer was deleted
+ *       404:
+ *         description: The customer was not found
+ */
+
+router.route("/").get(getCustomers).post(createCustomer);
+
+router
+  .route("/:id")
+  .get(getCustomer)
+  .patch(updateCustomer)
+  .delete(deleteCustomer);
+
+module.exports = router;
